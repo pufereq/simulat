@@ -1,0 +1,7 @@
+[hooks]
+"before:init" = ["git pull origin main"]
+"after:bump" = ["git-cliff -o CHANGELOG.md -t ${version}", "git add CHANGELOG.md"]
+
+[git]
+requireBranch = "main"
+commitMessage = "chore(release): ${version}"
