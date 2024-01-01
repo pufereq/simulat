@@ -29,8 +29,7 @@ class Simulat:
         pg.init()
 
         # initialize screen
-        self.screen = pg.display.set_mode((1280, 720),
-                                          pg.RESIZABLE | pg.SCALED)
+        self.screen = pg.display.set_mode((1280, 720), pg.SCALED)
 
         # initialize clock
         self.clock = pg.time.Clock()
