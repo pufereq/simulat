@@ -39,6 +39,19 @@ class Surface:
 
         self.surface = pg.Surface(size, flags, depth)
 
+    def subsurface(self, size: tuple[int, int],
+                   pos: tuple[int, int]) -> SubSurface:
+        """Create a subsurface.
+
+        Args:
+            size (tuple[int, int]): Size of the subsurface.
+            pos (tuple[int, int]): Position of the subsurface.
+
+        Returns:
+            SubSurface: The created subsurface.
+        """
+        return SubSurface(self, size, pos)
+
     def fill(self, color: tuple[int, int, int]):
         """Fill the surface with a color.
 
@@ -93,3 +106,33 @@ class Surface:
         """
         text_surface = font.render(text, True, color)
         self.blit(text_surface, pos)
+
+
+class SubSurface(Surface):
+    """Base class for subsurfaces.
+
+    A subsurface is a surface that is part of another surface. It can be a
+    button, a text box, etc.
+    """
+    def __init__(self, parent: Surface, pos: tuple[int, int],
+                 size: tuple[int, int] = (0, 0)):
+        """Initialize the subsurface.
+
+        Args:
+            parent (Surface): Parent surface.
+            pos (tuple[int, int]): Position of the subsurface.
+            size (tuple[int, int], optional): Size of the subsurface.
+                Defaults to (0, 0).
+        """
+        self.parent = parent
+        self.parent_surface = parent.surface
+
+        self.size = size
+        self.width = size[0]
+        self.height = size[1]
+
+        self.pos = pos
+        self.pos_x = pos[0]
+        self.pos_y = pos[1]
+
+        self.surface = self.parent_surface.subsurface(pos, size)
