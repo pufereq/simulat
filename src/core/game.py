@@ -43,13 +43,14 @@ class Simulat:
         self.fonts["main"] = pg.font.SysFont("monospace", 16)
 
         # initialize scenes
-        self.scenes: dict[Scene] = {}
-        self.scene: int | None = None
         self._init_scenes()
 
     def _init_scenes(self):
         """Initialize scenes."""
         from src.core.surfaces.scenes.scene import Scene
+
+        self.scenes: dict[Scene] = {}
+        self.scene: int | None = None
 
         # fallback scene
         fallback_scene = Scene()
