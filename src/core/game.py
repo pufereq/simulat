@@ -48,7 +48,7 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from src.core.scenes.scene import Scene
+        from src.core.surfaces.scenes.scene import Scene
 
         # fallback scene
         fallback_scene = Scene()

@@ -16,7 +16,7 @@ class Scene:
     """
     def __init__(self) -> None:
         """Initialize the scene."""
-        from ..game import simulat
+        from ...game import simulat
         self.id = type(self).__name__
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
