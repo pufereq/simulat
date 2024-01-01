@@ -15,6 +15,7 @@ module_lg.setLevel(lg.DEBUG)
 
 
 FPS: int = 60
+SIZE: tuple[int, int] = (1280, 720)
 
 
 class Simulat:
@@ -29,7 +30,7 @@ class Simulat:
         pg.init()
 
         # initialize screen
-        self.screen = pg.display.set_mode((1280, 720), pg.SCALED)
+        self.screen = pg.display.set_mode(SIZE)
 
         # initialize clock
         self.clock = pg.time.Clock()
