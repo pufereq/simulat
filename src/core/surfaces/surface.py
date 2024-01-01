@@ -6,6 +6,8 @@ from typing import overload
 
 import pygame as pg
 
+from ..game import simulat
+
 
 class Surface:
     """Base class for surfaces.
@@ -76,3 +78,18 @@ class Surface:
             Rect: The area that was drawn.
         """
         return self.surface.blit(source, dest, area, special_flags)
+
+    def add_text(self, text: str, pos: tuple[int, int],
+                 color: tuple[int, int, int],
+                 font: pg.font.Font = simulat.fonts["main"]):
+        """Add text to the surface.
+
+        Args:
+            text (str): Text to add.
+            pos (tuple[int, int]): Position to add the text at.
+            color (tuple[int, int, int]): Color of the text. (R, G, B)
+            font (pg.font.Font, optional): Font to use. Defaults to
+                simulat.fonts["main"].
+        """
+        text_surface = font.render(text, True, color)
+        self.blit(text_surface, pos)
