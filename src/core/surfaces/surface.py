@@ -94,17 +94,17 @@ class Surface:
 
     def add_text(self, text: str, pos: tuple[int, int],
                  color: tuple[int, int, int],
-                 font: pg.font.Font = simulat.fonts["main"]):
+                 font: str = "main"):
         """Add text to the surface.
 
         Args:
             text (str): Text to add.
             pos (tuple[int, int]): Position to add the text at.
             color (tuple[int, int, int]): Color of the text. (R, G, B)
-            font (pg.font.Font, optional): Font to use. Defaults to
-                simulat.fonts["main"].
+            font (str, optional): Name of the font to use.
+                Defaults to "main".
         """
-        text_surface = font.render(text, True, color)
+        text_surface = simulat.fonts[font].render(text, True, color)
         self.blit(text_surface, pos)
 
 
