@@ -24,7 +24,11 @@ class Scene:
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
-        self.surface = Surface((SIZE[0], SIZE[1]))
+        self.surface = Surface(
+            (SIZE[0], SIZE[1] - simulat.topbar.height),
+            (0, simulat.topbar.height)
+        )
+
         self.surface.fill((255, 255, 255))
 
         # show fallback message if Scene called directly
@@ -35,4 +39,4 @@ class Scene:
 
     def draw(self, screen: pg.Surface):
         """Draw the scene to the screen."""
-        screen.blit(self.surface.surface, (0, 0))
+        screen.blit(self.surface.surface, self.surface.pos)
