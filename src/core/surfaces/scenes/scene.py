@@ -33,9 +33,11 @@ class Scene:
 
         # show fallback message if Scene called directly
         if self.id == "Scene":
-            text_surface = simulat.fonts["main"].render("FALLBACK SCENE",
-                                                        True, (255, 0, 0))
-            self.surface.blit(text_surface, (20, 20))
+            self.surface.add_text(
+                "FALLBACK SCENE",
+                (20, 20),
+                (255, 0, 0)
+            )
 
     def draw(self, screen: pg.Surface):
         """Draw the scene to the screen."""
