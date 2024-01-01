@@ -33,6 +33,8 @@ class Scene:
 
         # show fallback message if Scene called directly
         if self.id == "Scene":
+            self.logger.warning("`Scene` called directly, "
+                                "showing fallback message...")
             self.surface.add_text(
                 "FALLBACK SCENE",
                 (20, 20),
