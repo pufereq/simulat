@@ -35,6 +35,26 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
+    def _init_next(self):
+        """Initialize fonts and scene handling."""
+        # initialize fonts
+        pg.font.init()
+        self.fonts: dict[str, pg.font.Font] = {}
+        self.fonts["main"] = pg.font.SysFont("monospace", 16)
+
+        # initialize scenes
+        self.scenes: dict[Scene] = {}
+        self.scene: int | None = None
+        self._init_scenes()
+
+    def _init_scenes(self):
+        """Initialize scenes."""
+        from src.core.scenes.scene import Scene
+
+        # fallback scene
+        fallback_scene = Scene()
+        self.scenes[None] = fallback_scene
+
     def run(self):
         running: bool = True
 
@@ -53,6 +73,9 @@ class Simulat:
             if keys[pg.K_ESCAPE]:
                 running = False
 
+            # draw scene
+            self.scenes[self.scene].draw(self.screen)
+
             # update screen
             pg.display.flip()
 
@@ -68,3 +91,4 @@ def init():
     """Initialize the game."""
     global simulat
     simulat = Simulat()
+    simulat._init_next()
