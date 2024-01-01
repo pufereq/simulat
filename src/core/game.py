@@ -42,8 +42,17 @@ class Simulat:
         self.fonts: dict[str, pg.font.Font] = {}
         self.fonts["main"] = pg.font.SysFont("monospace", 16)
 
+        # initialize topbar
+        self._init_topbar()
+
         # initialize scenes
         self._init_scenes()
+
+    def _init_topbar(self):
+        """Initialize topbar."""
+        from src.core.surfaces.topbar import Topbar
+
+        self.topbar = Topbar()
 
     def _init_scenes(self):
         """Initialize scenes."""
@@ -76,6 +85,9 @@ class Simulat:
 
             # draw scene
             self.scenes[self.scene].draw(self.screen)
+
+            # draw topbar
+            self.screen.blit(self.topbar.surface, (0, 0))
 
             # update screen
             pg.display.flip()
