@@ -92,20 +92,50 @@ class Surface:
         """
         return self.surface.blit(source, dest, area, special_flags)
 
-    def add_text(self, text: str, pos: tuple[int, int],
+    def add_text(self, text: str, pos: tuple[int | str, int | str],
                  color: tuple[int, int, int],
                  font: str = "main"):
         """Add text to the surface.
 
         Args:
             text (str): Text to add.
-            pos (tuple[int, int]): Position to add the text at.
+            pos (tuple[int | str, int | str]): Position to add the text at.
+                Can be a number or "left", "center" or "right" for horizontal
+                align, and "top", "center" or "bottom" for vertical align.
             color (tuple[int, int, int]): Color of the text. (R, G, B)
             font (str, optional): Name of the font to use.
                 Defaults to "main".
         """
+        if pos[0] == "left":
+            x_pos = 0
+        elif pos[0] == "center":
+            x_pos = (self.width - simulat.fonts[font].size(text)[0]) // 2
+        elif pos[0] == "right":
+            x_pos = self.width - simulat.fonts[font].size(text)[0]
+        else:
+            if isinstance(pos[0], str):
+                raise ValueError(
+                    f"Invalid horizontal position: {pos[0]}. Avaliable values:"
+                    " number (int), 'left', 'center', 'right'"
+                )
+            x_pos = pos[0]
+
+        if pos[1] == "top":
+            y_pos = 0
+        elif pos[1] == "center":
+            y_pos = (self.height - simulat.fonts[font].size(text)[1]) // 2
+        elif pos[1] == "bottom":
+            y_pos = self.height - simulat.fonts[font].size(text)[1]
+        else:
+            if isinstance(pos[1], str):
+                raise ValueError(
+                    f"Invalid vertical position: {pos[1]}. Avaliable values:"
+                    " number (int), 'top', 'center', 'bottom'"
+                )
+            y_pos = pos[1]
+
         text_surface = simulat.fonts[font].render(text, True, color)
-        self.blit(text_surface, pos)
+        self.blit(text_surface, (x_pos, y_pos))
 
 
 class SubSurface(Surface):
