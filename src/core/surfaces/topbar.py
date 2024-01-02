@@ -19,15 +19,15 @@ class Topbar(Surface):
         self._init_sub_surfaces()
 
     def _init_sub_surfaces(self):
-        self.debug_surface = self.surface.subsurface(
+        self.debug_surface = self.subsurface(
             (0, 0),
             (self.width * 0.3, self.height)
         )
-        self.title_surface = self.surface.subsurface(
+        self.title_surface = self.subsurface(
             (self.width * 0.3, 0),
             (self.width * 0.4, self.height)
         )
-        self.details_surface = self.surface.subsurface(
+        self.details_surface = self.subsurface(
             (self.width * 0.7, 0),
             (self.width * 0.3, self.height)
         )
