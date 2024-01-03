@@ -7,7 +7,8 @@ import pygame as pg
 import logging as lg
 
 # set up logging
-lg.basicConfig(format="%(asctime)s - %(name)s:%(levelname)s - %(message)s",
+lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
+               "%(lineno)d : %(name)s :: %(message)s",
                level=lg.DEBUG)
 
 module_lg = lg.getLogger(__name__)
