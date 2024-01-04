@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2024-01-04
+
+### Documentation
+
+- [`ce7385c`](https://github.com/pufereq/simulat/commit/ce7385c2b887587a8ec9006a2a7650cdfb419038) **surface.py**: add docstrings to `Surface` and its methods
+
+### Features
+
+- [`c1bf466`](https://github.com/pufereq/simulat/commit/c1bf466b949086c65a1bf2e134a56d69ec876075) **topbar.py**: add ability to add text to topbar
+- [`7ac9e02`](https://github.com/pufereq/simulat/commit/7ac9e02bde3ff5313eb3b70ea14ae839ca949f07) **log_exception.py**: add `log_exception()` function
+- [`fcd44fe`](https://github.com/pufereq/simulat/commit/fcd44fed67603251828747aa7e0fa7f82c0e813a) **surface.py**: add ability to align text vertically and horizontally in `add_text()`
+- [`5eb2d85`](https://github.com/pufereq/simulat/commit/5eb2d85702d7ceb4367ccee48901eea877648574) **surface.py**: add `SubSurface` class
+- [`fc296b3`](https://github.com/pufereq/simulat/commit/fc296b37591a60380a1fa90003f8b9839e6da361) **surface.py**: add `add_text()` method to `Surface`
+- [`7671f86`](https://github.com/pufereq/simulat/commit/7671f86e6d93f518f7c15681e4ec1ef4401069d0) **topbar.py**: add `Topbar` class
+- [`b2a2fff`](https://github.com/pufereq/simulat/commit/b2a2fffea740259a88a3956a73607579dac1e52d) **surface.py**: add `Surface` class for surface management
+
+### Miscellaneous Tasks
+
+- [`891606d`](https://github.com/pufereq/simulat/commit/891606dc642152ebb71ced6e50b0e9231fac7588) **surface.py**: raise exception if the rendered text is too wide
+- [`baa0e5f`](https://github.com/pufereq/simulat/commit/baa0e5fde8485454bd922a018c5232ec66d9b78f) **game.py**: add 'topbar' font
+- [`063be7a`](https://github.com/pufereq/simulat/commit/063be7af8f8413cdf8dfdfa5067d70ecc0aea649) **surface.py**: change color depth to 24bits
+- [`84895c5`](https://github.com/pufereq/simulat/commit/84895c53ec7b725491f56cc25a5a279710074707) **game.py**: implement `log_exception()`
+- [`ac9c855`](https://github.com/pufereq/simulat/commit/ac9c8550374f31411a30116c3ad36a00df53fc0a) **game.py**: modify logging format for readability
+- [`57eb65a`](https://github.com/pufereq/simulat/commit/57eb65a555d896b42e56d55cbb0acc92afa11c75) **topbar.py**: modify subsurfaces to use `SubSurface` class
+- [`cc78baf`](https://github.com/pufereq/simulat/commit/cc78baf87429cb137d6bd734eaa242e8ac84918f) **surface.py**: modify `add_text()` method to use only font name
+- [`5ae301e`](https://github.com/pufereq/simulat/commit/5ae301e04f5b02c5d215708d6c0a1a0f889b56b3) **scene.py**: add a warning when `Scene` is called directly (fallback)
+- [`4f7f99a`](https://github.com/pufereq/simulat/commit/4f7f99a98a710ca3cb5491802a85d1d1ebf0fcdf) **game.py**: add `_init_topbar()` method and draw the topbar
+- [`ac779a7`](https://github.com/pufereq/simulat/commit/ac779a7610d08f74d0ea3a92a4fdbf82ec4be995) **scene.py**: adjust the size and position of scenes to make space for topbar
+- [`0e5b0a4`](https://github.com/pufereq/simulat/commit/0e5b0a4fc2a9815381dfe02560c9759aa92debf6) **game.py**: add `SIZE` global variable (window size)
+- [`039cc5d`](https://github.com/pufereq/simulat/commit/039cc5dd1bd91c2ffeca3e7ae43df53f7e0f65d1) **scene.py**: move `scenes/scene.py` -> `surfaces/scenes/scene.py`
+- [`4b0c59d`](https://github.com/pufereq/simulat/commit/4b0c59d15cf25ffaaa7470b031c892bcb1aad56c) **game.py**: remove `pg.RESIZABLE` flag from `self.screen`
+
+### Refactor
+
+- [`776dbdc`](https://github.com/pufereq/simulat/commit/776dbdc10a7f28e3a3178facf9bac762d71cfe49) **scene.py**: use `add_text()` method instead of manually adding fallback text
+- [`16a6312`](https://github.com/pufereq/simulat/commit/16a631289820b98919ad1691dae049fcfeb1cb3c) **game.py**: move declarations of `self.scenes` and `self.scene` to `_init_scenes()`
+- [`f322560`](https://github.com/pufereq/simulat/commit/f3225601c8225fb854df964e2e88cd14e7d6488d) **scene.py**: use `Surface` class
+
 ## [0.1.0] - 2024-01-01
 
 ### Features
@@ -12,6 +50,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`83add70`](https://github.com/pufereq/simulat/commit/83add70cad146fb2d9e06219ecc03e633a8da81e) **release**: 0.1.0
 - [`3c8e115`](https://github.com/pufereq/simulat/commit/3c8e11597a62ab938834c0a50ca59b0819fb303f) **game.py**: add `_init_next` and `_init_scenes` method meant to init scenes
 
 ### Build
