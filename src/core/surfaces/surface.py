@@ -16,7 +16,7 @@ class Surface:
     etc. Each surface has its own class, which inherits from this class.
     """
     def __init__(self, size: tuple[int, int], pos: tuple[int, int] = (0, 0),
-                 *, flags: int = 0, depth: int = 32,
+                 *, flags: int = 0, depth: int = 24,
                  masks: tuple[int, int, int, int] | None = None):
         """Initialize the surface.
 
