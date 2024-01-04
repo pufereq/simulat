@@ -5,6 +5,8 @@ from __future__ import annotations
 import pygame as pg
 import logging as lg
 
+from ..surface import Surface
+
 
 class Scene:
     """Base class for scenes.
@@ -16,22 +18,29 @@ class Scene:
     """
     def __init__(self) -> None:
         """Initialize the scene."""
-        from ..game import simulat
+        from ...game import simulat, SIZE
         self.id = type(self).__name__
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
-        self.surface = pg.Surface((pg.display.Info().current_w,
-                                   pg.display.Info().current_h))
+        self.surface = Surface(
+            (SIZE[0], SIZE[1] - simulat.topbar.height),
+            (0, simulat.topbar.height)
+        )
+
         self.surface.fill((255, 255, 255))
 
         # show fallback message if Scene called directly
         if self.id == "Scene":
-            text_surface = simulat.fonts["main"].render("FALLBACK SCENE",
-                                                        True, (255, 0, 0))
-            self.surface.blit(text_surface, (20, 20))
+            self.logger.warning("`Scene` called directly, "
+                                "showing fallback message...")
+            self.surface.add_text(
+                "FALLBACK SCENE",
+                (20, 20),
+                (255, 0, 0)
+            )
 
-    def draw(self, screen):
+    def draw(self, screen: pg.Surface):
         """Draw the scene to the screen."""
-        screen.blit(self.surface, (0, 0))
+        screen.blit(self.surface.surface, self.surface.pos)
