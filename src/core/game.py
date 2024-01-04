@@ -49,6 +49,7 @@ class Simulat:
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {}
         self.fonts["main"] = pg.font.SysFont("monospace", 16)
+        self.fonts["topbar"] = pg.font.SysFont("monospace", 22)
 
         # initialize topbar
         self._init_topbar()
