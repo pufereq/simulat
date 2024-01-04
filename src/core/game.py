@@ -3,8 +3,11 @@
 
 from __future__ import annotations
 
+import sys
 import pygame as pg
 import logging as lg
+
+from .log_exception import log_exception
 
 # set up logging
 lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
@@ -23,8 +26,12 @@ class Simulat:
     """Main class for simulat."""
     def __init__(self):
         """Initialize pygame and the main window."""
+        # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.info("Starting simulat...")
+
+        self.logger.debug("Initializing exception logging...")
+        sys.excepthook = log_exception
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
