@@ -65,7 +65,7 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from src.core.surfaces.scenes.scene import Scene
+        from .surfaces.scenes.scene import Scene
 
         self.scenes: dict[Scene] = {}
         self.scene: int | None = None
