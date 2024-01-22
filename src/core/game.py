@@ -66,6 +66,7 @@ class Simulat:
     def _init_scenes(self):
         """Initialize scenes."""
         from .surfaces.scenes.scene import Scene
+        from .surfaces.scenes.game_scene.game_scene import GameScene
 
         self.scenes: dict[Scene] = {}
         self.active_scene: str | None = "GameScene"  # GameScene is default
@@ -73,6 +74,10 @@ class Simulat:
         # fallback scene
         fallback_scene = Scene()
         self.scenes[None] = fallback_scene
+
+        # game scene
+        game_scene = GameScene()
+        self.scenes[game_scene.id] = game_scene
 
     def run(self):
         running: bool = True
