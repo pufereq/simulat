@@ -14,7 +14,7 @@ class Scene:
     A scene is a state of the game, e.g. the main menu, the game itself, the
     settings menu, etc. Each scene has its own class, which inherits from this
     class. The scenes are stored in the `scenes` dict in the `Simulat` class.
-    A scene takes up the whole screen.
+    A scene takes up the whole screen (minus the topbar).
     """
     def __init__(self) -> None:
         """Initialize the scene."""
