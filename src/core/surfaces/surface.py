@@ -39,18 +39,18 @@ class Surface:
 
         self.surface = pg.Surface(size, flags, depth)
 
-    def subsurface(self, size: tuple[int, int],
-                   pos: tuple[int, int]) -> SubSurface:
+    def subsurface(self, pos: tuple[int, int],
+                   size: tuple[int, int]) -> SubSurface:
         """Create a subsurface.
 
         Args:
-            size (tuple[int, int]): Size of the subsurface.
             pos (tuple[int, int]): Position of the subsurface.
+            size (tuple[int, int]): Size of the subsurface.
 
         Returns:
             SubSurface: The created subsurface.
         """
-        return SubSurface(self, size, pos)
+        return SubSurface(self, pos, size)
 
     def fill(self, color: tuple[int, int, int]):
         """Fill the surface with a color.
