@@ -68,7 +68,7 @@ class Simulat:
         from .surfaces.scenes.scene import Scene
 
         self.scenes: dict[Scene] = {}
-        self.scene: int | None = None
+        self.active_scene: str | None = "GameScene"  # GameScene is default
 
         # fallback scene
         fallback_scene = Scene()
@@ -93,7 +93,7 @@ class Simulat:
                 running = False
 
             # draw scene
-            self.scenes[self.scene].draw(self.screen)
+            self.scenes[self.active_scene].draw(self.screen)
 
             # draw topbar
             self.screen.blit(self.topbar.surface, (0, 0))
