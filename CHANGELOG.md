@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0-dev.1] - 2024-01-22
+
+### Bug Fixes
+
+- [`c3a75a5`](https://github.com/pufereq/simulat/commit/c3a75a5bc052dcd5d652736974d843dc063422f9) **surface.py**: fix wrong order of arguments to `Surface().subsurface()` method
+
+### Documentation
+
+- [`022bf50`](https://github.com/pufereq/simulat/commit/022bf5076348f4c7aecfb66a8ba164686e93256b) **scene.py**: modify `Scene()`'s docstring to reflect topbar exclusion
+
+### Features
+
+- [`5715999`](https://github.com/pufereq/simulat/commit/57159999ba14470384fa0b93a184899d8543111d) **game_scene.py**: add `GameScene()` scene class
+- [`4d26b28`](https://github.com/pufereq/simulat/commit/4d26b2824b8ebb770f961e9924d1d82d48bb07d5) **game_map.py**: add `GameMap()` class
+- [`0bbfd3c`](https://github.com/pufereq/simulat/commit/0bbfd3c69bb2668e00b230e74fafa4ab783aa61d) **tile.py**: add `Tile()` class
+- [`a5679f4`](https://github.com/pufereq/simulat/commit/a5679f4827da375d4d278e85c3b4ef40c6d39035) **time_it.py**: add `time_it` decorator
+
+### Miscellaneous Tasks
+
+- [`b8e107f`](https://github.com/pufereq/simulat/commit/b8e107f17a697f5bffae3cd41fc14a67a86ecaae) **game.py**: add `GameScene()` to `_init_scenes`
+- [`3f044a5`](https://github.com/pufereq/simulat/commit/3f044a503c07acc2df21b527689be1d04bf4d623) **time_it.py**: modify logging to use wrapped function's logger instead of root
+- [`6ee66a7`](https://github.com/pufereq/simulat/commit/6ee66a79ce1536b23fc919e673d0ef24bd84bcfe) **game.py**: replace absolute import of `Scene()` with a relative one
+
+### Refactor
+
+- [`a5f8907`](https://github.com/pufereq/simulat/commit/a5f8907269a9c50797cb64b00d85fb3a46190cd9) **game.py**: rename variable `self.scene` -> `self.active_scene` for clarity
+
+### Build
+
+- [`9775e2c`](https://github.com/pufereq/simulat/commit/9775e2c8bf2691f15d9ac4e33daf61b01ad5dabf) **launch.json**: add ability to run the game via VSCode's internal console
+
 ## [0.2.0] - 2024-01-04
 
 ### Documentation
@@ -20,6 +51,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`df21439`](https://github.com/pufereq/simulat/commit/df214399b720956e92d9956925862d5be062d451) **release**: 0.2.0
 - [`891606d`](https://github.com/pufereq/simulat/commit/891606dc642152ebb71ced6e50b0e9231fac7588) **surface.py**: raise exception if the rendered text is too wide
 - [`baa0e5f`](https://github.com/pufereq/simulat/commit/baa0e5fde8485454bd922a018c5232ec66d9b78f) **game.py**: add 'topbar' font
 - [`063be7a`](https://github.com/pufereq/simulat/commit/063be7af8f8413cdf8dfdfa5067d70ecc0aea649) **surface.py**: change color depth to 24bits
