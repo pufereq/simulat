@@ -21,6 +21,14 @@
             "justMyCode": true
         },
         {
+            "name": "Python: simulat.py (internal console)",
+            "type": "python",
+            "request": "launch",
+            "program": "simulat.py",
+            "console": "internalConsole",
+            "justMyCode": true
+        },
+        {
             "name": "Python: simulat.py (external terminal)",
             "type": "python",
             "request": "launch",

@@ -66,13 +66,18 @@ class Simulat:
     def _init_scenes(self):
         """Initialize scenes."""
         from .surfaces.scenes.scene import Scene
+        from .surfaces.scenes.game_scene.game_scene import GameScene
 
         self.scenes: dict[Scene] = {}
-        self.scene: int | None = None
+        self.active_scene: str | None = "GameScene"  # GameScene is default
 
         # fallback scene
         fallback_scene = Scene()
         self.scenes[None] = fallback_scene
+
+        # game scene
+        game_scene = GameScene()
+        self.scenes[game_scene.id] = game_scene
 
     def run(self):
         running: bool = True
@@ -93,7 +98,7 @@ class Simulat:
                 running = False
 
             # draw scene
-            self.scenes[self.scene].draw(self.screen)
+            self.scenes[self.active_scene].draw(self.screen)
 
             # draw topbar
             self.screen.blit(self.topbar.surface, (0, 0))
