@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 from ..scene import Scene
-from ....game import simulat
 
 from .game_map import GameMap
 
