@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Final
 
 import logging as lg
+import pygame as pg
 
 from ....game import simulat
 
@@ -34,14 +35,40 @@ class GameMap(Surface):
             tiles_to_px(self.MAP_SIZE[1])
         )
 
+        self.camera = pg.Rect((0, 0), self.surface_size)
+
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
                           f"{self.surface_size} px")
 
         # initialize surface
         super().__init__(self.surface_size)
+        simulat.focused_surfaces[self] = True
 
         # initialize tiles
         self._init_tiles()
+
+    def input(self, key: pg.key) -> None:
+        """Handle input events."""
+        if key[pg.K_UP]:
+            self.camera.y -= tiles_to_px(0.5)
+        if key[pg.K_DOWN]:
+            self.camera.y += tiles_to_px(0.5)
+        if key[pg.K_LEFT]:
+            self.camera.x -= tiles_to_px(0.5)
+        if key[pg.K_RIGHT]:
+            self.camera.x += tiles_to_px(0.5)
+
+        self._update_camera_pos()
+
+    def update(self) -> None:
+        self._update_camera_pos()
+
+    def _update_camera_pos(self) -> None:
+        """Update the camera position."""
+        self.camera.x = min(max(self.camera.x, 0),
+                            self.surface_size[0] - simulat.SIZE[0])
+        self.camera.y = min(max(self.camera.y, 0),
+                            self.surface_size[1] - simulat.SIZE[1])
 
     @time_it
     def _init_tiles(self):
