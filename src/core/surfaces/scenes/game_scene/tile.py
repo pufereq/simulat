@@ -38,6 +38,14 @@ class Tile():
         self.surface.fill((self.pos_x * 16 % 255, self.pos_y * 16 % 255,
                            (self.pos_x + self.pos_y) * 8 % 255))
 
+    def __repr__(self) -> str:
+        """Return a string representation of the tile."""
+        return f"{type(self).__name__}({self.pos})"
+
+    def __str__(self) -> str:
+        """Return a user-friendly representation of the tile."""
+        return f"{type(self).__name__} at {self.pos}"
+
     def draw(self):
         """Draw the tile."""
         self.game_map.blit(self.surface.surface, self.surface.pos)
