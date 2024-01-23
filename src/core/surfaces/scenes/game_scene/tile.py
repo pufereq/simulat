@@ -56,3 +56,16 @@ class Tile():
         https://www.pygame.org/docs/ref/surface.html#pygame.Surface.subsurface).
         """
         self.game_map.blit(self.surface.surface, self.surface.pos)
+
+
+def tiles_to_px(tiles: int) -> int:
+    """Convert tiles to pixels."""
+    return tiles * TILE_SIZE
+
+
+def px_to_tiles(px: int) -> int:
+    """Convert pixels to tiles."""
+    if px % TILE_SIZE != 0:
+        raise ValueError(f"px ({px}) is not a multiple of TILE_SIZE "
+                         f"({TILE_SIZE})")
+    return px // TILE_SIZE
