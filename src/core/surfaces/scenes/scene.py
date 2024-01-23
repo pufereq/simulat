@@ -41,6 +41,14 @@ class Scene:
                 (255, 0, 0)
             )
 
+    def update(self) -> None:
+        """Update the scene."""
+        pass
+
+    def render(self, dest) -> None:
+        """Render the scene."""
+        self.draw(dest)
+
     def draw(self, screen: pg.Surface):
         """Draw the scene to the screen."""
         screen.blit(self.surface.surface, self.surface.pos)
