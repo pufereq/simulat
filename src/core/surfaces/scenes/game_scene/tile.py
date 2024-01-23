@@ -2,8 +2,12 @@
 """Tile module for GameMap."""
 
 from __future__ import annotations
+from typing import Final
 
 import logging as lg
+
+
+TILE_SIZE: Final = 32  # pixels
 
 
 class Tile():
@@ -20,11 +24,11 @@ class Tile():
         self.pos_y = pos[1]
 
         self.px_pos = (
-            self.pos_x * self.game_map.TILE_SIZE,
-            self.pos_y * self.game_map.TILE_SIZE
+            self.pos_x * TILE_SIZE,
+            self.pos_y * TILE_SIZE
         )
 
-        self.size = self.game_map.TILE_SIZE
+        self.size = TILE_SIZE
         self.width = self.size
         self.height = self.size
 
