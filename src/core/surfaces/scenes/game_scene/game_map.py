@@ -28,7 +28,7 @@ class GameMap(Surface):
 
         self.logger.debug("Initializing game map surface...")
 
-        self.MAP_SIZE: Final = (40, 40)  # tiles
+        self.MAP_SIZE: Final = (80, 80)  # tiles
 
         self.surface_size = (
             tiles_to_px(self.MAP_SIZE[0]),
