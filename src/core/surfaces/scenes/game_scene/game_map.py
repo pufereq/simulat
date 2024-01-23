@@ -6,10 +6,12 @@ from typing import Final
 
 import logging as lg
 
+from ....game import simulat
+
 from ...surface import Surface
 from ....time_it import time_it
 
-from .tile import Tile, TILE_SIZE
+from .tile import Tile, tiles_to_px
 
 
 class GameMap(Surface):
@@ -28,8 +30,8 @@ class GameMap(Surface):
         self.MAP_SIZE: Final = (40, 40)  # tiles
 
         self.surface_size = (
-            TILE_SIZE * self.MAP_SIZE[0],
-            TILE_SIZE * self.MAP_SIZE[1]
+            tiles_to_px(self.MAP_SIZE[0]),
+            tiles_to_px(self.MAP_SIZE[1])
         )
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
