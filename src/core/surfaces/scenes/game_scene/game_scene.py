@@ -29,5 +29,6 @@ class GameScene(Scene):
         self.surface.blit(
             self.game_map.surface,
             (0, 0),
+            self.game_map.camera
         )
         self.draw(dest)
