@@ -87,6 +87,7 @@ class Simulat:
 
         self.logger.info("Starting main loop...")
         while running:
+            # PROCESS EVENTS / INPUT
             # check for window events
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -104,8 +105,13 @@ class Simulat:
                 if self.focused_surfaces[surface]:
                     surface.input(keys)
 
+            # UPDATE
+            # update scene
+            self.scenes[self.active_scene].update()
+
+            # RENDER
             # draw scene
-            self.scenes[self.active_scene].draw(self.screen)
+            self.scenes[self.active_scene].render(self.screen)
 
             # draw topbar
             self.screen.blit(self.topbar.surface, (0, 0))
