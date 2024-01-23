@@ -2,6 +2,7 @@
 """Game module for simulat."""
 
 from __future__ import annotations
+from typing import Final
 
 import sys
 import pygame as pg
@@ -18,14 +19,14 @@ module_lg = lg.getLogger(__name__)
 module_lg.setLevel(lg.DEBUG)
 
 
-FPS: int = 60
-SIZE: tuple[int, int] = (1280, 720)
-
-
 class Simulat:
     """Main class for simulat."""
     def __init__(self):
         """Initialize pygame and the main window."""
+        # constants
+        self.FPS: Final = 60
+        self.SIZE: Final = (1280, 720)
+
         # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.info("Starting simulat...")
@@ -38,7 +39,7 @@ class Simulat:
         pg.init()
 
         # initialize screen
-        self.screen = pg.display.set_mode(SIZE)
+        self.screen = pg.display.set_mode(self.SIZE)
 
         # initialize clock
         self.clock = pg.time.Clock()
@@ -107,7 +108,7 @@ class Simulat:
             pg.display.flip()
 
             # limit framerate
-            self.clock.tick(FPS)
+            self.clock.tick(self.FPS)
 
         # quit pygame
         self.logger.info("Quit event received, exiting.")

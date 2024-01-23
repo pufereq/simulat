@@ -18,14 +18,14 @@ class Scene:
     """
     def __init__(self) -> None:
         """Initialize the scene."""
-        from ...game import simulat, SIZE
+        from ...game import simulat
         self.id = type(self).__name__
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
         self.surface = Surface(
-            (SIZE[0], SIZE[1] - simulat.topbar.height),
+            (simulat.SIZE[0], simulat.SIZE[1] - simulat.topbar.height),
             (0, simulat.topbar.height)
         )
 
