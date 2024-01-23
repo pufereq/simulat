@@ -44,6 +44,8 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
+        self.focused_surfaces: dict[Surface, bool] = {}
+
     def _init_next(self):
         """Initialize fonts and scene handling."""
         # initialize fonts
@@ -97,6 +99,10 @@ class Simulat:
 
             if keys[pg.K_ESCAPE]:
                 running = False
+
+            for surface in self.focused_surfaces:
+                if self.focused_surfaces[surface]:
+                    surface.input(keys)
 
             # draw scene
             self.scenes[self.active_scene].draw(self.screen)
