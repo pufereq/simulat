@@ -19,7 +19,7 @@ class GameMap(Surface):
     tiles (see `Tile` class) that can be walls, floors, doors, etc. The game
     map is a subsurface of the game scene.
     """
-    def __init__(self, scene: GameScene) -> None:
+    def __init__(self) -> None:
         """Initialize the game map."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 

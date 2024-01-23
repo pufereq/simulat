@@ -21,6 +21,5 @@ class GameScene(Scene):
         super().__init__()
 
         # initialize map
-        self.game_map = GameMap(self)
+        self.game_map = GameMap()
         self.surface.blit(self.game_map.surface, self.game_map.pos)
-
