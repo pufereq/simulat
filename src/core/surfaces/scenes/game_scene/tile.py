@@ -47,5 +47,8 @@ class Tile():
         return f"{type(self).__name__} at {self.pos}"
 
     def draw(self):
-        """Draw the tile."""
+        """Draw the tile. NOTE: this method is not used. The tiles are drawn
+        directly on the game map. (see
+        https://www.pygame.org/docs/ref/surface.html#pygame.Surface.subsurface).
+        """
         self.game_map.blit(self.surface.surface, self.surface.pos)
