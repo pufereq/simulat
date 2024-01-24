@@ -72,7 +72,7 @@ class Simulat:
         from .surfaces.scenes.game_scene.game_scene import GameScene
         from .surfaces.scenes.scene import Scene
 
-        self.scenes: dict[Scene] = {}
+        self.scenes: dict[str | None, Scene] = {}
         self.active_scene: str | None = "GameScene"  # GameScene is default
 
         # fallback scene
