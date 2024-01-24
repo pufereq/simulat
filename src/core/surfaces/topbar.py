@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import logging as lg
 
-from .surface import Surface
+from src.core.surfaces.surface import Surface
 
 
 class Topbar(Surface):

@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import pygame as pg
 
-from ..game import simulat
+from src.core.game import simulat
 
 
 class Surface:

@@ -6,7 +6,7 @@ import logging as lg
 
 import pygame as pg
 
-from ..surface import Surface
+from src.core.surfaces.surface import Surface
 
 
 class Scene:
