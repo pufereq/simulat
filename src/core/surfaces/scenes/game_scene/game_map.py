@@ -47,7 +47,7 @@ class GameMap(Surface):
         # initialize tiles
         self._init_tiles()
 
-    def input(self, key: pg.key) -> None:
+    def input(self, key: ScancodeWrapper) -> None:
         """Handle input events."""
         if key[pg.K_UP]:
             self.camera.y -= tiles_to_px(0.5)
