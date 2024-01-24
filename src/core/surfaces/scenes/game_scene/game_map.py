@@ -2,17 +2,16 @@
 """Game map module for GameScene."""
 
 from __future__ import annotations
-from typing import Final
 
 import logging as lg
+from typing import Final
+
 import pygame as pg
 
-from ....game import simulat
-
-from ...surface import Surface
-from ....time_it import time_it
-
-from .tile import Tile, tiles_to_px
+from src.core.game import simulat
+from src.core.surfaces.scenes.game_scene.tile import Tile, tiles_to_px
+from src.core.surfaces.surface import Surface
+from src.core.time_it import time_it
 
 
 class GameMap(Surface):
