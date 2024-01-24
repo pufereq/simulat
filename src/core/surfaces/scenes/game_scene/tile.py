@@ -58,9 +58,9 @@ class Tile():
         self.game_map.blit(self.surface.surface, self.surface.pos)
 
 
-def tiles_to_px(tiles: int) -> int:
+def tiles_to_px(tiles: int | float) -> int:
     """Convert tiles to pixels."""
-    return tiles * TILE_SIZE
+    return round(tiles * TILE_SIZE)
 
 
 def px_to_tiles(px: int) -> int:
