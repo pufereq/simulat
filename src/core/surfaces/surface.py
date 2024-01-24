@@ -2,7 +2,6 @@
 """Surface module for simulat."""
 
 from __future__ import annotations
-from typing import overload
 
 import pygame as pg
 
