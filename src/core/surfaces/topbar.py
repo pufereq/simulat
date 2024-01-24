@@ -2,6 +2,7 @@
 """Topbar module for simulat."""
 
 from __future__ import annotations
+
 import logging as lg
 
 from .surface import Surface

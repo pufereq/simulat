@@ -2,11 +2,12 @@
 """Game module for simulat."""
 
 from __future__ import annotations
+
+import logging as lg
+import sys
 from typing import Final
 
-import sys
 import pygame as pg
-import logging as lg
 
 from .log_exception import log_exception
 
@@ -68,8 +69,8 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from .surfaces.scenes.scene import Scene
         from .surfaces.scenes.game_scene.game_scene import GameScene
+        from .surfaces.scenes.scene import Scene
 
         self.scenes: dict[Scene] = {}
         self.active_scene: str | None = "GameScene"  # GameScene is default

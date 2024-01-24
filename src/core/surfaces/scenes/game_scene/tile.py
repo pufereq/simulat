@@ -2,9 +2,9 @@
 """Tile module for GameMap."""
 
 from __future__ import annotations
-from typing import Final
 
 import logging as lg
+from typing import Final
 
 
 TILE_SIZE: Final = 32  # pixels

@@ -2,8 +2,9 @@
 """Scene module for simulat."""
 from __future__ import annotations
 
-import pygame as pg
 import logging as lg
+
+import pygame as pg
 
 from ..surface import Surface
 

@@ -2,10 +2,10 @@
 """Timing decorator."""
 
 from __future__ import annotations
-from functools import wraps
 
 import logging as lg
 import time as t
+from functools import wraps
 
 
 def time_it(func):
