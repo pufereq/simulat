@@ -2,8 +2,9 @@
 """Scene module for simulat."""
 from __future__ import annotations
 
-import pygame as pg
 import logging as lg
+
+import pygame as pg
 
 from ..surface import Surface
 
@@ -18,14 +19,14 @@ class Scene:
     """
     def __init__(self) -> None:
         """Initialize the scene."""
-        from ...game import simulat, SIZE
+        from ...game import simulat
         self.id = type(self).__name__
 
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
         self.surface = Surface(
-            (SIZE[0], SIZE[1] - simulat.topbar.height),
+            (simulat.SIZE[0], simulat.SIZE[1] - simulat.topbar.height),
             (0, simulat.topbar.height)
         )
 
@@ -40,6 +41,14 @@ class Scene:
                 (20, 20),
                 (255, 0, 0)
             )
+
+    def update(self) -> None:
+        """Update the scene."""
+        pass
+
+    def render(self, dest) -> None:
+        """Render the scene."""
+        self.draw(dest)
 
     def draw(self, screen: pg.Surface):
         """Draw the scene to the screen."""

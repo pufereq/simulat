@@ -3,9 +3,11 @@
 
 from __future__ import annotations
 
-import sys
-import pygame as pg
 import logging as lg
+import sys
+from typing import Final
+
+import pygame as pg
 
 from .log_exception import log_exception
 
@@ -18,14 +20,14 @@ module_lg = lg.getLogger(__name__)
 module_lg.setLevel(lg.DEBUG)
 
 
-FPS: int = 60
-SIZE: tuple[int, int] = (1280, 720)
-
-
 class Simulat:
     """Main class for simulat."""
     def __init__(self):
         """Initialize pygame and the main window."""
+        # constants
+        self.FPS: Final = 60
+        self.SIZE: Final = (1280, 720)
+
         # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.info("Starting simulat...")
@@ -38,10 +40,12 @@ class Simulat:
         pg.init()
 
         # initialize screen
-        self.screen = pg.display.set_mode(SIZE)
+        self.screen = pg.display.set_mode(self.SIZE)
 
         # initialize clock
         self.clock = pg.time.Clock()
+
+        self.focused_surfaces: dict[Surface, bool] = {}
 
     def _init_next(self):
         """Initialize fonts and scene handling."""
@@ -65,10 +69,10 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from .surfaces.scenes.scene import Scene
         from .surfaces.scenes.game_scene.game_scene import GameScene
+        from .surfaces.scenes.scene import Scene
 
-        self.scenes: dict[Scene] = {}
+        self.scenes: dict[str | None, Scene] = {}
         self.active_scene: str | None = "GameScene"  # GameScene is default
 
         # fallback scene
@@ -84,6 +88,7 @@ class Simulat:
 
         self.logger.info("Starting main loop...")
         while running:
+            # PROCESS EVENTS / INPUT
             # check for window events
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -97,8 +102,17 @@ class Simulat:
             if keys[pg.K_ESCAPE]:
                 running = False
 
+            for surface in self.focused_surfaces:
+                if self.focused_surfaces[surface]:
+                    surface.input(keys)
+
+            # UPDATE
+            # update scene
+            self.scenes[self.active_scene].update()
+
+            # RENDER
             # draw scene
-            self.scenes[self.active_scene].draw(self.screen)
+            self.scenes[self.active_scene].render(self.screen)
 
             # draw topbar
             self.screen.blit(self.topbar.surface, (0, 0))
@@ -107,7 +121,7 @@ class Simulat:
             pg.display.flip()
 
             # limit framerate
-            self.clock.tick(FPS)
+            self.clock.tick(self.FPS)
 
         # quit pygame
         self.logger.info("Quit event received, exiting.")

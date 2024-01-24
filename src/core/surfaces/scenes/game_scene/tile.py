@@ -4,6 +4,10 @@
 from __future__ import annotations
 
 import logging as lg
+from typing import Final
+
+
+TILE_SIZE: Final = 32  # pixels
 
 
 class Tile():
@@ -20,11 +24,11 @@ class Tile():
         self.pos_y = pos[1]
 
         self.px_pos = (
-            self.pos_x * self.game_map.TILE_SIZE,
-            self.pos_y * self.game_map.TILE_SIZE
+            self.pos_x * TILE_SIZE,
+            self.pos_y * TILE_SIZE
         )
 
-        self.size = self.game_map.TILE_SIZE
+        self.size = TILE_SIZE
         self.width = self.size
         self.height = self.size
 
@@ -52,3 +56,16 @@ class Tile():
         https://www.pygame.org/docs/ref/surface.html#pygame.Surface.subsurface).
         """
         self.game_map.blit(self.surface.surface, self.surface.pos)
+
+
+def tiles_to_px(tiles: int | float) -> int:
+    """Convert tiles to pixels."""
+    return round(tiles * TILE_SIZE)
+
+
+def px_to_tiles(px: int) -> int:
+    """Convert pixels to tiles."""
+    if px % TILE_SIZE != 0:
+        raise ValueError(f"px ({px}) is not a multiple of TILE_SIZE "
+                         f"({TILE_SIZE})")
+    return px // TILE_SIZE

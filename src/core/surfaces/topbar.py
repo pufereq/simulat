@@ -2,6 +2,7 @@
 """Topbar module for simulat."""
 
 from __future__ import annotations
+
 import logging as lg
 
 from .surface import Surface
@@ -9,11 +10,11 @@ from .surface import Surface
 
 class Topbar(Surface):
     def __init__(self):
-        from ..game import SIZE
+        from ..game import simulat
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.debug("Initializing topbar...")
 
-        super().__init__((SIZE[0], 24), (0, 0))
+        super().__init__((simulat.SIZE[0], 24), (0, 0))
 
         # init sub-surfaces
         self._init_sub_surfaces()

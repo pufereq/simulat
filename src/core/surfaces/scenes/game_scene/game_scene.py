@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 from ..scene import Scene
-
 from .game_map import GameMap
 
 
@@ -21,4 +20,15 @@ class GameScene(Scene):
 
         # initialize map
         self.game_map = GameMap()
-        self.surface.blit(self.game_map.surface, self.game_map.pos)
+
+    def update(self) -> None:
+        """Update the game scene."""
+        self.game_map.update()
+
+    def render(self, dest) -> None:
+        self.surface.blit(
+            self.game_map.surface,
+            (0, 0),
+            self.game_map.camera
+        )
+        self.draw(dest)
