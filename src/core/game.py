@@ -9,7 +9,7 @@ from typing import Final
 
 import pygame as pg
 
-from .log_exception import log_exception
+from src.core import log_exception
 
 # set up logging
 lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
