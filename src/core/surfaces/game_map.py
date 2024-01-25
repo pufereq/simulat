@@ -9,7 +9,7 @@ from typing import Final
 import pygame as pg
 
 from src.core.game import simulat
-from src.core.surfaces.scenes.game_scene.tile import Tile, tiles_to_px
+from src.core.surfaces.tile import Tile, tiles_to_px
 from src.core.surfaces.surface import Surface
 from src.core.time_it import time_it
 
