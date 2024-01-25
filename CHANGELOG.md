@@ -2,6 +2,58 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2024-01-25
+
+### Bug Fixes
+
+- [`35818bb`](https://github.com/pufereq/simulat/commit/35818bb061ca6799987c19ca5f72ee5a50db891c) **topbar.py**: fix floats being provided to `Surface.subsurface`, int required
+- [`232dbe9`](https://github.com/pufereq/simulat/commit/232dbe90cf79db0b2f3cee4e3bc043ac76713c4c) **tile.py**: fix `tiles_to_px()` output being a float
+
+### Documentation
+
+- [`a560b9c`](https://github.com/pufereq/simulat/commit/a560b9c3426cd506f90fea6dfc750f948664c091) **tile.py**: add a disclaimer to unused `Tile.draw()` method
+
+### Features
+
+- [`8c76e7d`](https://github.com/pufereq/simulat/commit/8c76e7d1275806e7cdfd523908e606f311e2505b) **game_map.py**: add moveable camera
+- [`f8010c0`](https://github.com/pufereq/simulat/commit/f8010c02b46b85e68139531ffac5f7627a93a229) **game.py**: add `Simulat.focused_surfaces` dict to direct input to
+- [`5d522ca`](https://github.com/pufereq/simulat/commit/5d522ca061e0f13a5056c85b5cde8a2f6d20e3ab) **scene.py**: add `Scene.update()` and `Scene.render()` methods
+- [`783c447`](https://github.com/pufereq/simulat/commit/783c4479793d996adcc8d83a0f786067c419fd70) **tile.py**: add conversion functions (tiles <-> px)
+
+### Miscellaneous Tasks
+
+- [`699445f`](https://github.com/pufereq/simulat/commit/699445fc8f38c2122e2a93e24b7f77c3d086dd94) **surface.py**: fix typing errors
+- [`b0d5d70`](https://github.com/pufereq/simulat/commit/b0d5d70a7f178123080c537ab248e398080a5d62) **game_map.py**: fix typing errors
+- [`7f0f1ea`](https://github.com/pufereq/simulat/commit/7f0f1ea429e6bad4d0771b8fd55413ace951ff7f) **game.py**: fix typing errors
+- [`e4d967d`](https://github.com/pufereq/simulat/commit/e4d967dcdbded2c4e94019f9179ff2e81fea9fef) **surface.py**: remove unused import
+- [`9cba445`](https://github.com/pufereq/simulat/commit/9cba445faba109949372e3e170e87c2e0761b238) **game_map.py**: enlarge map
+- [`f2d30ff`](https://github.com/pufereq/simulat/commit/f2d30ff3cfd5253b1180e27b548232705378199d) **game_scene.py**: enable camera
+- [`cafc41e`](https://github.com/pufereq/simulat/commit/cafc41e8e66b51146b7cdb35a465f3cba7be7acd) **game_scene.py**: move the `blit` call into `GameScene.render()` method and add `GameScene.update()`
+- [`af16b0f`](https://github.com/pufereq/simulat/commit/af16b0ff8d8719550390887d7d99586b7695d979) **game.py**: use the new `update` and `render` methods in loop
+- [`d0f4293`](https://github.com/pufereq/simulat/commit/d0f42938bf8f5c4c25bef2a1b50c84308ce5e122) **game_map.py**: use `tiles_to_px()` function in `GameMap.surface_size` variable
+- [`7ee9de8`](https://github.com/pufereq/simulat/commit/7ee9de822161951d08dcd58bae1f7cef7cd43a5a) **tile.py**: move `TILE_SIZE` constant to `tile.py`
+- [`f82c144`](https://github.com/pufereq/simulat/commit/f82c1448f6536f747ae255c9e5b4861d90353271) **game.py**: move constants `FPS` and `SIZE` into `simulat` class
+- [`ca56f83`](https://github.com/pufereq/simulat/commit/ca56f839f73df522ea72a8bc6b3c4f4b79eaf1c1) **tile.py**: add `__str__` and `__repr__` methods to `Tile`
+- [`8e538ba`](https://github.com/pufereq/simulat/commit/8e538bab8afc56102231a4732218ac82fcec7562) **game_scene.py**: remove unnecesarry import
+- [`3dcc56e`](https://github.com/pufereq/simulat/commit/3dcc56ea5c41474809122625265d4f9fa6777843) **game_map.py**: remove not needed argument to `GameMap` class
+
+### Refactor
+
+- [`aaefd78`](https://github.com/pufereq/simulat/commit/aaefd78dbd337fe52139f817a60478485c7160cf) **game_map.py**: make imports absolute
+- [`9e742b2`](https://github.com/pufereq/simulat/commit/9e742b26b6599d98af1bcf0c07a2bfdd4831e2bf) **game_scene.py**: make imports absolute
+- [`de303a3`](https://github.com/pufereq/simulat/commit/de303a3d95f377dd5f7777076afadde3dbabcee5) **scene.py**: make imports absolute
+- [`1c406a9`](https://github.com/pufereq/simulat/commit/1c406a98dda1052bb88f6aa748a079f8215593e9) **surface.py**: make imports absolute
+- [`751c7ba`](https://github.com/pufereq/simulat/commit/751c7bac55e8f4aa48b77dce2c68a59ae335fd0a) **topbar.py**: make imports absolute
+- [`4b7f4ff`](https://github.com/pufereq/simulat/commit/4b7f4ff09ce1ae0df084c0e5dc84db0373605301) **game.py**: make imports absolute
+
+### Styling
+
+- [`3732879`](https://github.com/pufereq/simulat/commit/3732879e9eab7cda6cc0875b472aad673d635e0e) organize imports
+
+### Build
+
+- [`014a0eb`](https://github.com/pufereq/simulat/commit/014a0eb48f4d4cdde2e89fe7ddd3475a5b7d3e8b) **setting.json**: add `settings.json`
+
 ## [0.3.0-dev.1] - 2024-01-22
 
 ### Bug Fixes
@@ -21,6 +73,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`f57a130`](https://github.com/pufereq/simulat/commit/f57a1303ffe64a472088d11a07bf507b8a2b3e8e) **release**: 0.3.0-dev.1
 - [`b8e107f`](https://github.com/pufereq/simulat/commit/b8e107f17a697f5bffae3cd41fc14a67a86ecaae) **game.py**: add `GameScene()` to `_init_scenes`
 - [`3f044a5`](https://github.com/pufereq/simulat/commit/3f044a503c07acc2df21b527689be1d04bf4d623) **time_it.py**: modify logging to use wrapped function's logger instead of root
 - [`6ee66a7`](https://github.com/pufereq/simulat/commit/6ee66a79ce1536b23fc919e673d0ef24bd84bcfe) **game.py**: replace absolute import of `Scene()` with a relative one
