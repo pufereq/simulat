@@ -2,11 +2,10 @@
 """Surface module for simulat."""
 
 from __future__ import annotations
-from typing import overload
 
 import pygame as pg
 
-from ..game import simulat
+from src.core.game import simulat
 
 
 class Surface:
@@ -75,7 +74,7 @@ class Surface:
         return self.surface.convert(surface)
 
     def blit(self, source: pg.Surface, dest: tuple[int, int],
-             area: tuple[int, int, int, int] | None = None,
+             area: tuple[int, int, int, int] | pg.Rect | None = None,
              special_flags: int = 0):
         """Draw one surface onto another.
 
