@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from src.simulat.core.surfaces.scenes.scene import Scene
 
-from src.simulat.core.surfaces.game_map import GameMap
+from src.simulat.core.surfaces.game_map.game_map import GameMap
 
 
 class GameScene(Scene):
