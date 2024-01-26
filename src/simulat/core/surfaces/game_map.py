@@ -8,10 +8,10 @@ from typing import Final
 
 import pygame as pg
 
-from src.core.game import simulat
-from src.core.surfaces.tile import Tile, tiles_to_px
-from src.core.surfaces.surface import Surface
-from src.core.time_it import time_it
+from src.simulat.core.game import simulat
+from src.simulat.core.surfaces.tile import Tile, tiles_to_px
+from src.simulat.core.surfaces.surface import Surface
+from src.simulat.core.time_it import time_it
 
 
 class GameMap(Surface):
