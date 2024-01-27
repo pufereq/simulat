@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.core.surfaces.surface import Surface
+from src.simulat.core.surfaces.surface import Surface
 
 
 class Topbar(Surface):

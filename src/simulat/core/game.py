@@ -9,7 +9,7 @@ from typing import Final
 
 import pygame as pg
 
-from src.core import log_exception
+from src.simulat.core import log_exception
 
 # set up logging
 lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
@@ -63,7 +63,7 @@ class Simulat:
 
     def _init_topbar(self):
         """Initialize topbar."""
-        from src.core.surfaces.topbar import Topbar
+        from src.simulat.core.surfaces.topbar import Topbar
 
         self.topbar = Topbar()
 

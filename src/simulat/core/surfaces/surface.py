@@ -3,9 +3,11 @@
 
 from __future__ import annotations
 
+import logging as lg
+
 import pygame as pg
 
-from src.core.game import simulat
+from src.simulat.core.game import simulat
 
 
 class Surface:
@@ -28,6 +30,8 @@ class Surface:
             masks (tuple[int, int, int, int] | None, optional): Color masks for
                 the surface. Defaults to None.
         """
+        self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+
         self.size = size
         self.width = size[0]
         self.height = size[1]
@@ -136,7 +140,7 @@ class Surface:
         text_surface = simulat.fonts[font].render(text, True, color)
 
         if text_surface.get_width() > self.width:
-            raise ValueError(
+            self.logger.warning(
                 f"Text too wide for surface: {text_surface.get_width()} >"
                 f" {self.width}"
             )
@@ -160,6 +164,8 @@ class SubSurface(Surface):
             size (tuple[int, int], optional): Size of the subsurface.
                 Defaults to (0, 0).
         """
+        self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+
         self.parent = parent
         self.parent_surface = parent.surface
 

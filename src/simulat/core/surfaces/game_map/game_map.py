@@ -8,10 +8,11 @@ from typing import Final
 
 import pygame as pg
 
-from src.core.game import simulat
-from src.core.surfaces.scenes.game_scene.tile import Tile, tiles_to_px
-from src.core.surfaces.surface import Surface
-from src.core.time_it import time_it
+from src.simulat.core.game import simulat
+from src.simulat.core.surfaces.game_map.camera import Camera
+from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
+from src.simulat.core.surfaces.surface import Surface
+from src.simulat.core.time_it import time_it
 
 
 class GameMap(Surface):
@@ -34,7 +35,7 @@ class GameMap(Surface):
             tiles_to_px(self.MAP_SIZE[1])
         )
 
-        self.camera = pg.Rect((0, 0), self.surface_size)
+        self.camera = Camera(self)
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
                           f"{self.surface_size} px")
@@ -49,25 +50,18 @@ class GameMap(Surface):
     def input(self, key: ScancodeWrapper) -> None:
         """Handle input events."""
         if key[pg.K_UP]:
-            self.camera.y -= tiles_to_px(0.5)
+            self.camera.velocity[1] += -1
         if key[pg.K_DOWN]:
-            self.camera.y += tiles_to_px(0.5)
+            self.camera.velocity[1] += 1
         if key[pg.K_LEFT]:
-            self.camera.x -= tiles_to_px(0.5)
+            self.camera.velocity[0] += -1
         if key[pg.K_RIGHT]:
-            self.camera.x += tiles_to_px(0.5)
-
-        self._update_camera_pos()
+            self.camera.velocity[0] += 1
+#
+        # self.camera.update()
 
     def update(self) -> None:
-        self._update_camera_pos()
-
-    def _update_camera_pos(self) -> None:
-        """Update the camera position."""
-        self.camera.x = min(max(self.camera.x, 0),
-                            self.surface_size[0] - simulat.SIZE[0])
-        self.camera.y = min(max(self.camera.y, 0),
-                            self.surface_size[1] - simulat.SIZE[1])
+        self.camera.update()
 
     @time_it
     def _init_tiles(self):

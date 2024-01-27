@@ -3,9 +3,9 @@
 
 from __future__ import annotations
 
-from src.core.surfaces.scenes.scene import Scene
+from src.simulat.core.surfaces.scenes.scene import Scene
 
-from src.core.surfaces.scenes.game_scene.game_map import GameMap
+from src.simulat.core.surfaces.game_map.game_map import GameMap
 
 
 class GameScene(Scene):
@@ -30,6 +30,6 @@ class GameScene(Scene):
         self.surface.blit(
             self.game_map.surface,
             (0, 0),
-            self.game_map.camera
+            self.game_map.camera.rect
         )
         self.draw(dest)
