@@ -54,7 +54,6 @@ class Camera():
         """Update the camera."""
         self._normalize_velocity()
 
-        simulat.topbar.update_title(f"{self.velocity}")
         self.move(self.velocity[0] * self.speed, self.velocity[1] * self.speed)
 
         self._cap_camera()
