@@ -16,8 +16,12 @@ class Tile():
     A tile is a square on the game map. It can be a wall, a floor, a door, etc.
     Each tile type has its own class, which inherits from this class.
     """
+    _id = 0
+
     def __init__(self, game_map: GameMap, pos: tuple[int, int]) -> None:
         """Initialize the tile."""
+        Tile._id += 1
+
         self.game_map = game_map
         self.pos = pos
         self.pos_x = pos[0]
