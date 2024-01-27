@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2024-01-27
+
+### Features
+
+- [`5a39afa`](https://github.com/pufereq/simulat/commit/5a39afacf2e41e6a051bba5fd01121bc474ad295) **camera.py**: add `Camera` class
+
+### Miscellaneous Tasks
+
+- [`3de7bbd`](https://github.com/pufereq/simulat/commit/3de7bbd5ab4d43b9737d48c8cd61a7255f5e3e14) **camera.py**: remove debug call to `simulat.topbar.update_title()`
+- [`b085c50`](https://github.com/pufereq/simulat/commit/b085c5078a5acd10d574e0845f5fed5ec18cf062) **camera.py**: convert `dx` and `dy` to `int`s
+- [`6e72ac9`](https://github.com/pufereq/simulat/commit/6e72ac9987e4ebfe9b43469a915e32b34857526e) **scene.py**: add `Scene.size` variable
+- [`f4080a9`](https://github.com/pufereq/simulat/commit/f4080a971bf78b35d1cbd496b81cc2068695a1da) **game_map.py**: replace the old camera with the `Camera` class
+- [`8c886a9`](https://github.com/pufereq/simulat/commit/8c886a9cfc3cdadcacf5a734d14f60111dbe58c1) **game_scene.py**: adjust call to `blit` to new `Camera`
+- [`5d8ea95`](https://github.com/pufereq/simulat/commit/5d8ea9586336f54273fbe4ba4b3fe3d55343b79e) **surface.py**: replace the ValueError when text is too wide with a logging call
+- [`6eb18cd`](https://github.com/pufereq/simulat/commit/6eb18cd525d83882a2a144ef71e3833fa9a3bf1f) **surface.py**: add `Surface.logger` & `SubSurface.logger`
+- [`01472a3`](https://github.com/pufereq/simulat/commit/01472a3b2397833acf7abcc1ded29babafebb009) **tile.py**: move `tile.py` -> `.../surfaces/game_map/tiles/`
+- [`b714915`](https://github.com/pufereq/simulat/commit/b714915bbdd38fc2f10ecf082c8e16b092480f7b) **game_map.py**: move `game_map.py` -> `.../surfaces/game_map/`
+- [`5e41a98`](https://github.com/pufereq/simulat/commit/5e41a98ee956d013c131bb8bb1f11a6854e90ee2) add `__init__.py` to `simulat/`
+- [`03241db`](https://github.com/pufereq/simulat/commit/03241db8fa42267335abc8d349de16cf458a6dbd) [**breaking**] move `src/core/` to `src/simulat/core/`
+- [`99ebf45`](https://github.com/pufereq/simulat/commit/99ebf450c919bda009ee6dedd013d40617b45694) **game_scene.py**: modify `GameMap` import after move
+- [`09d3ffa`](https://github.com/pufereq/simulat/commit/09d3ffa3c72a59bc8687d20faf80979427450a24) **tile.py**: [**breaking**] move `tile.py` to `src/core/surfaces/`
+- [`a680060`](https://github.com/pufereq/simulat/commit/a6800605766f4e4644610f836251e73fafc218ae) **game_map.py**: [**breaking**] move `game_map.py` to `src/core/surfaces/`
+
 ## [0.3.0] - 2024-01-25
 
 ### Bug Fixes
@@ -22,6 +45,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`1dfbfb8`](https://github.com/pufereq/simulat/commit/1dfbfb8e1ca0c2c2762645ec3522abf8526b2a7f) **release**: 0.3.0
 - [`699445f`](https://github.com/pufereq/simulat/commit/699445fc8f38c2122e2a93e24b7f77c3d086dd94) **surface.py**: fix typing errors
 - [`b0d5d70`](https://github.com/pufereq/simulat/commit/b0d5d70a7f178123080c537ab248e398080a5d62) **game_map.py**: fix typing errors
 - [`7f0f1ea`](https://github.com/pufereq/simulat/commit/7f0f1ea429e6bad4d0771b8fd55413ace951ff7f) **game.py**: fix typing errors
