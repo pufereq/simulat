@@ -7,7 +7,7 @@ import logging as lg
 from typing import Final
 
 
-TILE_SIZE: Final = 32  # pixels
+TILE_SIZE: Final = 64  # pixels
 
 
 class Tile():
