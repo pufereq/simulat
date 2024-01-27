@@ -140,7 +140,7 @@ class Surface:
         text_surface = simulat.fonts[font].render(text, True, color)
 
         if text_surface.get_width() > self.width:
-            raise ValueError(
+            self.logger.warning(
                 f"Text too wide for surface: {text_surface.get_width()} >"
                 f" {self.width}"
             )
