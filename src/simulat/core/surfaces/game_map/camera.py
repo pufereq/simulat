@@ -43,8 +43,8 @@ class Camera():
 
     def move(self, dx: float, dy: float) -> None:
         """Move the camera by the given offset."""
-        self.rect.x += dx
-        self.rect.y += dy
+        self.rect.x += int(dx)
+        self.rect.y += int(dy)
 
     def move_to(self, pos: tuple[int, int]) -> None:
         """Move the camera to the given position."""
