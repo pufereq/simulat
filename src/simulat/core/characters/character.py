@@ -7,6 +7,7 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
+from src.simulat.core.surfaces.game_map.tiles.tile import px_to_tiles
 
 from src.simulat.core.surfaces.surface import Surface
 
@@ -26,7 +27,7 @@ class Character:
         self.last_name = "Doe"
         self.name = f"{self.first_name} {self.last_name}"
 
-        self.pos: list[int] = pos
+        self.px_pos: list[int] = pos
         self.max_speed: float = 16
         self.speed: float = 0
 
@@ -42,20 +43,20 @@ class Character:
 
     def update(self) -> None:
         """Update the character."""
-        self.rect.center = self.pos
+        self.rect.center = self.px_pos
         self.speed = min(self.max_speed, self.speed + 1)
         self.move(
             self.velocity[0] * self.max_speed,
             self.velocity[1] * self.max_speed
         )
-        self.pos = self.rect.center
+        self.px_pos = self.rect.center
 
     def render(self) -> None:
         """Render the character."""
         from src.simulat.core.game import simulat
         # self.sprite.fill((255, 0, 0))
         self.game_map.blit(self.sprite.surface, self.rect)
-        simulat.topbar.update_title(f"Character position: {self.pos}")
+        simulat.topbar.update_title(f"Character position: {self.px_pos}")
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
@@ -67,16 +68,16 @@ class Character:
 
         # move horizontally
         if dx != 0:
-            self.pos[0] += dx
-            self.pos[0] = max(0, min(self.game_map.MAP_SIZE[0] - 1,
-                                     self.pos[0]))
+            self.px_pos[0] += dx
+            self.px_pos[0] = max(0, min(self.game_map.MAP_SIZE[0] - 1,
+                                        self.px_pos[0]))
             self.velocity[0] = 0
 
         # move vertically
         if dy != 0:
-            self.pos[1] += dy
-            self.pos[1] = max(0, min(self.game_map.MAP_SIZE[1] - 1,
-                                     self.pos[1]))
+            self.px_pos[1] += dy
+            self.px_pos[1] = max(0, min(self.game_map.MAP_SIZE[1] - 1,
+                                        self.px_pos[1]))
             self.velocity[1] = 0
 
         self.speed = 0
