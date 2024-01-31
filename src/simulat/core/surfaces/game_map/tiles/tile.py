@@ -6,6 +6,8 @@ from __future__ import annotations
 import logging as lg
 from typing import Final
 
+from src.simulat.core.surfaces.surface import Surface
+
 
 TILE_SIZE: Final = 64  # pixels
 
@@ -38,8 +40,7 @@ class Tile():
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        self.surface = self.game_map.subsurface(self.px_pos,
-                                                (self.size, self.size))
+        self.surface = Surface((self.size, self.size), self.px_pos)
 
         # NOTE: this is just a placeholder, it will be replaced by the actual
         # tile image/character depending on the tile type.
@@ -59,7 +60,7 @@ class Tile():
         directly on the game map. (see
         https://www.pygame.org/docs/ref/surface.html#pygame.Surface.subsurface).
         """
-        self.game_map.blit(self.surface.surface, self.surface.pos)
+        self.game_map.tile_surface.blit(self.surface.surface, self.surface.pos)
 
 
 def tiles_to_px(tiles: int | float) -> int:

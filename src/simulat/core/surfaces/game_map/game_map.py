@@ -79,3 +79,4 @@ class GameMap(Surface):
             self.tiles.append([])
             for x in range(self.MAP_SIZE[0]):
                 self.tiles[y].append(Tile(self, (x, y)))
+                self.tiles[y][x].draw()
