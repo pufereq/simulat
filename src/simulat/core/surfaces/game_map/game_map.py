@@ -45,6 +45,7 @@ class GameMap(Surface):
         simulat.focused_surfaces[self] = True
 
         # initialize tiles
+        self.tile_surface = Surface(self.surface_size)
         self._init_tiles()
 
     def input(self, key: ScancodeWrapper) -> None:
@@ -62,6 +63,13 @@ class GameMap(Surface):
 
     def update(self) -> None:
         self.camera.update()
+
+    def render(self) -> None:
+        """Render the game map."""
+        self.blit(
+            self.tile_surface.surface,
+            (0, 0),
+        )
 
     @time_it
     def _init_tiles(self):
