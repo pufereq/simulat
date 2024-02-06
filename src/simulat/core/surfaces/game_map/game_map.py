@@ -7,6 +7,7 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
+from src.simulat.core.characters.player import Player
 
 from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.game_map.camera import Camera
@@ -35,6 +36,8 @@ class GameMap(Surface):
             tiles_to_px(self.MAP_SIZE[1])
         )
 
+        self.player = Player(self, (9, 9))
+
         self.camera = Camera(self)
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
@@ -62,6 +65,7 @@ class GameMap(Surface):
         # self.camera.update()
 
     def update(self) -> None:
+        self.player.update()
         self.camera.update()
 
     def render(self) -> None:
@@ -70,6 +74,7 @@ class GameMap(Surface):
             self.tile_surface.surface,
             (0, 0),
         )
+        self.player.render()
 
     @time_it
     def _init_tiles(self):
