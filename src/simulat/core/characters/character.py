@@ -59,7 +59,7 @@ class Character:
             self.velocity[1] * self.max_speed
         )
         self.px_pos = self.rect.center
-        self.pos = px_to_tiles(self.px_pos, False)
+        self.pos = (px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1]))
 
     def render(self) -> None:
         """Render the character."""
