@@ -7,7 +7,7 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
-from src.simulat.core.surfaces.game_map.tiles.tile import px_to_tiles
+from src.simulat.core.surfaces.game_map.tiles.tile import px_to_tiles, tiles_to_px
 
 from src.simulat.core.surfaces.surface import Surface
 
@@ -43,6 +43,7 @@ class Character:
 
     def update(self) -> None:
         """Update the character."""
+        self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
         self.rect.center = self.px_pos
         self.speed = min(self.max_speed, self.speed + 1)
         self.move(
@@ -50,13 +51,14 @@ class Character:
             self.velocity[1] * self.max_speed
         )
         self.px_pos = self.rect.center
+        self.pos = tuple(px_to_tiles(idx, False) for idx in self.px_pos)
 
     def render(self) -> None:
         """Render the character."""
         from src.simulat.core.game import simulat
         # self.sprite.fill((255, 0, 0))
         self.game_map.blit(self.sprite.surface, self.rect)
-        simulat.topbar.update_title(f"Character position: {self.px_pos}")
+        simulat.topbar.update_title(f"Character position: {self.pos}")
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
