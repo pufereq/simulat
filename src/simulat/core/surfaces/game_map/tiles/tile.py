@@ -68,12 +68,9 @@ def tiles_to_px(tiles: int | float) -> int:
     return round(tiles * TILE_SIZE)
 
 
-def px_to_tiles(px: int | tuple[int, int], round: bool) \
-        -> int | float | tuple[int, int] | tuple[float, float]:
+def px_to_tiles(px: int) -> int:
     """Convert pixels to tiles."""
-    if isinstance(px, int):
-        return px // TILE_SIZE if round else px / TILE_SIZE
-    elif isinstance(px, tuple):
-        return tuple(
-            px_to_tiles(px[i], round) for i in range(len(px))
-        )
+    if px % TILE_SIZE != 0:
+        raise ValueError(f"px ({px}) is not a multiple of TILE_SIZE "
+                         f"({TILE_SIZE})")
+    return px // TILE_SIZE
