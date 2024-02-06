@@ -68,9 +68,6 @@ def tiles_to_px(tiles: int | float) -> int:
     return round(tiles * TILE_SIZE)
 
 
-def px_to_tiles(px: int) -> int:
+def px_to_tiles(px: int) -> float:
     """Convert pixels to tiles."""
-    if px % TILE_SIZE != 0:
-        raise ValueError(f"px ({px}) is not a multiple of TILE_SIZE "
-                         f"({TILE_SIZE})")
-    return px // TILE_SIZE
+    return px / TILE_SIZE
