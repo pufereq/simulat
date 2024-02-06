@@ -7,7 +7,8 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
-from src.simulat.core.surfaces.game_map.tiles.tile import px_to_tiles, tiles_to_px
+from src.simulat.core.surfaces.game_map.tiles.tile import (px_to_tiles,
+                                                           tiles_to_px)
 
 from src.simulat.core.surfaces.surface import Surface
 
@@ -19,15 +20,22 @@ class Character:
     an enemy, an NPC, etc. Each character has its own class, which inherits
     from this class.
     """
-    def __init__(self, game_map: GameMap, pos: list[int]) -> None:
-        """Initialize the character."""
+    def __init__(self, game_map: GameMap, pos: tuple[float, float]) -> None:
+        """Initialize the character.
+
+        Args:
+            game_map (GameMap): The game map.
+            pos (tuple[float, float]): The character's position in tiles.
+        """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.first_name = "John"
         self.last_name = "Doe"
         self.name = f"{self.first_name} {self.last_name}"
 
-        self.px_pos: list[int] = pos
+        self.pos: tuple[float, float] = pos
+        self.px_pos: tuple[int, int] = (tiles_to_px(pos[0]),
+                                        tiles_to_px(pos[1]))
         self.max_speed: float = 16
         self.speed: float = 0
 
