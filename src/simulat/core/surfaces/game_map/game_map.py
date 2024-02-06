@@ -54,15 +54,13 @@ class GameMap(Surface):
     def input(self, key: ScancodeWrapper) -> None:
         """Handle input events."""
         if key[pg.K_UP]:
-            self.camera.velocity[1] += -1
+            self.player.velocity[1] += -1
         if key[pg.K_DOWN]:
-            self.camera.velocity[1] += 1
+            self.player.velocity[1] += 1
         if key[pg.K_LEFT]:
-            self.camera.velocity[0] += -1
+            self.player.velocity[0] += -1
         if key[pg.K_RIGHT]:
-            self.camera.velocity[0] += 1
-#
-        # self.camera.update()
+            self.player.velocity[0] += 1
 
     def update(self) -> None:
         self.player.update()
