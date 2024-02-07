@@ -52,7 +52,11 @@ class GameMap(Surface):
         self._init_tiles()
 
     def input(self, key: ScancodeWrapper) -> None:
-        """Handle input events."""
+        """Handle input events.
+
+        Args:
+            key: The keys pressed.
+        """
         if key[pg.K_UP]:
             self.player.velocity[1] += -1
         if key[pg.K_DOWN]:
@@ -63,6 +67,7 @@ class GameMap(Surface):
             self.player.velocity[0] += 1
 
     def update(self) -> None:
+        """Update the game map."""
         self.camera.update()
         self.player.update()
 
