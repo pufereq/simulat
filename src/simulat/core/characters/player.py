@@ -15,7 +15,7 @@ class Player(Character):
     `Character`.
     """
 
-    def __init__(self, game_map: GameMap, pos: list[int], ) -> None:
+    def __init__(self, game_map: GameMap, pos: tuple[float, float], ) -> None:
         """Initialize the player."""
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
@@ -39,20 +39,20 @@ class Player(Character):
         """Move the player.
 
         Args:
-            dx (float): Horizontal distance to move.
-            dy (float): Vertical distance to move.
+            dx (float): Horizontal distance to move (tiles).
+            dy (float): Vertical distance to move (tiles).
         """
-        pos = list(self.rect.center)
+        new_x, new_y = self.rect.center
 
         # move horizontally
         if dx != 0:
-            pos[0] += dx
+            new_x += dx
             self.velocity[0] = 0
 
         # move vertically
         if dy != 0:
-            pos[1] += dy
+            new_y += dy
             self.velocity[1] = 0
 
-        self.rect.center = pos
+        self.rect.center = (new_x, new_y)
         self._cap_position()
