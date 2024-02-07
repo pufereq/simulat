@@ -63,8 +63,8 @@ class GameMap(Surface):
             self.player.velocity[0] += 1
 
     def update(self) -> None:
-        self.player.update()
         self.camera.update()
+        self.player.update()
 
     def render(self) -> None:
         """Render the game map."""
