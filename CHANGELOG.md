@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2024-02-12
+
+### Bug Fixes
+
+- [`89d5130`](https://github.com/pufereq/simulat/commit/89d513018fc0f722e8f41ddfb758c4e6b5b54deb) **game_map.py**: fix camera lagging behind the player
+
+### Documentation
+
+- [`0d35cc8`](https://github.com/pufereq/simulat/commit/0d35cc8d62d3b3fcdb9d4f323d574437850c629b) **game_map.py**: improve docstrings
+- [`3f6671d`](https://github.com/pufereq/simulat/commit/3f6671d2ff9ea4bc65bcb6e166ef10a5baea0514) **README.md**: add README
+
+### Features
+
+- [`e4be2fa`](https://github.com/pufereq/simulat/commit/e4be2fabca4e960538da131253220c663a8fd52b) **game_map.py**: implement `Player` class as `GameMap.player`
+- [`5bf06aa`](https://github.com/pufereq/simulat/commit/5bf06aaa46e1f8fb1f54bc98ff0b640ff11c6ec3) **player.py**: add `Player` class
+- [`7fc1702`](https://github.com/pufereq/simulat/commit/7fc1702d8a5907cadc9f3b3bd66928654f3fbf94) **character.py**: add `Character` class
+
+### Miscellaneous Tasks
+
+- [`df23a8a`](https://github.com/pufereq/simulat/commit/df23a8a1b938ca20dbf6598a2477616369751b0c) **player.py**: fix typing issues
+- [`2a0fe14`](https://github.com/pufereq/simulat/commit/2a0fe1414347954f5ad78df86129adb826abc96d) **game_map.py**: modify `GameMap.input()` to move the player instead of camera
+- [`3961217`](https://github.com/pufereq/simulat/commit/39612174e6c1b0fc463c2e15eeb17ca75c71c90a) **tile.py**: remove the exception if `px` not a multiple of `TILE_SIZE` and return a float
+- [`ce45417`](https://github.com/pufereq/simulat/commit/ce45417ddb5c1b7a0df252877271420d644c738c) **character.py**: fix typing issues
+- [`37d8b8b`](https://github.com/pufereq/simulat/commit/37d8b8b58d6a32aa4b7f7af7301b1166ca6d516a) **character.py**: modify `pos` argument to be specified in tiles
+- [`672b82f`](https://github.com/pufereq/simulat/commit/672b82f2ee69ef58118be843ddba77926aa4efe1) **character.py**: add `Character.pos` measured in tiles
+- [`b6769ea`](https://github.com/pufereq/simulat/commit/b6769ea0aa89e8183209ba54d559d218aba382ef) **game_scene.py**: add call to `game_map.render()` in `GameScene`
+- [`2e7eed7`](https://github.com/pufereq/simulat/commit/2e7eed709eb2eb1ff41d4eb40b6e0043d379750d) **camera.py**: modify `Camera.update()` method to center to player
+- [`4e76017`](https://github.com/pufereq/simulat/commit/4e76017fdd18edaa8a0307348fb94cab9a168b14) **character.py**: rename `Character.pos` -> `Character.px_pos`
+- [`6bdcd54`](https://github.com/pufereq/simulat/commit/6bdcd543b8cd8a5f2ea21f50bbb74d1d9a46a549) **game_map.py**: add `GameMap.tile_surface` for tiles to be drawn on instead of main surface
+- [`d922c4d`](https://github.com/pufereq/simulat/commit/d922c4dd076020cf233f870abff55a03b15440c2) **tile.py**: rewrite `px_to_tiles` function to add support for tuples and rounding
+- [`20cb653`](https://github.com/pufereq/simulat/commit/20cb65326ae545dbe675296ffca79b6b84795596) **tile.py**: add `Tile._id` attribute
+- [`12a1195`](https://github.com/pufereq/simulat/commit/12a1195d3a447e7697df64eada3ecd6296b0bc21) **tile.py**: increase `TILE_SIZE` to 64px
+
+### Performance
+
+- [`d755475`](https://github.com/pufereq/simulat/commit/d7554750db66779f9a893819e7fb0d89b9ad98d2) **tile.py**: make tiles surfaces instead of subsurfaces of `GameMap.game_map`
+
+### Refactor
+
+- [`ef2205a`](https://github.com/pufereq/simulat/commit/ef2205ad96b620b5aff134456e4c902efbdc9290) **character.py**: modify `Character.update` method after revert of `px_to_tiles` signature change
+
+### Revert
+
+- [`f1286ae`](https://github.com/pufereq/simulat/commit/f1286aec165f6bf402d7b8c55c4cfb357cbba8d0) **tile.py**: revert the `px_to_tiles` method to only use integers
+
 ## [0.4.0] - 2024-01-27
 
 ### Features
@@ -10,6 +55,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`dc4e9a7`](https://github.com/pufereq/simulat/commit/dc4e9a7153866e60fbb2dc018da9f714fe656495) **release**: 0.4.0
 - [`3de7bbd`](https://github.com/pufereq/simulat/commit/3de7bbd5ab4d43b9737d48c8cd61a7255f5e3e14) **camera.py**: remove debug call to `simulat.topbar.update_title()`
 - [`b085c50`](https://github.com/pufereq/simulat/commit/b085c5078a5acd10d574e0845f5fed5ec18cf062) **camera.py**: convert `dx` and `dy` to `int`s
 - [`6e72ac9`](https://github.com/pufereq/simulat/commit/6e72ac9987e4ebfe9b43469a915e32b34857526e) **scene.py**: add `Scene.size` variable
