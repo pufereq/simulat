@@ -52,12 +52,14 @@ class Camera():
 
     def update(self) -> None:
         """Update the camera."""
-        self._normalize_velocity()
+        # So... I have spent a lot of time on the camera movement, and I have
+        # just realized that it is not necessary at all. The camera is just a
+        # centered rect that follows the player... I will keep the methods
+        # though, they might be useful later.
 
-        self.move(self.velocity[0] * self.speed, self.velocity[1] * self.speed)
+        self.move_to(self.game_map.player.rect.center)
 
         self._cap_camera()
-        self._decay_velocity()
 
     def _cap_camera(self) -> None:
         """Cap the camera to the game map."""
