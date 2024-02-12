@@ -32,4 +32,5 @@ class GameScene(Scene):
             (0, 0),
             self.game_map.camera.rect
         )
+        self.game_map.render()
         self.draw(dest)

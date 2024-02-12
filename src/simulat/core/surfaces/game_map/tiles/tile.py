@@ -6,8 +6,10 @@ from __future__ import annotations
 import logging as lg
 from typing import Final
 
+from src.simulat.core.surfaces.surface import Surface
 
-TILE_SIZE: Final = 32  # pixels
+
+TILE_SIZE: Final = 64  # pixels
 
 
 class Tile():
@@ -16,8 +18,12 @@ class Tile():
     A tile is a square on the game map. It can be a wall, a floor, a door, etc.
     Each tile type has its own class, which inherits from this class.
     """
+    _id = 0
+
     def __init__(self, game_map: GameMap, pos: tuple[int, int]) -> None:
         """Initialize the tile."""
+        Tile._id += 1
+
         self.game_map = game_map
         self.pos = pos
         self.pos_x = pos[0]
@@ -34,8 +40,7 @@ class Tile():
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        self.surface = self.game_map.subsurface(self.px_pos,
-                                                (self.size, self.size))
+        self.surface = Surface((self.size, self.size), self.px_pos)
 
         # NOTE: this is just a placeholder, it will be replaced by the actual
         # tile image/character depending on the tile type.
@@ -55,7 +60,7 @@ class Tile():
         directly on the game map. (see
         https://www.pygame.org/docs/ref/surface.html#pygame.Surface.subsurface).
         """
-        self.game_map.blit(self.surface.surface, self.surface.pos)
+        self.game_map.tile_surface.blit(self.surface.surface, self.surface.pos)
 
 
 def tiles_to_px(tiles: int | float) -> int:
@@ -63,9 +68,6 @@ def tiles_to_px(tiles: int | float) -> int:
     return round(tiles * TILE_SIZE)
 
 
-def px_to_tiles(px: int) -> int:
+def px_to_tiles(px: int) -> float:
     """Convert pixels to tiles."""
-    if px % TILE_SIZE != 0:
-        raise ValueError(f"px ({px}) is not a multiple of TILE_SIZE "
-                         f"({TILE_SIZE})")
-    return px // TILE_SIZE
+    return px / TILE_SIZE

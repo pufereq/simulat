@@ -7,6 +7,7 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
+from src.simulat.core.characters.player import Player
 
 from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.game_map.camera import Camera
@@ -35,6 +36,8 @@ class GameMap(Surface):
             tiles_to_px(self.MAP_SIZE[1])
         )
 
+        self.player = Player(self, (9, 9))
+
         self.camera = Camera(self)
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
@@ -45,23 +48,36 @@ class GameMap(Surface):
         simulat.focused_surfaces[self] = True
 
         # initialize tiles
+        self.tile_surface = Surface(self.surface_size)
         self._init_tiles()
 
     def input(self, key: ScancodeWrapper) -> None:
-        """Handle input events."""
+        """Handle input events.
+
+        Args:
+            key: The keys pressed.
+        """
         if key[pg.K_UP]:
-            self.camera.velocity[1] += -1
+            self.player.velocity[1] += -1
         if key[pg.K_DOWN]:
-            self.camera.velocity[1] += 1
+            self.player.velocity[1] += 1
         if key[pg.K_LEFT]:
-            self.camera.velocity[0] += -1
+            self.player.velocity[0] += -1
         if key[pg.K_RIGHT]:
-            self.camera.velocity[0] += 1
-#
-        # self.camera.update()
+            self.player.velocity[0] += 1
 
     def update(self) -> None:
+        """Update the game map."""
         self.camera.update()
+        self.player.update()
+
+    def render(self) -> None:
+        """Render the game map."""
+        self.blit(
+            self.tile_surface.surface,
+            (0, 0),
+        )
+        self.player.render()
 
     @time_it
     def _init_tiles(self):
@@ -71,3 +87,4 @@ class GameMap(Surface):
             self.tiles.append([])
             for x in range(self.MAP_SIZE[0]):
                 self.tiles[y].append(Tile(self, (x, y)))
+                self.tiles[y][x].draw()
