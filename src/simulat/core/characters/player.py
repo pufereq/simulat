@@ -23,18 +23,6 @@ class Player(Character):
         self.logger.debug("Initializing player...")
         super().__init__(game_map, pos)
 
-    def _cap_position(self) -> None:
-        """Cap the player's position to the game map's size."""
-
-        self.rect.x = max(
-            min(self.rect.x, self.game_map.width - self.rect.width),
-            0
-        )
-        self.rect.y = max(
-            min(self.rect.y, self.game_map.height - self.rect.height),
-            0
-        )
-
     def move(self, dx: int, dy: int) -> None:
         """Move the player.
 

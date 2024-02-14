@@ -49,6 +49,18 @@ class Character:
 
         self.game_map = game_map
 
+    def _cap_position(self) -> None:
+        """Cap the character's position to the game map's size."""
+
+        self.rect.x = max(
+            min(self.rect.x, self.game_map.width - self.rect.width),
+            0
+        )
+        self.rect.y = max(
+            min(self.rect.y, self.game_map.height - self.rect.height),
+            0
+        )
+
     def update(self) -> None:
         """Update the character."""
         self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
