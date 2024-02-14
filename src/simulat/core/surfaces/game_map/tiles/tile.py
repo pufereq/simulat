@@ -24,6 +24,8 @@ class Tile():
         """Initialize the tile."""
         Tile._id += 1
 
+        self.id = Tile._id
+
         self.game_map = game_map
         self.pos = pos
         self.pos_x = pos[0]
