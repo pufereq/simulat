@@ -22,25 +22,3 @@ class Player(Character):
 
         self.logger.debug("Initializing player...")
         super().__init__(game_map, pos)
-
-    def move(self, dx: int, dy: int) -> None:
-        """Move the player.
-
-        Args:
-            dx (float): Horizontal distance to move (tiles).
-            dy (float): Vertical distance to move (tiles).
-        """
-        new_x, new_y = self.rect.center
-
-        # move horizontally
-        if dx != 0:
-            new_x += dx
-            self.velocity[0] = 0
-
-        # move vertically
-        if dy != 0:
-            new_y += dy
-            self.velocity[1] = 0
-
-        self.rect.center = (new_x, new_y)
-        self._cap_position()
