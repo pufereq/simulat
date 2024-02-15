@@ -85,6 +85,7 @@ class Simulat:
 
     def run(self):
         running: bool = True
+        self.frame_delta: float = 1  # this avoids exceptions on first frame
 
         self.logger.info("Starting main loop...")
         while running:
@@ -108,7 +109,7 @@ class Simulat:
 
             # UPDATE
             # update scene
-            self.scenes[self.active_scene].update()
+            self.scenes[self.active_scene].update(self.frame_delta)
 
             # RENDER
             # draw scene
@@ -121,7 +122,7 @@ class Simulat:
             pg.display.flip()
 
             # limit framerate
-            self.clock.tick(self.FPS)
+            self.frame_delta = self.clock.tick(self.FPS) * .001  # in seconds
 
         # quit pygame
         self.logger.info("Quit event received, exiting.")

@@ -33,11 +33,10 @@ class Character:
         self.last_name = "Doe"
         self.name = f"{self.first_name} {self.last_name}"
 
-        self.pos: tuple[float, float] = pos
-        self.px_pos: tuple[int, int] = (tiles_to_px(pos[0]),
-                                        tiles_to_px(pos[1]))
-        self.max_speed: float = 16
-        self.speed: float = 0
+        self.pos: list[float] = list(pos)  # position in tiles
+        self.px_pos: list[int] = [tiles_to_px(pos[0]), tiles_to_px(pos[1])]
+
+        self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
 
@@ -61,45 +60,46 @@ class Character:
             0
         )
 
-    def update(self) -> None:
-        """Update the character."""
-        self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
-        self.rect.center = self.px_pos
-        self.speed = min(self.max_speed, self.speed + 1)
+    def update(self, delta: float) -> None:
+        """Update the character.
+
+        Args:
+            delta (float): Time passed since the last update (in seconds).
+        """
         self.move(
-            self.velocity[0] * self.max_speed,
-            self.velocity[1] * self.max_speed
+            self.velocity[0] * self.max_speed * delta,
+            self.velocity[1] * self.max_speed * delta
         )
+
+        # update px position
+        self.px_pos = [tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1])]
+        self.rect.center = self.px_pos
+
+        # cap position
+        self._cap_position()
+
+        # update tile position
         self.px_pos = self.rect.center
-        self.pos = (px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1]))
+        self.pos = [px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1])]
 
     def render(self) -> None:
         """Render the character."""
-        from src.simulat.core.game import simulat
-        # self.sprite.fill((255, 0, 0))
         self.game_map.blit(self.sprite.surface, self.rect)
-        simulat.topbar.update_title(f"Character position: {self.pos}")
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
 
         Args:
-            dx (float): Horizontal distance to move.
-            dy (float): Vertical distance to move.
+            dx (float): Horizontal distance to move (in tiles).
+            dy (float): Vertical distance to move (in tiles).
         """
 
         # move horizontally
         if dx != 0:
-            self.px_pos[0] += dx
-            self.px_pos[0] = max(0, min(self.game_map.MAP_SIZE[0] - 1,
-                                        self.px_pos[0]))
+            self.pos[0] += dx
             self.velocity[0] = 0
 
         # move vertically
         if dy != 0:
-            self.px_pos[1] += dy
-            self.px_pos[1] = max(0, min(self.game_map.MAP_SIZE[1] - 1,
-                                        self.px_pos[1]))
+            self.pos[1] += dy
             self.velocity[1] = 0
-
-        self.speed = 0
