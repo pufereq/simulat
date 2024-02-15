@@ -109,7 +109,7 @@ class Simulat:
 
             # UPDATE
             # update scene
-            self.scenes[self.active_scene].update()
+            self.scenes[self.active_scene].update(self.frame_delta)
 
             # RENDER
             # draw scene
