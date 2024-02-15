@@ -61,17 +61,27 @@ class Character:
             0
         )
 
-    def update(self) -> None:
-        """Update the character."""
-        self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
-        self.rect.center = self.px_pos
-        self.speed = min(self.max_speed, self.speed + 1)
+    def update(self, delta: float) -> None:
+        """Update the character.
+
+        Args:
+            delta (float): Time passed since the last update (in seconds).
+        """
         self.move(
-            self.velocity[0] * self.max_speed,
-            self.velocity[1] * self.max_speed
+            self.velocity[0] * self.max_speed * delta,
+            self.velocity[1] * self.max_speed * delta
         )
+
+        # update px position
+        self.px_pos = [tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1])]
+        self.rect.center = self.px_pos
+
+        # cap position
+        self._cap_position()
+
+        # update tile position
         self.px_pos = self.rect.center
-        self.pos = (px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1]))
+        self.pos = [px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1])]
 
     def render(self) -> None:
         """Render the character."""
