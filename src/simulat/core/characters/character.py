@@ -33,11 +33,10 @@ class Character:
         self.last_name = "Doe"
         self.name = f"{self.first_name} {self.last_name}"
 
-        self.pos: tuple[float, float] = pos
-        self.px_pos: tuple[int, int] = (tiles_to_px(pos[0]),
-                                        tiles_to_px(pos[1]))
-        self.max_speed: float = 16
-        self.speed: float = 0
+        self.pos: list[float] = list(pos)  # position in tiles
+        self.px_pos: list[int] = [tiles_to_px(pos[0]), tiles_to_px(pos[1])]
+
+        self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
 
