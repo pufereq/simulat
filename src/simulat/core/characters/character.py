@@ -93,22 +93,16 @@ class Character:
         """Move the character.
 
         Args:
-            dx (float): Horizontal distance to move.
-            dy (float): Vertical distance to move.
+            dx (float): Horizontal distance to move (in tiles).
+            dy (float): Vertical distance to move (in tiles).
         """
 
         # move horizontally
         if dx != 0:
-            self.px_pos[0] += dx
-            self.px_pos[0] = max(0, min(self.game_map.MAP_SIZE[0] - 1,
-                                        self.px_pos[0]))
+            self.pos[0] += dx
             self.velocity[0] = 0
 
         # move vertically
         if dy != 0:
-            self.px_pos[1] += dy
-            self.px_pos[1] = max(0, min(self.game_map.MAP_SIZE[1] - 1,
-                                        self.px_pos[1]))
+            self.pos[1] += dy
             self.velocity[1] = 0
-
-        self.speed = 0
