@@ -84,10 +84,7 @@ class Character:
 
     def render(self) -> None:
         """Render the character."""
-        from src.simulat.core.game import simulat
-        # self.sprite.fill((255, 0, 0))
         self.game_map.blit(self.sprite.surface, self.rect)
-        simulat.topbar.update_title(f"Character position: {self.pos}")
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
