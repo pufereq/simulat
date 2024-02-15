@@ -66,10 +66,10 @@ class GameMap(Surface):
         if key[pg.K_RIGHT]:
             self.player.velocity[0] += 1
 
-    def update(self) -> None:
+    def update(self, delta: float) -> None:
         """Update the game map."""
         self.camera.update()
-        self.player.update()
+        self.player.update(delta)
 
     def render(self) -> None:
         """Render the game map."""
