@@ -4,9 +4,6 @@
 from __future__ import annotations
 
 import logging as lg
-from typing import Final
-
-import pygame as pg
 from src.simulat.core.surfaces.game_map.tiles.tile import (px_to_tiles,
                                                            tiles_to_px)
 
