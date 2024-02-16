@@ -83,6 +83,10 @@ class Character:
         Args:
             delta (float): Time passed since the last update (in seconds).
         """
+        # cap velocity
+        self.velocity[0] = max(min(self.velocity[0], 1), -1)
+        self.velocity[1] = max(min(self.velocity[1], 1), -1)
+
         self.move(
             self.velocity[0] * self.max_speed * delta,
             self.velocity[1] * self.max_speed * delta
