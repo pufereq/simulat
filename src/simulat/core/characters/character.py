@@ -57,6 +57,26 @@ class Character:
             0
         )
 
+    def _check_collision(self, x: float, y: float) -> bool:
+        """Check if the character collides with a collider tile.
+
+        Args:
+            x (float): Horizontal distance to move (in tiles).
+            y (float): Vertical distance to move (in tiles).
+
+        Returns:
+            bool: True if the character collides with a collider tile, False
+            otherwise.
+        """
+        x, y = tiles_to_px(x), tiles_to_px(y)
+        for tile in self.game_map.collider_tiles:
+            if tile.is_collider:
+                new_pos_rect = self.rect.copy()
+                new_pos_rect.center = (x, y)
+                if new_pos_rect.colliderect(tile.rect):
+                    return True
+        return False
+
     def update(self, delta: float) -> None:
         """Update the character.
 
