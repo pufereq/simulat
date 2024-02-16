@@ -7,13 +7,14 @@ import logging as lg
 from typing import Final
 
 import pygame as pg
-from src.simulat.core.characters.player import Player
 
+from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.game_map.camera import Camera
 from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 from src.simulat.core.time_it import time_it
+from src.simulat.data.map_layout import MapLayout
 
 
 class GameMap(Surface):
@@ -29,7 +30,9 @@ class GameMap(Surface):
 
         self.logger.debug("Initializing game map surface...")
 
-        self.MAP_SIZE: Final = (80, 80)  # tiles
+        # self.MAP_SIZE: Final = (80, 80)  # tiles
+        self.MAP_SIZE: Final = (len(MapLayout.get_map_layout()[0]),
+                                len(MapLayout.get_map_layout()))
 
         self.surface_size = (
             tiles_to_px(self.MAP_SIZE[0]),
@@ -83,8 +86,14 @@ class GameMap(Surface):
     def _init_tiles(self):
         """Initialize the map tiles."""
         self.tiles = []
-        for y in range(self.MAP_SIZE[1]):
+        self.collider_tiles = []
+
+        for y, row in enumerate(MapLayout.get_map_layout()):
             self.tiles.append([])
-            for x in range(self.MAP_SIZE[0]):
-                self.tiles[y].append(Tile(self, (x, y)))
+            for x, char in enumerate(row):
+                self.tiles[y].append(
+                    MapLayout.get_tile_from_char(char)(self, (x, y))
+                )
                 self.tiles[y][x].draw()
+                if self.tiles[y][x].is_collider:
+                    self.collider_tiles.append(self.tiles[y][x])
