@@ -17,7 +17,6 @@ lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
                level=lg.DEBUG)
 
 module_lg = lg.getLogger(__name__)
-module_lg.setLevel(lg.DEBUG)
 
 
 class Simulat:

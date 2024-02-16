@@ -44,6 +44,10 @@ class Tile():
 
         self.surface = Surface((self.size, self.size), self.px_pos)
 
+        self.rect = self.surface.surface.get_rect(topleft=self.px_pos)
+
+        self.is_collider = False
+
         # NOTE: this is just a placeholder, it will be replaced by the actual
         # tile image/character depending on the tile type.
         self.surface.fill((self.pos_x * 16 % 255, self.pos_y * 16 % 255,
