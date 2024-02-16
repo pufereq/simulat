@@ -115,6 +115,17 @@ class Character:
             dy (float): Vertical distance to move (in tiles).
         """
 
+        # check for collision
+        if self._check_collision(self.pos[0] + dx, self.pos[1]):
+            dx = 0
+            # a sneaky hack to allow the player to touch the wall on lower
+            # frame rates
+            self.velocity[0] *= 0.5
+
+        if self._check_collision(self.pos[0], self.pos[1] + dy):
+            dy = 0
+            self.velocity[1] *= 0.5
+
         # move horizontally
         if dx != 0:
             self.pos[0] += dx
