@@ -44,7 +44,7 @@ class Character:
 
         self.sprite.fill((255, 255, 0))
 
-        self.rect = self.sprite.surface.get_rect(center=pos)
+        self.rect = self.sprite.surface.get_rect(center=self.px_pos)
 
         self.game_map = game_map
 
