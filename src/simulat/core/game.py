@@ -63,8 +63,10 @@ class Simulat:
     def _init_topbar(self):
         """Initialize topbar."""
         from src.simulat.core.surfaces.topbar import Topbar
+        from src.simulat.core.version import VERSION
 
         self.topbar = Topbar()
+        self.topbar.update_debug(f"simulat {VERSION}")
 
     def _init_scenes(self):
         """Initialize scenes."""
