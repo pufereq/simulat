@@ -33,9 +33,9 @@ class MapLayout:
 
     MAP_LAYOUT: Final[str] = """\
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-w              w                                                               w
-w             w                                                                w
-w       wwwwww                                                                 w
+wggggggggggggggw                                                               w
+wgggggggggggggw                                                                w
+wgggggggwwwwww                                                                 w
 w                                                                              w
 w                                                                              w
 w                                                                              w
