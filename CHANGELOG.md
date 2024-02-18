@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-02-18
+
+### Bug Fixes
+
+- [`a5d68f5`](https://github.com/pufereq/simulat/commit/a5d68f5099acdc666f00241c1a7968c4596839b0) **character.py**: fix wrong initial position of character
+
+### Features
+
+- [`c95d15f`](https://github.com/pufereq/simulat/commit/c95d15f49b3e7475442ce3c63b2bed7e2f479f64) **character.py**: add collision checks in `Character.move()`
+- [`0e37f19`](https://github.com/pufereq/simulat/commit/0e37f198554a7053f02f6dafac040c884cab9943) **game_map.py**: init the game map based on `MapLayout`
+- [`285077d`](https://github.com/pufereq/simulat/commit/285077d47c06c7a566d8fae11596e71d8b063ed5) **map_layout.py**: add `MapLayout` class
+- [`be6325c`](https://github.com/pufereq/simulat/commit/be6325c24e3e1f0d993981f96a2fdf95d4c7d6a7) **collider_tile.py**: add `ColliderTile` class
+- [`0647f6f`](https://github.com/pufereq/simulat/commit/0647f6f96074c9815c5acf88d7f64be83c441f23) **character.py**: add `delta` argument to `Character.update()` and modify call to `move()`
+- [`527790b`](https://github.com/pufereq/simulat/commit/527790bcdd0a919f1131b58b668346d888ef19e3) **tile.py**: add `Tile.id` attribute
+
+### Miscellaneous Tasks
+
+- [`5347e6b`](https://github.com/pufereq/simulat/commit/5347e6b252751627b3a109c22d196ff65a0bd562) **game.py**: display the game version in topbar
+- [`882a17b`](https://github.com/pufereq/simulat/commit/882a17ba78af029903ba49f3a11d9b1ee7c5ae91) **version.py**: add `VERSION` constant determined by reading the `VERSION` file
+- [`cc2f870`](https://github.com/pufereq/simulat/commit/cc2f87010ab1ebb727f5a7af4aefdb0afd8eb592) **character.py**: add velocity cap
+- [`9fd0686`](https://github.com/pufereq/simulat/commit/9fd0686069747378ea30fdb730d5f4cbcddad2c0) **character.py**: add `_check_collision()` method
+- [`00ad8f0`](https://github.com/pufereq/simulat/commit/00ad8f006a22c669f7bb9ade7e4ddedb9769df58) **character.py**: remove unnecesarry imports
+- [`d2759cc`](https://github.com/pufereq/simulat/commit/d2759cc27e54e03f8b854ce3ee61d0356372620a) **tile.py**: add `Tile.is_collider` and `Tile.rect` attributes
+- [`b1b9162`](https://github.com/pufereq/simulat/commit/b1b9162439579fb9dc06ce57f1eea9f8beeede9d) **game.py**: remove unnecesarry redefinition of logging level
+- [`3a76ba4`](https://github.com/pufereq/simulat/commit/3a76ba44d1ce86da29bfc5dc1cab4239ae655ba5) **game.py**: provide `self.frame_delta` as an argument to active scene's `update()` method
+- [`4dc2b60`](https://github.com/pufereq/simulat/commit/4dc2b605a348b10631df9a51457e458b5145643e) **game_scene.py**: add `delta` argument to `GameScene.update()` and provide it to `GameScene.game_map.update()`
+- [`52ed3e0`](https://github.com/pufereq/simulat/commit/52ed3e08b0483a40b07768dacc9cd4f1fe7d9169) **game_map.py**: add `delta` argument to `GameMap.update()` and provide it to `GameMap.player.update()`
+- [`937e0c6`](https://github.com/pufereq/simulat/commit/937e0c6973741c7b033acc2acafc187599b249d9) **scene.py**: add `delta` argument to `Scene.update()`
+- [`02ee0bf`](https://github.com/pufereq/simulat/commit/02ee0bf76721fcb919f6b4bceed852b0bc953583) **player.py**: add `Player.render()` method to display player position on topbar
+- [`3b667e9`](https://github.com/pufereq/simulat/commit/3b667e902edae0bb9b42d719501b35cbd4efacd4) **character.py**: remove the position (topbar) info for move to `Player.render()` method
+- [`98747e7`](https://github.com/pufereq/simulat/commit/98747e78e5a8b793d27955a780e9c7b2e9d9f140) **character.py**: modify `Character.move()` method to alter position (in tiles) instead of pixel
+- [`8f39d8d`](https://github.com/pufereq/simulat/commit/8f39d8d22e7ea5b933a0e0bed86f9875279a3495) **character.py**: change `Character.pos`, `max_speed` to tile scale
+- [`1e45142`](https://github.com/pufereq/simulat/commit/1e451423c47a5e7dde782c3fbf96004512c78315) **game.py**: add `Simulat.frame_delta` attribute
+- [`35800a7`](https://github.com/pufereq/simulat/commit/35800a79b615215e247207e74f22c0a28157b990) **player.py**: remove duplicate `Player.move()` method
+- [`c4faa39`](https://github.com/pufereq/simulat/commit/c4faa3960d36e30491c92a9699779f74a5e81f47) move `Player._cap_position()` to parent class `Character._cap_position()`
+
+### Build
+
+- [`5ed6c37`](https://github.com/pufereq/simulat/commit/5ed6c3731cbdf7f15e2f996e9dcdd6cbd1d15822) **.release-it.toml**: write the new version to `VERSION` file
+- [`df4ddd3`](https://github.com/pufereq/simulat/commit/df4ddd30c19014d332a62f6d2c94ee57bc8c4680) **VERSION**: add `VERSION` file
+
 ## [0.5.0] - 2024-02-12
 
 ### Bug Fixes
@@ -21,6 +62,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`9c4ecec`](https://github.com/pufereq/simulat/commit/9c4ecec1279e6de4c911a683b07ddb8b8a422313) **release**: 0.5.0
 - [`df23a8a`](https://github.com/pufereq/simulat/commit/df23a8a1b938ca20dbf6598a2477616369751b0c) **player.py**: fix typing issues
 - [`2a0fe14`](https://github.com/pufereq/simulat/commit/2a0fe1414347954f5ad78df86129adb826abc96d) **game_map.py**: modify `GameMap.input()` to move the player instead of camera
 - [`3961217`](https://github.com/pufereq/simulat/commit/39612174e6c1b0fc463c2e15eeb17ca75c71c90a) **tile.py**: remove the exception if `px` not a multiple of `TILE_SIZE` and return a float
