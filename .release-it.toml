@@ -1,6 +1,6 @@
 [hooks]
 "before:init" = ["git pull origin main"]
-"after:bump" = ["git-cliff -o CHANGELOG.md -t ${version}", "git add CHANGELOG.md"]
+"after:bump" = ["git-cliff -o CHANGELOG.md -t ${version}", "echo \"${version}\" > VERSION", "git add CHANGELOG.md VERSION"]
 
 [git]
 requireBranch = "main"
