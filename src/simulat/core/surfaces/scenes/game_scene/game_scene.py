@@ -22,9 +22,13 @@ class GameScene(Scene):
         # initialize map
         self.game_map = GameMap()
 
-    def update(self) -> None:
-        """Update the game scene."""
-        self.game_map.update()
+    def update(self, delta: float) -> None:
+        """Update the game scene.
+
+        Args:
+            delta (float): The time passed since the last frame.
+        """
+        self.game_map.update(delta)
 
     def render(self, dest) -> None:
         self.surface.blit(

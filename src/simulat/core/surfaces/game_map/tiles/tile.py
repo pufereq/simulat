@@ -24,6 +24,8 @@ class Tile():
         """Initialize the tile."""
         Tile._id += 1
 
+        self.id = Tile._id
+
         self.game_map = game_map
         self.pos = pos
         self.pos_x = pos[0]
@@ -41,6 +43,10 @@ class Tile():
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.surface = Surface((self.size, self.size), self.px_pos)
+
+        self.rect = self.surface.surface.get_rect(topleft=self.px_pos)
+
+        self.is_collider = False
 
         # NOTE: this is just a placeholder, it will be replaced by the actual
         # tile image/character depending on the tile type.

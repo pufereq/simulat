@@ -23,36 +23,9 @@ class Player(Character):
         self.logger.debug("Initializing player...")
         super().__init__(game_map, pos)
 
-    def _cap_position(self) -> None:
-        """Cap the player's position to the game map's size."""
-
-        self.rect.x = max(
-            min(self.rect.x, self.game_map.width - self.rect.width),
-            0
+    def render(self) -> None:
+        from src.simulat.core.game import simulat
+        simulat.topbar.update_title(
+            f"XY: {self.pos[0]:.3f}, {self.pos[1]:.3f}"
         )
-        self.rect.y = max(
-            min(self.rect.y, self.game_map.height - self.rect.height),
-            0
-        )
-
-    def move(self, dx: int, dy: int) -> None:
-        """Move the player.
-
-        Args:
-            dx (float): Horizontal distance to move (tiles).
-            dy (float): Vertical distance to move (tiles).
-        """
-        new_x, new_y = self.rect.center
-
-        # move horizontally
-        if dx != 0:
-            new_x += dx
-            self.velocity[0] = 0
-
-        # move vertically
-        if dy != 0:
-            new_y += dy
-            self.velocity[1] = 0
-
-        self.rect.center = (new_x, new_y)
-        self._cap_position()
+        return super().render()

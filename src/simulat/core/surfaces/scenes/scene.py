@@ -43,8 +43,12 @@ class Scene:
                 (255, 0, 0)
             )
 
-    def update(self) -> None:
-        """Update the scene."""
+    def update(self, delta: float) -> None:
+        """Update the scene.
+
+        Args:
+            delta (float): The time passed since the last frame.
+        """
         pass
 
     def render(self, dest) -> None:
