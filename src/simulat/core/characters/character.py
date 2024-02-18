@@ -4,9 +4,6 @@
 from __future__ import annotations
 
 import logging as lg
-from typing import Final
-
-import pygame as pg
 from src.simulat.core.surfaces.game_map.tiles.tile import (px_to_tiles,
                                                            tiles_to_px)
 
@@ -44,7 +41,7 @@ class Character:
 
         self.sprite.fill((255, 255, 0))
 
-        self.rect = self.sprite.surface.get_rect(center=pos)
+        self.rect = self.sprite.surface.get_rect(center=self.px_pos)
 
         self.game_map = game_map
 
@@ -60,12 +57,36 @@ class Character:
             0
         )
 
+    def _check_collision(self, x: float, y: float) -> bool:
+        """Check if the character collides with a collider tile.
+
+        Args:
+            x (float): Horizontal distance to move (in tiles).
+            y (float): Vertical distance to move (in tiles).
+
+        Returns:
+            bool: True if the character collides with a collider tile, False
+            otherwise.
+        """
+        x, y = tiles_to_px(x), tiles_to_px(y)
+        for tile in self.game_map.collider_tiles:
+            if tile.is_collider:
+                new_pos_rect = self.rect.copy()
+                new_pos_rect.center = (x, y)
+                if new_pos_rect.colliderect(tile.rect):
+                    return True
+        return False
+
     def update(self, delta: float) -> None:
         """Update the character.
 
         Args:
             delta (float): Time passed since the last update (in seconds).
         """
+        # cap velocity
+        self.velocity[0] = max(min(self.velocity[0], 1), -1)
+        self.velocity[1] = max(min(self.velocity[1], 1), -1)
+
         self.move(
             self.velocity[0] * self.max_speed * delta,
             self.velocity[1] * self.max_speed * delta
@@ -93,6 +114,17 @@ class Character:
             dx (float): Horizontal distance to move (in tiles).
             dy (float): Vertical distance to move (in tiles).
         """
+
+        # check for collision
+        if self._check_collision(self.pos[0] + dx, self.pos[1]):
+            dx = 0
+            # a sneaky hack to allow the player to touch the wall on lower
+            # frame rates
+            self.velocity[0] *= 0.5
+
+        if self._check_collision(self.pos[0], self.pos[1] + dy):
+            dy = 0
+            self.velocity[1] *= 0.5
 
         # move horizontally
         if dx != 0:
