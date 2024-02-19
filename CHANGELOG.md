@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2024-02-19
+
+### Features
+
+- [`a1fdaf9`](https://github.com/pufereq/simulat/commit/a1fdaf9a7d6eed4db1a05152b29ce4d55000a5ce) **time_it.py**: add `Timer()` class
+- [`9b4d6a1`](https://github.com/pufereq/simulat/commit/9b4d6a1c6f7a94b8a2313a770717fcdac3bec8b9) **decorative_tile.py**: add `DecorativeTile` class
+- [`3b1b879`](https://github.com/pufereq/simulat/commit/3b1b8792162eac7c6f9aeb71d5b7b417480e94b9) **player.py**: display tile name by player position on topbar
+
+### Miscellaneous Tasks
+
+- [`0375a94`](https://github.com/pufereq/simulat/commit/0375a949863aa14e7ab4a78143a9fe40deb3c882) **game.py**: set window title to game name, version and FPS
+- [`f42a27d`](https://github.com/pufereq/simulat/commit/f42a27df453396f9169b93bd54a75826d4674741) **game_scene.py**: remove the blit area from `GameScene.render()`
+- [`40e42bd`](https://github.com/pufereq/simulat/commit/40e42bdf78365919048dc2a53862a8597a2fd82b) **character.py**: modify `Character.render()` to blit on `GameMap.character_surface`
+- [`2287abe`](https://github.com/pufereq/simulat/commit/2287abe81cd513507d98939dd3a921bdacf8b069) **game_map.py**: change render order
+- [`350c159`](https://github.com/pufereq/simulat/commit/350c1592d7b367cf78f45e0c724edba5011fe309) **game_map.py**: add `GameMap.character_surface`
+- [`98279f9`](https://github.com/pufereq/simulat/commit/98279f995bfe524feebaba8a3f25156b9bd677ad) **map_layout.py**: add decorative tiles to the map
+- [`1cd5d49`](https://github.com/pufereq/simulat/commit/1cd5d49f80e70443549a429576d870e7f3f88148) **map_layout.py**: assign char `g` to `DecorativeTile` in map layout
+- [`8e66974`](https://github.com/pufereq/simulat/commit/8e66974e9cb2c60d26d1fda21b3fe912efae323f) **collider_tile.py**: add `ColliderTile.name` attribute
+- [`72cb540`](https://github.com/pufereq/simulat/commit/72cb540dd0b398c5162e3516f23d940814c3590c) **tile.py**: add `Tile.name` attribute
+
+### Performance
+
+- [`dca5111`](https://github.com/pufereq/simulat/commit/dca511125ba26b3e73c43fb1b5340b7ff1c15bcc) **game_map.py**: optimize game map rendering process
+
 ## [0.6.0] - 2024-02-18
 
 ### Bug Fixes
@@ -19,6 +43,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`7978c57`](https://github.com/pufereq/simulat/commit/7978c57821c26169f9b3e81c1d7984c0ccf2aebf) **release**: 0.6.0
 - [`5347e6b`](https://github.com/pufereq/simulat/commit/5347e6b252751627b3a109c22d196ff65a0bd562) **game.py**: display the game version in topbar
 - [`882a17b`](https://github.com/pufereq/simulat/commit/882a17ba78af029903ba49f3a11d9b1ee7c5ae91) **version.py**: add `VERSION` constant determined by reading the `VERSION` file
 - [`cc2f870`](https://github.com/pufereq/simulat/commit/cc2f87010ab1ebb727f5a7af4aefdb0afd8eb592) **character.py**: add velocity cap
