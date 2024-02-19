@@ -6,8 +6,9 @@ from __future__ import annotations
 import logging as lg
 from typing import Final
 
-from src.simulat.core.surfaces.surface import Surface
+import pygame as pg
 
+from src.simulat.core.surfaces.surface import Surface
 
 TILE_SIZE: Final = 64  # pixels
 
@@ -61,6 +62,18 @@ class Tile():
     def __str__(self) -> str:
         """Return a user-friendly representation of the tile."""
         return f"{type(self).__name__} at {self.pos}"
+
+    def _scale_texture(self, texture: pg.Surface) -> pg.Surface:
+        """Scale the texture to the tile size."""
+        return pg.transform.scale(texture, (self.size, self.size))
+
+    def _set_texture(self, texture: pg.Surface) -> None:
+        """Set the tile texture."""
+        self.surface.surface = self._scale_texture(texture)
+
+    def _get_texture_from_path(self, path: str) -> pg.Surface:
+        """Return the texture from the path."""
+        return pg.image.load(path)
 
     def draw(self):
         """Draw the tile. NOTE: this method is not used. The tiles are drawn
