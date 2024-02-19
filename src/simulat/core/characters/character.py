@@ -105,7 +105,7 @@ class Character:
 
     def render(self) -> None:
         """Render the character."""
-        self.game_map.blit(self.sprite.surface, self.rect)
+        self.game_map.character_surface.blit(self.sprite.surface, self.rect)
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
