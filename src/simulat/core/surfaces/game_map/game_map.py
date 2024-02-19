@@ -73,8 +73,8 @@ class GameMap(Surface):
 
     def update(self, delta: float) -> None:
         """Update the game map."""
-        self.camera.update()
         self.player.update(delta)
+        self.camera.update()
 
     def render(self) -> None:
         """Render the game map."""
