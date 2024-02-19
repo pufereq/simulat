@@ -40,6 +40,8 @@ class GameMap(Surface):
         )
 
         self.player = Player(self, (9, 9))
+        self.character_surface = Surface(self.surface_size)
+        self.character_surface.surface.set_colorkey((0, 0, 0))
 
         self.camera = Camera(self)
 
