@@ -36,7 +36,10 @@ class Simulat:
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
+        from src.simulat.core.version import VERSION
+
         pg.init()
+        pg.display.set_caption(f"simulat {VERSION}")
 
         # initialize screen
         self.screen = pg.display.set_mode(self.SIZE)
@@ -85,6 +88,7 @@ class Simulat:
         self.scenes[game_scene.id] = game_scene
 
     def run(self):
+        from src.simulat.core.version import VERSION
         running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
 
@@ -118,6 +122,8 @@ class Simulat:
 
             # draw topbar
             self.screen.blit(self.topbar.surface, (0, 0))
+
+            pg.display.set_caption(f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}")
 
             # update screen
             pg.display.flip()
