@@ -18,10 +18,10 @@ class DecorativeTile(Tile):
         super().__init__(game_map, pos)
 
         self.name = "Decorative Tile"
+        self.surface.fill((10, 128, 10))
 
         self.is_collider = False
 
     def draw(self) -> None:
         """Draw the decorative tile."""
-        self.surface.fill((10, 128, 10))
         super().draw()
