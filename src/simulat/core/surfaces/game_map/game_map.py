@@ -40,6 +40,8 @@ class GameMap(Surface):
         )
 
         self.player = Player(self, (9, 9))
+        self.character_surface = Surface(self.surface_size)
+        self.character_surface.surface.set_colorkey((0, 0, 0))
 
         self.camera = Camera(self)
 
@@ -71,16 +73,46 @@ class GameMap(Surface):
 
     def update(self, delta: float) -> None:
         """Update the game map."""
-        self.camera.update()
         self.player.update(delta)
+        self.camera.update()
 
     def render(self) -> None:
         """Render the game map."""
+        # Calculate the distance the player can move in one frame.
+        # We only want to fill the area the player has moved out of, not the
+        # whole map.
+        player_step_x = self.player.max_speed * simulat.frame_delta + self.player.rect.width
+        player_step_y = self.player.max_speed * simulat.frame_delta + self.player.rect.height
+
+        # Fill the area the player has moved out of with black (color key).
+        self.character_surface.surface.fill(
+            (0, 0, 0),
+            (
+                self.player.rect.left - player_step_x,
+                self.player.rect.top - player_step_y,
+                self.player.rect.right + player_step_x,
+                self.player.rect.bottom + player_step_y
+            )
+        )
+
+        # Render the visible parts of the tile surface onto the main
+        # (game_map) surface.
         self.blit(
             self.tile_surface.surface,
             (0, 0),
+            self.camera.rect
         )
+
+        # Render the player onto the character surface.
         self.player.render()
+
+        # Render the visible parts of character surface onto the main
+        # (game_map) surface.
+        self.blit(
+            self.character_surface.surface,
+            (0, 0),
+            self.camera.rect
+        )
 
     @time_it
     def _init_tiles(self):

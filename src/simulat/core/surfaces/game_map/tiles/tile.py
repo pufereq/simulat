@@ -25,6 +25,7 @@ class Tile():
         Tile._id += 1
 
         self.id = Tile._id
+        self.name = "Tile"
 
         self.game_map = game_map
         self.pos = pos

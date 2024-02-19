@@ -26,6 +26,7 @@ class Player(Character):
     def render(self) -> None:
         from src.simulat.core.game import simulat
         simulat.topbar.update_title(
-            f"XY: {self.pos[0]:.3f}, {self.pos[1]:.3f}"
+            f"XY: {self.pos[0]:.3f}, {self.pos[1]:.3f} on "
+            f"{self.game_map.tiles[int(self.pos[1])][int(self.pos[0])].name}"
         )
         return super().render()

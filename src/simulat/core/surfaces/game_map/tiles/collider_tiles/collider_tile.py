@@ -17,6 +17,8 @@ class ColliderTile(Tile):
         """Initialize the collider tile."""
         super().__init__(game_map, pos)
 
+        self.name = "Collider Tile"
+
         self.is_collider = True
 
     def __repr__(self) -> str:

@@ -21,3 +21,28 @@ def time_it(func):
         logger.debug(f"{func.__name__} took {end - start} seconds to run.")
         return result
     return wrapper
+
+
+class Timer:
+    """Timer context class.
+
+    Usage:
+    ```python
+    with Timer() as t:
+        # do something
+    print(t.elapsed)
+    ```
+    """
+    def __init__(self) -> None:
+        """Initialize the timer."""
+        pass
+
+    def __enter__(self) -> Timer:
+        """Enter the context."""
+        self.start = t.perf_counter()
+        return self
+
+    def __exit__(self, *args):
+        """Exit the context."""
+        self.end = t.perf_counter()
+        self.elapsed = self.end - self.start
