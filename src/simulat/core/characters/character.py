@@ -88,6 +88,11 @@ class Character:
         self.velocity[0] = max(min(self.velocity[0], 1), -1)
         self.velocity[1] = max(min(self.velocity[1], 1), -1)
 
+        # normalize diagonal movement
+        if self.velocity[0] != 0 and self.velocity[1] != 0:
+            self.velocity[0] *= 0.7071
+            self.velocity[1] *= 0.7071
+
         # update speed
         self.current_speed = self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
