@@ -36,6 +36,7 @@ class Character:
         self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
+        self.current_speed = 0
 
         self.sprite = Surface((64, 64))
 
@@ -86,6 +87,9 @@ class Character:
         # cap velocity
         self.velocity[0] = max(min(self.velocity[0], 1), -1)
         self.velocity[1] = max(min(self.velocity[1], 1), -1)
+
+        # update speed
+        self.current_speed = self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
         self.move(
             self.velocity[0] * self.max_speed * delta,
