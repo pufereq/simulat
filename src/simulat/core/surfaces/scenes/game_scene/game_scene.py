@@ -23,7 +23,7 @@ class GameScene(Scene):
         self.sidebar = Sidebar(self)
 
         # initialize map
-        self.game_map = GameMap()
+        self.game_map = GameMap(self)
 
     def update(self, delta: float) -> None:
         """Update the game scene.
