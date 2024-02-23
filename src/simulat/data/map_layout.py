@@ -4,12 +4,11 @@
 from __future__ import annotations
 
 from typing import Final
-from src.simulat.core.surfaces.game_map.tiles.decorative_tiles. \
-    decorative_tile import DecorativeTile
 
-from src.simulat.core.surfaces.game_map.tiles.collider_tiles.collider_tile \
-    import ColliderTile
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile
+from src.simulat.core.surfaces.game_map.tiles.collider_tiles.collider_tile import \
+    ColliderTile
+from src.simulat.core.surfaces.game_map.tiles.decorative_tiles.decorative_tile import \
+    DecorativeTile
 
 
 class MapLayout:
@@ -27,15 +26,14 @@ class MapLayout:
     """
     CHAR_TO_TILE: Final = {
         "w": ColliderTile,
-        "g": DecorativeTile,
-        " ": Tile
+        " ": DecorativeTile,
     }
 
     MAP_LAYOUT: Final[str] = """\
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-wggggggggggggggw                                                               w
-wgggggggggggggw                                                                w
-wgggggggwwwwww                                                                 w
+w              w                                                               w
+w             w                                                                w
+w       wwwwww                                                                 w
 w                                                                              w
 w                                                                              w
 w                                                                              w
