@@ -121,6 +121,9 @@ class GameMap(Surface):
             self.camera.rect
         )
 
+        # draw onto the game scene
+        self.scene.surface.blit(self.surface, (0, 0))
+
     @time_it
     def _init_tiles(self):
         """Initialize the map tiles."""
