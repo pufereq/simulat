@@ -3,9 +3,9 @@
 
 from __future__ import annotations
 
-from src.simulat.core.surfaces.scenes.scene import Scene
-
 from src.simulat.core.surfaces.game_map.game_map import GameMap
+from src.simulat.core.surfaces.game_map.sidebar import Sidebar
+from src.simulat.core.surfaces.scenes.scene import Scene
 
 
 class GameScene(Scene):
@@ -19,8 +19,11 @@ class GameScene(Scene):
         """Initialize the game scene."""
         super().__init__()
 
+        # initialize sidebar
+        self.sidebar = Sidebar(self)
+
         # initialize map
-        self.game_map = GameMap()
+        self.game_map = GameMap(self)
 
     def update(self, delta: float) -> None:
         """Update the game scene.
@@ -36,4 +39,5 @@ class GameScene(Scene):
             (0, 0),
         )
         self.game_map.render()
+        self.sidebar.render()
         self.draw(dest)
