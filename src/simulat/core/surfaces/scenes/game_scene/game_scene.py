@@ -34,10 +34,6 @@ class GameScene(Scene):
         self.game_map.update(delta)
 
     def render(self, dest) -> None:
-        self.surface.blit(
-            self.game_map.surface,
-            (0, 0),
-        )
         self.game_map.render()
         self.sidebar.render()
         self.draw(dest)
