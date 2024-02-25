@@ -3,9 +3,12 @@
 
 from __future__ import annotations
 
-from src.simulat.core.surfaces.scenes.scene import Scene
+import pygame as pg
 
 from src.simulat.core.surfaces.game_map.game_map import GameMap
+from src.simulat.core.surfaces.game_map.sidebar import Sidebar
+from src.simulat.core.surfaces.scenes.scene import Scene
+from src.simulat.core.surfaces.surface import Surface
 
 
 class GameScene(Scene):
@@ -19,8 +22,21 @@ class GameScene(Scene):
         """Initialize the game scene."""
         super().__init__()
 
+        # initialize sidebar
+        self.sidebar = Sidebar(self)
+
         # initialize map
-        self.game_map = GameMap()
+        self.game_map = GameMap(self)
+
+        # initialize corner overlay (rounded corners)
+        self.corner_overlay = Surface(self.game_map.display_size)
+        self.corner_overlay.surface.set_colorkey((255, 0, 255))
+        pg.draw.rect(
+            self.corner_overlay.surface,
+            (255, 0, 255),
+            (0, 0, *self.game_map.display_size),
+            border_radius=8,
+        )
 
     def update(self, delta: float) -> None:
         """Update the game scene.
@@ -31,9 +47,11 @@ class GameScene(Scene):
         self.game_map.update(delta)
 
     def render(self, dest) -> None:
+        self.game_map.render()
+        self.sidebar.render()
+
         self.surface.blit(
-            self.game_map.surface,
+            self.corner_overlay.surface,
             (0, 0),
         )
-        self.game_map.render()
         self.draw(dest)

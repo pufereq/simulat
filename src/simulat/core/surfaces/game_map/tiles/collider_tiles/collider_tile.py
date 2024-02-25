@@ -20,6 +20,7 @@ class ColliderTile(Tile):
         self.name = "Collider Tile"
 
         self.is_collider = True
+        self.surface.fill((255, 0, 0))
 
     def __repr__(self) -> str:
         """Return a string representation of the collider tile."""
@@ -31,5 +32,4 @@ class ColliderTile(Tile):
 
     def draw(self) -> None:
         """Draw the collider tile."""
-        self.surface.fill((255, 0, 0))
         super().draw()

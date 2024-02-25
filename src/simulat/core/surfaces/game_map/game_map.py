@@ -24,11 +24,13 @@ class GameMap(Surface):
     tiles (see `Tile` class) that can be walls, floors, doors, etc. The game
     map is a subsurface of the game scene.
     """
-    def __init__(self) -> None:
+    def __init__(self, scene: Scene) -> None:
         """Initialize the game map."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.logger.debug("Initializing game map surface...")
+
+        self.scene = scene
 
         # self.MAP_SIZE: Final = (80, 80)  # tiles
         self.MAP_SIZE: Final = (len(MapLayout.get_map_layout()[0]),
@@ -37,6 +39,11 @@ class GameMap(Surface):
         self.surface_size = (
             tiles_to_px(self.MAP_SIZE[0]),
             tiles_to_px(self.MAP_SIZE[1])
+        )
+
+        self.display_size: tuple = (
+            scene.size[0] - scene.sidebar.SIDEBAR_SIZE[0],
+            scene.size[1]
         )
 
         self.player = Player(self, (9, 9))
@@ -113,6 +120,9 @@ class GameMap(Surface):
             (0, 0),
             self.camera.rect
         )
+
+        # draw onto the game scene
+        self.scene.surface.blit(self.surface, (0, 0))
 
     @time_it
     def _init_tiles(self):

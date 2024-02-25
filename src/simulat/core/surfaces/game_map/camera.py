@@ -29,7 +29,7 @@ class Camera():
 
         self.game_map = game_map
 
-        self.rect = pg.Rect((0, 0), (simulat.SIZE[0], simulat.SIZE[1] - simulat.topbar.height))
+        self.rect = pg.Rect((0, 0), self.game_map.display_size)
 
         self.speed: int = tiles_to_px(0.25)
         self.actual_speed: float = 0
