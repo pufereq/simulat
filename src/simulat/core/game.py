@@ -91,6 +91,8 @@ class Simulat:
         from src.simulat.core.version import VERSION
         running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
+        self.time_s: float = 0
+        self.time_format: str = f"{self.time_s % 60}:{self.time_s // 60}"
 
         self.logger.info("Starting main loop...")
         while running:
@@ -99,6 +101,11 @@ class Simulat:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_F1 and pg.key.get_mods() & pg.KMOD_SHIFT:
+                        self.time_s -= 60
+                    elif event.key == pg.K_F1:
+                        self.time_s += 60
 
             self.screen.fill((30, 30, 30))
 
@@ -113,6 +120,15 @@ class Simulat:
                     surface.input(keys)
 
             # UPDATE
+            self.time_s += self.frame_delta * 4
+            if self.time_s > 1440:
+                self.time_s = 0 + (self.time_s - 1440)
+            elif self.time_s < 0:
+                self.time_s = 1440 + self.time_s
+            self.time_format: str = f"Time: {str(int(self.time_s // 60)).zfill(2)}:{str(int(self.time_s % 60)).zfill(2)}"
+
+            self.topbar.update_details(self.time_format)
+
             # update scene
             self.scenes[self.active_scene].update(self.frame_delta)
 
