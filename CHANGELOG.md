@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.8.0] - 2024-02-25
+
+### Bug Fixes
+
+- [`5411b13`](https://github.com/pufereq/simulat/commit/5411b1356f108df2e860d13b4d0f4e763e3c9ae3) **game_scene.py**: fix double blit of `GameMap.surface` in `GameScene.render()`
+
+### Features
+
+- [`866a581`](https://github.com/pufereq/simulat/commit/866a58119a31803d343f0ed4a406dbcaeb8c9ea1) **game_scene.py**: add rounded corners around game map
+- [`52e8f17`](https://github.com/pufereq/simulat/commit/52e8f17755e2286cfad235b37cef2f8e4257c9c1) **sidebar.py**: add a sidebar to game scene
+
+### Miscellaneous Tasks
+
+- [`2384633`](https://github.com/pufereq/simulat/commit/2384633bc033b9ec5315157281fdff040a1ef163) **decorative_tile.py**: change the tile color to a more pleasant shade
+- [`0605729`](https://github.com/pufereq/simulat/commit/0605729910ca8d834a91ced1ac26e4390b4485d7) **game_scene.py**: add `self` as an argument to `GameMap()` constructor
+- [`4425995`](https://github.com/pufereq/simulat/commit/44259955b6563b1709a74ebaa018715ac29af6c5) **game_scene.py**: add `GameScene.sidebar` and render it
+- [`0cd3315`](https://github.com/pufereq/simulat/commit/0cd3315b82bac172ecadfdedd62e7c612dd2336b) **game_map.py**: blit the `GameMap.surface` onto the scene surface in `render()`
+- [`e10f8e3`](https://github.com/pufereq/simulat/commit/e10f8e350ba588d264278148198b9e32a687ab1f) **camera.py**: use game map's `display_size` as size of the camera rect
+- [`73a7b47`](https://github.com/pufereq/simulat/commit/73a7b47274aaba7207082bc78802939969ea3a3c) **game_map.py**: add `GameMap.display_size` attribute
+- [`6850b94`](https://github.com/pufereq/simulat/commit/6850b94b8645a088a674b23e32aa889d370460fb) **map_layout.py**: remove `g` character and assign `DecorativeTile` to `" "`
+- [`677c76c`](https://github.com/pufereq/simulat/commit/677c76ca5d56880d6e06bb17b75f652c1ac686b5) **character.py**: normalize diagonal movement of characters
+- [`8399e8c`](https://github.com/pufereq/simulat/commit/8399e8cc2ca2519dfacbde868eeb5a04d4116615) **character.py**: add `Character.current_speed` variable and speed calculation
+
+### Performance
+
+- [`2b07718`](https://github.com/pufereq/simulat/commit/2b07718282a19bb69512c736ddaf050b47d48531) **decorative_tile.py**: fill surface only once instead every `draw()` call
+- [`7a3953e`](https://github.com/pufereq/simulat/commit/7a3953ee5d2a0df931d65858371d8c93e17123dd) **collider_tile.py**: fill surface only once instead every `draw()` call
+
 ## [0.7.0] - 2024-02-19
 
 ### Features
@@ -12,6 +40,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`a83bf06`](https://github.com/pufereq/simulat/commit/a83bf06f085db11e94e55fa14825ba47b6eb4a7a) **release**: 0.7.0
 - [`0375a94`](https://github.com/pufereq/simulat/commit/0375a949863aa14e7ab4a78143a9fe40deb3c882) **game.py**: set window title to game name, version and FPS
 - [`f42a27d`](https://github.com/pufereq/simulat/commit/f42a27df453396f9169b93bd54a75826d4674741) **game_scene.py**: remove the blit area from `GameScene.render()`
 - [`40e42bd`](https://github.com/pufereq/simulat/commit/40e42bdf78365919048dc2a53862a8597a2fd82b) **character.py**: modify `Character.render()` to blit on `GameMap.character_surface`
