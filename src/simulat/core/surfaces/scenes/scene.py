@@ -40,7 +40,7 @@ class Scene:
             self.surface.add_text(
                 "FALLBACK SCENE",
                 (20, 20),
-                (255, 0, 0)
+                color="#ff0000"
             )
 
     def update(self, delta: float) -> None:
