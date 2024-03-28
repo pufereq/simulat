@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2024-03-28
+
+### Features
+
+- [`67f8def`](https://github.com/pufereq/simulat/commit/67f8def5e0cc107747ac6dfaa3ed1f2e194f3dbd) **surface.py**: add support for hex colors in `Surface.add_text` method
+- [`850552c`](https://github.com/pufereq/simulat/commit/850552c04f75b3c5192cb5d525e2edcdac5b8066) **topbar.py**: use the simulat color palette
+- [`135c421`](https://github.com/pufereq/simulat/commit/135c421d60faf1349a41cb231e4a13423c04a7dc) **colors.py**: add color palettes
+
+### Miscellaneous Tasks
+
+- [`5543259`](https://github.com/pufereq/simulat/commit/55432591e72500730226bbe16a60e08e7dfbfda9) **game_scene.py**: change the game map view to be rounded only on top right
+- [`1e4dfe7`](https://github.com/pufereq/simulat/commit/1e4dfe7c154ea5472929922bc15d5d69168e2268) **game_scene.py**: use the simulat color palette
+- [`df4b051`](https://github.com/pufereq/simulat/commit/df4b051f5bd01eb26bf18af3c90202b9731b1b9e) **scene.py**: modify the color argument of the fallback scene text call
+- [`21d6d1b`](https://github.com/pufereq/simulat/commit/21d6d1b7a6f46ab9fa98eb345b8841af67ffe498) **sidebar.py**: use the simulat color palette
+- [`8e9b3b3`](https://github.com/pufereq/simulat/commit/8e9b3b3f4e42a3ff6a316dbb33e4e5e33ccb74e9) **surface.py**: add hex color support to `Surface.fill` method
+- [`b748de9`](https://github.com/pufereq/simulat/commit/b748de9e2553708398637afff643ba5dcfff8444) **topbar.py**: add color lists
+
 ## [0.8.0] - 2024-02-25
 
 ### Bug Fixes
@@ -15,6 +32,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`1bba274`](https://github.com/pufereq/simulat/commit/1bba274ef15ce6523a6d46846bd0072095a016da) **release**: 0.8.0
 - [`2384633`](https://github.com/pufereq/simulat/commit/2384633bc033b9ec5315157281fdff040a1ef163) **decorative_tile.py**: change the tile color to a more pleasant shade
 - [`0605729`](https://github.com/pufereq/simulat/commit/0605729910ca8d834a91ced1ac26e4390b4485d7) **game_scene.py**: add `self` as an argument to `GameMap()` constructor
 - [`4425995`](https://github.com/pufereq/simulat/commit/44259955b6563b1709a74ebaa018715ac29af6c5) **game_scene.py**: add `GameScene.sidebar` and render it
