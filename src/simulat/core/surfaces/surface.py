@@ -55,7 +55,8 @@ class Surface:
         """
         return SubSurface(self, pos, size)
 
-    def fill(self, color: tuple[int, int, int]):
+    def fill(self, color: tuple[int, int, int] |
+             tuple[int, int, int, int] | str) -> pg.Rect:
         """Fill the surface with a color.
 
         Args:
