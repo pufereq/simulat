@@ -9,6 +9,7 @@ from src.simulat.core.surfaces.game_map.game_map import GameMap
 from src.simulat.core.surfaces.game_map.sidebar import Sidebar
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.surfaces.surface import Surface
+from src.simulat.data.colors import BasicPalette, SimulatPalette
 
 
 class GameScene(Scene):
@@ -30,12 +31,13 @@ class GameScene(Scene):
 
         # initialize corner overlay (rounded corners)
         self.corner_overlay = Surface(self.game_map.display_size)
-        self.corner_overlay.surface.set_colorkey((255, 0, 255))
+        self.corner_overlay.surface.set_colorkey(BasicPalette.MAGENTA)
+        self.corner_overlay.surface.fill(SimulatPalette.BACKGROUND)
         pg.draw.rect(
             self.corner_overlay.surface,
-            (255, 0, 255),
+            BasicPalette.MAGENTA,
             (0, 0, *self.game_map.display_size),
-            border_radius=8,
+            border_top_right_radius=8,
         )
 
     def update(self, delta: float) -> None:
