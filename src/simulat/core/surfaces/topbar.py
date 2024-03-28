@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.surfaces.surface import Surface
+from src.simulat.data.colors import SimulatPalette
 
 
 class Topbar(Surface):
@@ -16,12 +17,19 @@ class Topbar(Surface):
 
         super().__init__((simulat.SIZE[0], 24), (0, 0))
 
-        # init sub-surfaces
-        self._init_sub_surfaces()
-
         self.debug_text: str = ""
         self.title_text: str = ""
         self.details_text: str = ""
+
+        self.debug_color: list[str] = [SimulatPalette.FOREGROUND,
+                                       SimulatPalette.BACKGROUND]
+        self.title_color: list[str] = [SimulatPalette.FOREGROUND,
+                                       SimulatPalette.BACKGROUND]
+        self.details_color: list[str] = [SimulatPalette.FOREGROUND,
+                                         SimulatPalette.BACKGROUND]
+
+        # init sub-surfaces
+        self._init_sub_surfaces()
 
         # add text
         self.update_debug("simulat")
