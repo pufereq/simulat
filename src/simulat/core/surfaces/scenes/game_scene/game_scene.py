@@ -37,7 +37,7 @@ class GameScene(Scene):
             self.corner_overlay.surface,
             BasicPalette.MAGENTA,
             (0, 0, *self.game_map.display_size),
-            border_radius=8,
+            border_top_right_radius=8,
         )
 
     def update(self, delta: float) -> None:
