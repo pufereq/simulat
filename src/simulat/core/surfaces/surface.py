@@ -7,6 +7,7 @@ import logging as lg
 
 import pygame as pg
 
+from src.simulat.data.colors import SimulatPalette
 from src.simulat.core.game import simulat
 
 
@@ -96,8 +97,9 @@ class Surface:
         """
         return self.surface.blit(source, dest, area, special_flags)
 
-    def add_text(self, text: str, pos: tuple[int | str, int | str],
-                 color: tuple[int, int, int],
+    def add_text(self, text: str, pos: tuple[int | str, int | str], *,
+                 color: tuple[int, int, int] | tuple[int, int, int, int]
+                 | str = SimulatPalette.FOREGROUND,
                  font: str = "main"):
         """Add text to the surface.
 
@@ -137,6 +139,31 @@ class Surface:
                     " number (int), 'top', 'center', 'bottom'"
                 )
             y_pos = pos[1]
+
+        if isinstance(color, str):
+            color_str: str = color.strip("#").lower()
+
+            if len(color_str) == 3:  # #RGB -> (RRR, GGG, BBB, 255)
+                color = (
+                    int(color_str[0], 16) * 17,  # R
+                    int(color_str[1], 16) * 17,  # G
+                    int(color_str[2], 16) * 17,  # B
+                    255  # A
+                )
+            elif len(color_str) == 6:  # #RRGGBB -> (RRR, GGG, BBB, 255)
+                color = (
+                    int(color_str[:2], 16),  # R
+                    int(color_str[2:4], 16),  # G
+                    int(color_str[4:6], 16),  # B
+                    255  # A
+                )
+            elif len(color_str) == 8:  # #RRGGBBAA -> (RRR, GGG, BBB, AAA)
+                color = (
+                    int(color_str[:2], 16),  # R
+                    int(color_str[2:4], 16),  # G
+                    int(color_str[4:6], 16),  # B
+                    int(color_str[6:8], 16)  # A
+                )
 
         text_surface = simulat.fonts[font].render(text, True, color)
 
