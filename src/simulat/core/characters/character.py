@@ -17,25 +17,51 @@ class Character:
     an enemy, an NPC, etc. Each character has its own class, which inherits
     from this class.
     """
-    def __init__(self, game_map: GameMap, pos: tuple[float, float]) -> None:
+    def __init__(self, game_map: GameMap, pos: tuple[float, float],
+                 size: tuple[float, float], unit: str, *,
+                 can_collide: bool = True) -> None:
         """Initialize the character.
 
         Args:
             game_map (GameMap): The game map.
             pos (tuple[float, float]): The character's position in tiles.
+            size (tuple[float, float]): The character's size.
+            unit (str): The unit of the character's size ("tiles" OR "px").
+            can_collide (bool): Whether the character can collide with
+            collider tiles.
+
+        Raises:
+            ValueError: If the unit is invalid.
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+
+        if unit not in ("tiles", "px"):
+            raise ValueError(f"Invalid unit: {unit}")
 
         self.first_name: str = "John"
         self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
 
+        if unit == "px":
+            self.px_size: tuple[float, float] = size
+            self.size: tuple[float, float] = (px_to_tiles(size[0]),
+                                              px_to_tiles(size[1]))
+        elif unit == "tiles":
+            self.size: tuple[float, float] = size
+            self.px_size: tuple[float, float] = (tiles_to_px(size[0]),
+                                                  tiles_to_px(size[1]))
+
+        self.logger.debug(f"Initializing character {type(self).__name__} "
+                          f"at {self.pos}...")
+
+        self.can_collide: bool = can_collide
+
         self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
 
-        self.sprite = Surface((64, 64))
+        self.sprite = Surface(self.px_size)
 
         self.sprite.fill((255, 255, 0))
 
@@ -58,17 +84,24 @@ class Character:
         """float: The character's current speed."""
         return self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
-    def _cap_position(self) -> None:
+    def _cap_position(self, pos_tiles: tuple[float, float]) -> None:
         """Cap the character's position to the game map's size."""
+        # covert to top-left position
+        topleft_pos = (pos_tiles[0] - self.size[0] / 2,
+                       pos_tiles[1] - self.size[1] / 2)
 
-        self.rect.x = max(
-            min(self.rect.x, self.game_map.width - self.rect.width),
+        # cap position
+        x = max(
+            min(topleft_pos[0], self.game_map.MAP_SIZE[0] - self.size[0]),
             0
         )
-        self.rect.y = max(
-            min(self.rect.y, self.game_map.height - self.rect.height),
+        y = max(
+            min(topleft_pos[1], self.game_map.MAP_SIZE[1] - self.size[1]),
             0
         )
+
+        # convert back to center position
+        self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
     def _check_collision(self, x: float, y: float) -> bool:
         """Check if the character collides with a collider tile.
@@ -110,11 +143,11 @@ class Character:
             self.velocity[1] * self.max_speed * delta
         )
 
+        # cap position
+        self._cap_position(self.pos)
+
         # update px position
         self.rect.center = self.px_pos
-
-        # cap position
-        self._cap_position()
 
     def render(self) -> None:
         """Render the character."""
@@ -129,13 +162,13 @@ class Character:
         """
 
         # check for collision
-        if self._check_collision(self.pos[0] + dx, self.pos[1]):
+        if self._check_collision(self.pos[0] + dx, self.pos[1]) and self.can_collide:
             dx = 0
             # a sneaky hack to allow the player to touch the wall on lower
             # frame rates
             self.velocity[0] *= 0.5
 
-        if self._check_collision(self.pos[0], self.pos[1] + dy):
+        if self._check_collision(self.pos[0], self.pos[1] + dy) and self.can_collide:
             dy = 0
             self.velocity[1] *= 0.5
 
