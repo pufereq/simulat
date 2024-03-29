@@ -84,17 +84,24 @@ class Character:
         """float: The character's current speed."""
         return self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
-    def _cap_position(self) -> None:
+    def _cap_position(self, pos_tiles: tuple[float, float]) -> None:
         """Cap the character's position to the game map's size."""
+        # covert to top-left position
+        topleft_pos = (pos_tiles[0] - self.size[0] / 2,
+                       pos_tiles[1] - self.size[1] / 2)
 
-        self.rect.x = max(
-            min(self.rect.x, self.game_map.width - self.rect.width),
+        # cap position
+        x = max(
+            min(topleft_pos[0], self.game_map.MAP_SIZE[0] - self.size[0]),
             0
         )
-        self.rect.y = max(
-            min(self.rect.y, self.game_map.height - self.rect.height),
+        y = max(
+            min(topleft_pos[1], self.game_map.MAP_SIZE[1] - self.size[1]),
             0
         )
+
+        # convert back to center position
+        self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
     def _check_collision(self, x: float, y: float) -> bool:
         """Check if the character collides with a collider tile.
@@ -136,11 +143,11 @@ class Character:
             self.velocity[1] * self.max_speed * delta
         )
 
+        # cap position
+        self._cap_position(self.pos)
+
         # update px position
         self.rect.center = self.px_pos
-
-        # cap position
-        self._cap_position()
 
     def render(self) -> None:
         """Render the character."""
