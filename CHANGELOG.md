@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.1] - 2024-03-29
+
+### Miscellaneous Tasks
+
+- [`5f156c1`](https://github.com/pufereq/simulat/commit/5f156c1145bb3a4c65f422466b795a46fe501d66) **character.py**: make `Character.current_speed` a property
+- [`42afc89`](https://github.com/pufereq/simulat/commit/42afc89462a5fec5d89f004a1e33911aea85ed8f) **character.py**: make `Character.name` a property
+
+### Performance
+
+- [`94c1938`](https://github.com/pufereq/simulat/commit/94c19388d06281f7552bb540f6b1dcfada7a021f) **character.py**: make `Character.px_pos` a property
+
+### Styling
+
+- [`bfe7c8e`](https://github.com/pufereq/simulat/commit/bfe7c8e4cd04009b59d005c0452c6225cc2aab0a) **character.py**: add typing suggestions to `Character.first_name` and `Character.last_name`
+
 ## [0.9.0] - 2024-03-28
 
 ### Features
@@ -12,6 +27,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`0addbf6`](https://github.com/pufereq/simulat/commit/0addbf685cddc043e93859e3685c28917fb217d8) **release**: 0.9.0
 - [`5543259`](https://github.com/pufereq/simulat/commit/55432591e72500730226bbe16a60e08e7dfbfda9) **game_scene.py**: change the game map view to be rounded only on top right
 - [`1e4dfe7`](https://github.com/pufereq/simulat/commit/1e4dfe7c154ea5472929922bc15d5d69168e2268) **game_scene.py**: use the simulat color palette
 - [`df4b051`](https://github.com/pufereq/simulat/commit/df4b051f5bd01eb26bf18af3c90202b9731b1b9e) **scene.py**: modify the color argument of the fallback scene text call
