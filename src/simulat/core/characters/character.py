@@ -26,8 +26,8 @@ class Character:
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        self.first_name = "John"
-        self.last_name = "Doe"
+        self.first_name: str = "John"
+        self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
 
