@@ -2,10 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0] - 2024-03-29
+
+### Features
+
+- [`692fbc3`](https://github.com/pufereq/simulat/commit/692fbc3c27fb9b15b09682cac4aa68422b3e8166) **character.py**: add ability to set whether the character has collision
+- [`2b7bf72`](https://github.com/pufereq/simulat/commit/2b7bf72b3f1340c11817000490ec8bdd12ecadcd) **character.py**: add ability to specify the sprite size in px/tiles
+
+### Miscellaneous Tasks
+
+- [`f4351b5`](https://github.com/pufereq/simulat/commit/f4351b5e9bc6913339739f0250a5ee76a4d3448f) **game_map.py**: use the new `Camera` class and remap keys
+- [`4906185`](https://github.com/pufereq/simulat/commit/4906185e3c1a7ce7cd43acf7f79f762ef4a69ff8) **player.py**: add the `size` and `unit` argument to init
+- [`bc08e85`](https://github.com/pufereq/simulat/commit/bc08e85ea74a5194efc100a28b16d9c3268d2e2b) **.../game_map/camera.py**: [**breaking**] remove the ye olde camera system
+
+### Refactor
+
+- [`fee99e3`](https://github.com/pufereq/simulat/commit/fee99e3e80938f8d7366b68a85ee75f8405ebace) **character.py**: refactor `Character._cap_position()` to use tiles (unit)
+
+### Rewrite
+
+- [`dc4a0f1`](https://github.com/pufereq/simulat/commit/dc4a0f18f3d70d3409444a9f216a669c553b137c) **camera.py**: [**breaking**] rewrite the camera system as a character
+
 ## [0.9.1] - 2024-03-29
 
 ### Miscellaneous Tasks
 
+- [`909b554`](https://github.com/pufereq/simulat/commit/909b554528fa9121313b91f3f289d8c3a24fc4d8) **release**: 0.9.1
 - [`5f156c1`](https://github.com/pufereq/simulat/commit/5f156c1145bb3a4c65f422466b795a46fe501d66) **character.py**: make `Character.current_speed` a property
 - [`42afc89`](https://github.com/pufereq/simulat/commit/42afc89462a5fec5d89f004a1e33911aea85ed8f) **character.py**: make `Character.name` a property
 
