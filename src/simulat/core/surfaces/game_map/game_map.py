@@ -10,7 +10,7 @@ import pygame as pg
 
 from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
-from src.simulat.core.surfaces.game_map.camera import Camera
+from src.simulat.core.characters.camera import Camera
 from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 from src.simulat.core.time_it import time_it
@@ -50,7 +50,7 @@ class GameMap(Surface):
         self.character_surface = Surface(self.surface_size)
         self.character_surface.surface.set_colorkey((0, 0, 0))
 
-        self.camera = Camera(self)
+        self.camera = Camera(self, self.player.pos)
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
                           f"{self.surface_size} px")
@@ -69,19 +69,40 @@ class GameMap(Surface):
         Args:
             key: The keys pressed.
         """
+
+        camera_attached: bool = False
+
+        # camera movement
         if key[pg.K_UP]:
-            self.player.velocity[1] += -1
+            self.camera.velocity[1] += -1
         if key[pg.K_DOWN]:
-            self.player.velocity[1] += 1
+            self.camera.velocity[1] += 1
         if key[pg.K_LEFT]:
-            self.player.velocity[0] += -1
+            self.camera.velocity[0] += -1
         if key[pg.K_RIGHT]:
+            self.camera.velocity[0] += 1
+
+        # player movement
+        if key[pg.K_w]:
+            self.player.velocity[1] += -1
+            camera_attached = True
+        if key[pg.K_s]:
+            self.player.velocity[1] += 1
+            camera_attached = True
+        if key[pg.K_a]:
+            self.player.velocity[0] += -1
+            camera_attached = True
+        if key[pg.K_d]:
             self.player.velocity[0] += 1
+            camera_attached = True
+
+        if camera_attached:
+            self.camera.pos = self.player.pos
 
     def update(self, delta: float) -> None:
         """Update the game map."""
         self.player.update(delta)
-        self.camera.update()
+        self.camera.update(delta)
 
     def render(self) -> None:
         """Render the game map."""
