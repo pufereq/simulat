@@ -28,7 +28,6 @@ class Character:
 
         self.first_name = "John"
         self.last_name = "Doe"
-        self.name = f"{self.first_name} {self.last_name}"
 
         self.pos: list[float] = list(pos)  # position in tiles
         self.px_pos: list[int] = [tiles_to_px(pos[0]), tiles_to_px(pos[1])]
@@ -45,6 +44,11 @@ class Character:
         self.rect = self.sprite.surface.get_rect(center=self.px_pos)
 
         self.game_map = game_map
+
+    @property
+    def name(self) -> str:
+        """str: The character's full name."""
+        return f"{self.first_name} {self.last_name}"
 
     def _cap_position(self) -> None:
         """Cap the character's position to the game map's size."""
