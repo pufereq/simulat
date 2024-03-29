@@ -34,7 +34,6 @@ class Character:
         self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
-        self.current_speed = 0
 
         self.sprite = Surface((64, 64))
 
@@ -53,6 +52,11 @@ class Character:
     def px_pos(self) -> tuple[int, int]:
         """list[int]: The character's position in pixels."""
         return (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
+
+    @property
+    def current_speed(self) -> float:
+        """float: The character's current speed."""
+        return self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
     def _cap_position(self) -> None:
         """Cap the character's position to the game map's size."""
@@ -100,9 +104,6 @@ class Character:
         if self.velocity[0] != 0 and self.velocity[1] != 0:
             self.velocity[0] *= 0.7071
             self.velocity[1] *= 0.7071
-
-        # update speed
-        self.current_speed = self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
         self.move(
             self.velocity[0] * self.max_speed * delta,
