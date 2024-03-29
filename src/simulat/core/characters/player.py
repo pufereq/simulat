@@ -21,7 +21,7 @@ class Player(Character):
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.logger.debug("Initializing player...")
-        super().__init__(game_map, pos)
+        super().__init__(game_map, pos, (1, 1), "tiles")
 
     def render(self) -> None:
         from src.simulat.core.game import simulat
