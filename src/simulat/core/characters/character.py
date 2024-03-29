@@ -18,7 +18,8 @@ class Character:
     from this class.
     """
     def __init__(self, game_map: GameMap, pos: tuple[float, float],
-                 size: tuple[float, float], unit: str) -> None:
+                 size: tuple[float, float], unit: str, *,
+                 can_collide: bool = True) -> None:
         """Initialize the character.
 
         Args:
@@ -26,6 +27,8 @@ class Character:
             pos (tuple[float, float]): The character's position in tiles.
             size (tuple[float, float]): The character's size.
             unit (str): The unit of the character's size ("tiles" OR "px").
+            can_collide (bool): Whether the character can collide with
+            collider tiles.
 
         Raises:
             ValueError: If the unit is invalid.
@@ -51,6 +54,8 @@ class Character:
 
         self.logger.debug(f"Initializing character {type(self).__name__} "
                           f"at {self.pos}...")
+
+        self.can_collide: bool = can_collide
 
         self.max_speed: float = 4  # tiles per second
 
@@ -150,13 +155,13 @@ class Character:
         """
 
         # check for collision
-        if self._check_collision(self.pos[0] + dx, self.pos[1]):
+        if self._check_collision(self.pos[0] + dx, self.pos[1]) and self.can_collide:
             dx = 0
             # a sneaky hack to allow the player to touch the wall on lower
             # frame rates
             self.velocity[0] *= 0.5
 
-        if self._check_collision(self.pos[0], self.pos[1] + dy):
+        if self._check_collision(self.pos[0], self.pos[1] + dy) and self.can_collide:
             dy = 0
             self.velocity[1] *= 0.5
 
