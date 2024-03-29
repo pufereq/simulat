@@ -26,17 +26,14 @@ class Character:
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        self.first_name = "John"
-        self.last_name = "Doe"
-        self.name = f"{self.first_name} {self.last_name}"
+        self.first_name: str = "John"
+        self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
-        self.px_pos: list[int] = [tiles_to_px(pos[0]), tiles_to_px(pos[1])]
 
         self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
-        self.current_speed = 0
 
         self.sprite = Surface((64, 64))
 
@@ -45,6 +42,21 @@ class Character:
         self.rect = self.sprite.surface.get_rect(center=self.px_pos)
 
         self.game_map = game_map
+
+    @property
+    def name(self) -> str:
+        """str: The character's full name."""
+        return f"{self.first_name} {self.last_name}"
+
+    @property
+    def px_pos(self) -> tuple[int, int]:
+        """list[int]: The character's position in pixels."""
+        return (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
+
+    @property
+    def current_speed(self) -> float:
+        """float: The character's current speed."""
+        return self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
     def _cap_position(self) -> None:
         """Cap the character's position to the game map's size."""
@@ -93,24 +105,16 @@ class Character:
             self.velocity[0] *= 0.7071
             self.velocity[1] *= 0.7071
 
-        # update speed
-        self.current_speed = self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
-
         self.move(
             self.velocity[0] * self.max_speed * delta,
             self.velocity[1] * self.max_speed * delta
         )
 
         # update px position
-        self.px_pos = [tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1])]
         self.rect.center = self.px_pos
 
         # cap position
         self._cap_position()
-
-        # update tile position
-        self.px_pos = self.rect.center
-        self.pos = [px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1])]
 
     def render(self) -> None:
         """Render the character."""
