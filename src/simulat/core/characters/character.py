@@ -17,25 +17,46 @@ class Character:
     an enemy, an NPC, etc. Each character has its own class, which inherits
     from this class.
     """
-    def __init__(self, game_map: GameMap, pos: tuple[float, float]) -> None:
+    def __init__(self, game_map: GameMap, pos: tuple[float, float],
+                 size: tuple[float, float], unit: str) -> None:
         """Initialize the character.
 
         Args:
             game_map (GameMap): The game map.
             pos (tuple[float, float]): The character's position in tiles.
+            size (tuple[float, float]): The character's size.
+            unit (str): The unit of the character's size ("tiles" OR "px").
+
+        Raises:
+            ValueError: If the unit is invalid.
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+
+        if unit not in ("tiles", "px"):
+            raise ValueError(f"Invalid unit: {unit}")
 
         self.first_name: str = "John"
         self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
 
+        if unit == "px":
+            self.px_size: tuple[float, float] = size
+            self.size: tuple[float, float] = (px_to_tiles(size[0]),
+                                              px_to_tiles(size[1]))
+        elif unit == "tiles":
+            self.size: tuple[float, float] = size
+            self.px_size: tuple[float, float] = (tiles_to_px(size[0]),
+                                                  tiles_to_px(size[1]))
+
+        self.logger.debug(f"Initializing character {type(self).__name__} "
+                          f"at {self.pos}...")
+
         self.max_speed: float = 4  # tiles per second
 
         self.velocity: list[float] = [0, 0]
 
-        self.sprite = Surface((64, 64))
+        self.sprite = Surface(self.px_size)
 
         self.sprite.fill((255, 255, 0))
 
