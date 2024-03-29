@@ -30,7 +30,6 @@ class Character:
         self.last_name = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
-        self.px_pos: list[int] = [tiles_to_px(pos[0]), tiles_to_px(pos[1])]
 
         self.max_speed: float = 4  # tiles per second
 
@@ -49,6 +48,11 @@ class Character:
     def name(self) -> str:
         """str: The character's full name."""
         return f"{self.first_name} {self.last_name}"
+
+    @property
+    def px_pos(self) -> tuple[int, int]:
+        """list[int]: The character's position in pixels."""
+        return (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
 
     def _cap_position(self) -> None:
         """Cap the character's position to the game map's size."""
@@ -106,15 +110,10 @@ class Character:
         )
 
         # update px position
-        self.px_pos = [tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1])]
         self.rect.center = self.px_pos
 
         # cap position
         self._cap_position()
-
-        # update tile position
-        self.px_pos = self.rect.center
-        self.pos = [px_to_tiles(self.px_pos[0]), px_to_tiles(self.px_pos[1])]
 
     def render(self) -> None:
         """Render the character."""
