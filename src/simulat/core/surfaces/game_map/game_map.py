@@ -8,10 +8,11 @@ from typing import Final
 
 import pygame as pg
 
+from src.simulat.data.colors import BasicPalette
 from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
 from src.simulat.core.characters.camera import Camera
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
+from src.simulat.core.surfaces.game_map.tiles.tile import TILE_SIZE, Tile, tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 from src.simulat.core.time_it import time_it
 from src.simulat.data.map_layout import MapLayout
@@ -45,6 +46,10 @@ class GameMap(Surface):
             scene.size[0] - scene.sidebar.SIDEBAR_SIZE[0],
             scene.size[1]
         )
+
+        self.hovered_overlay: Surface = Surface(self.surface_size)
+        self.hovered_overlay.surface.set_colorkey(BasicPalette.MAGENTA)
+        self.hovered_overlay.surface.fill(BasicPalette.MAGENTA)
 
         self.player = Player(self, (9, 9))
         self.character_surface = Surface(self.surface_size)
@@ -101,6 +106,20 @@ class GameMap(Surface):
 
     def update(self, delta: float) -> None:
         """Update the game map."""
+        # get the mouse position and display the tile the mouse is over
+        mouse_pos = pg.mouse.get_pos()
+
+        # translate the mouse position to the game map
+        tile_pos = (
+            mouse_pos[0] + self.camera.rect.left,
+            mouse_pos[1] + self.camera.rect.top
+        )
+
+        # get the tile the mouse is over
+        self.hovered_tile = self.tiles[tile_pos[1] // TILE_SIZE][tile_pos[0] // TILE_SIZE]
+        # self.logger.debug(f"Mouse over tile: {self.hovered_tile}")
+        simulat.topbar.update_details(f"{self.hovered_tile}")
+
         self.player.update(delta)
         self.camera.update(delta)
 
@@ -111,6 +130,12 @@ class GameMap(Surface):
         # whole map.
         player_step_x = self.player.max_speed * simulat.frame_delta + self.player.rect.width
         player_step_y = self.player.max_speed * simulat.frame_delta + self.player.rect.height
+
+        # render the tile onto the tile surface
+        # if self.prev_tile:
+        #     self.prev_tile.draw()
+        # self.logger.debug(f"Hovered tile: {self.hovered_tile.hovered}")
+        # self.hovered_tile.draw()
 
         # Fill the area the player has moved out of with black (color key).
         self.character_surface.surface.fill(
@@ -127,6 +152,34 @@ class GameMap(Surface):
         # (game_map) surface.
         self.blit(
             self.tile_surface.surface,
+            (0, 0),
+            self.camera.rect
+        )
+
+        # Render the visible parts of the hovered overlay surface onto the main
+        # (game_map) surface.
+        self.hovered_overlay.surface.fill(
+            BasicPalette.MAGENTA,
+            self.camera.rect
+        )
+        # show red overlay on the tile the mouse is over
+        tile_color = self.hovered_tile.surface.surface.get_at((0, 0))
+        # make tile_color negative
+        tile_color = tuple([255 - c for c in tile_color])
+        pg.draw.rect(
+            self.hovered_overlay.surface,
+            tile_color,
+            (
+                self.hovered_tile.px_pos[0],
+                self.hovered_tile.px_pos[1],
+                TILE_SIZE,
+                TILE_SIZE
+            ),
+            1
+        )
+
+        self.blit(
+            self.hovered_overlay.surface,
             (0, 0),
             self.camera.rect
         )
