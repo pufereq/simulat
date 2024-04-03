@@ -63,7 +63,7 @@ class GameMap(Surface):
         self.tile_surface = Surface(self.surface_size)
         self._init_tiles()
 
-    def input(self, key: ScancodeWrapper) -> None:
+    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool]) -> None:
         """Handle input events.
 
         Args:
@@ -73,26 +73,26 @@ class GameMap(Surface):
         camera_attached: bool = False
 
         # camera movement
-        if key[pg.K_UP]:
+        if keys[pg.K_UP]:
             self.camera.velocity[1] += -1
-        if key[pg.K_DOWN]:
+        if keys[pg.K_DOWN]:
             self.camera.velocity[1] += 1
-        if key[pg.K_LEFT]:
+        if keys[pg.K_LEFT]:
             self.camera.velocity[0] += -1
-        if key[pg.K_RIGHT]:
+        if keys[pg.K_RIGHT]:
             self.camera.velocity[0] += 1
 
         # player movement
-        if key[pg.K_w]:
+        if keys[pg.K_w]:
             self.player.velocity[1] += -1
             camera_attached = True
-        if key[pg.K_s]:
+        if keys[pg.K_s]:
             self.player.velocity[1] += 1
             camera_attached = True
-        if key[pg.K_a]:
+        if keys[pg.K_a]:
             self.player.velocity[0] += -1
             camera_attached = True
-        if key[pg.K_d]:
+        if keys[pg.K_d]:
             self.player.velocity[0] += 1
             camera_attached = True
 
