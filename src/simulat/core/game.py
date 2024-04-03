@@ -103,6 +103,7 @@ class Simulat:
             self.screen.fill((30, 30, 30))
 
             # check for key events
+            events = pg.event.get()
             keys = pg.key.get_pressed()
 
             if keys[pg.K_ESCAPE]:
@@ -110,7 +111,7 @@ class Simulat:
 
             for surface in self.focused_surfaces:
                 if self.focused_surfaces[surface]:
-                    surface.input(keys)
+                    surface.input(events=events, keys=keys)
 
             # UPDATE
             # update scene
