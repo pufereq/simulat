@@ -12,7 +12,7 @@ import pygame as pg
 from src.simulat.core import log_exception
 
 # set up logging
-lg.basicConfig(format="%(asctime)s [%(levelname)-8s] : %(filename)s:"
+lg.basicConfig(format="%(asctime)s : %(levelname)-8s : %(threadName)s : %(filename)s:"
                "%(lineno)d : %(name)s :: %(message)s",
                level=lg.DEBUG)
 
