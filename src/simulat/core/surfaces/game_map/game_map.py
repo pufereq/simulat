@@ -11,7 +11,7 @@ import pygame as pg
 from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
 from src.simulat.core.characters.camera import Camera
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
+from src.simulat.core.surfaces.game_map.tiles.tile import tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 from src.simulat.data.map_layout import MapLayout
 
