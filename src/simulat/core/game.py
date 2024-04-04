@@ -87,6 +87,27 @@ class Simulat:
         game_scene = GameScene()
         self.scenes[game_scene.id] = game_scene
 
+    def change_scene(self, scene_id: str) -> None:
+        """Change the active scene.
+
+        Args:
+            scene_id (str): The id of the scene to change to
+                (from `self.scenes`)
+        """
+        self.logger.info(f"Changing scene to {scene_id}...")
+
+        # unfocus current scene
+        self.focused_surfaces[self.scenes[self.active_scene]] = False
+
+        # change scene
+        self.active_scene = scene_id
+
+        # focus new scene
+        self.focused_surfaces[self.scenes[self.active_scene]] = True
+
+        # update topbar title
+        self.topbar.update_title(scene_id)
+
     def run(self):
         from src.simulat.core.version import VERSION
         running: bool = True
@@ -109,7 +130,7 @@ class Simulat:
             if keys[pg.K_ESCAPE]:
                 running = False
 
-            for surface in self.focused_surfaces:
+            for surface in self.focused_surfaces.copy():  # copy to avoid RuntimeError
                 if self.focused_surfaces[surface]:
                     surface.input(events=events, keys=keys)
 
