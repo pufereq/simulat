@@ -27,6 +27,7 @@ class GameMap(Surface):
         """Initialize the game map."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
+        self.logger.info("Initializing game map...")
         self.logger.debug("Initializing game map surface...")
 
         self.scene = scene
