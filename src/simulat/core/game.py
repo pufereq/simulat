@@ -83,6 +83,12 @@ class Simulat:
         fallback_scene = Scene()
         self.scenes[None] = fallback_scene
 
+        # main menu scene
+        from .surfaces.scenes.main_menu_scene.main_menu_scene import \
+            MainMenuScene
+        main_menu_scene = MainMenuScene()
+        self.scenes[main_menu_scene.id] = main_menu_scene
+
         # game scene
         game_scene = GameScene()
         self.scenes[game_scene.id] = game_scene
