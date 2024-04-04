@@ -89,10 +89,6 @@ class Simulat:
         main_menu_scene = MainMenuScene()
         self.scenes[main_menu_scene.id] = main_menu_scene
 
-        # game scene
-        game_scene = GameScene()
-        self.scenes[game_scene.id] = game_scene
-
     def change_scene(self, scene_id: str) -> None:
         """Change the active scene.
 
