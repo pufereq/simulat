@@ -57,7 +57,6 @@ class GameMap(Surface):
 
         # initialize surface
         super().__init__(self.surface_size)
-        simulat.focused_surfaces[self] = True
 
         # initialize tiles
         self.tile_surface = Surface(self.surface_size)
