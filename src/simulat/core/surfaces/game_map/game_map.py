@@ -13,7 +13,6 @@ from src.simulat.core.game import simulat
 from src.simulat.core.characters.camera import Camera
 from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.core.time_it import time_it
 from src.simulat.data.map_layout import MapLayout
 
 
@@ -145,7 +144,6 @@ class GameMap(Surface):
         # draw onto the game scene
         self.scene.surface.blit(self.surface, (0, 0))
 
-    @time_it
     def _init_tiles(self):
         """Initialize the map tiles."""
         self.tiles = []
