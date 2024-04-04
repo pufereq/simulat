@@ -77,7 +77,7 @@ class Simulat:
         from .surfaces.scenes.scene import Scene
 
         self.scenes: dict[str | None, Scene] = {}
-        self.active_scene: str | None = "GameScene"  # GameScene is default
+        self.active_scene: str | None = None  # initial scene is defined in `run()`
 
         # fallback scene
         fallback_scene = Scene()
@@ -120,6 +120,7 @@ class Simulat:
         self.frame_delta: float = 1  # this avoids exceptions on first frame
 
         self.logger.info("Starting main loop...")
+        self.change_scene("MainMenuScene")  # initial scene
         while running:
             # PROCESS EVENTS / INPUT
             # check for window events
