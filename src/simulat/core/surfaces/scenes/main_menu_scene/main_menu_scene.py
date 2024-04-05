@@ -33,6 +33,9 @@ class MainMenuScene(Scene):
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
 
+        # add text
+        self.surface.add_text("Press Enter to start", ("center", "center"))
+
     def input(self, *, events: list[pg.event.Event], keys: dict[int, bool]) -> None:
         """Handle input events.
 
