@@ -26,6 +26,7 @@ class MainMenuScene(Scene):
         starts. It contains the main menu, the settings menu, etc.
         """
         super().__init__()
+        self.game_map_loading_progress: float = 0
 
         # initialize the loading thread
         self.load_thread = th.Thread(name="Loading thread",
@@ -47,6 +48,7 @@ class MainMenuScene(Scene):
         # main menu is implemented
         if keys[pg.K_RETURN]:
             # draw loading screen
+            self.surface.surface.fill(SimulatPalette.BACKGROUND)
             self.surface.add_text("Loading...", ("center", "center"),
                                   color=BasicPalette.WHITE)
 
@@ -67,4 +69,9 @@ class MainMenuScene(Scene):
     def render(self, dest) -> None:
         from src.simulat.core.game import simulat
         simulat.topbar.update_title("main menu")
+        if self.load_thread.is_alive():
+
+            self.surface.fill(SimulatPalette.BACKGROUND)
+            self.surface.add_text(f"Loading... {self.game_map_loading_progress:.2f}% "
+                                  , ("center", "center"))
         self.draw(dest)
