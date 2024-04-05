@@ -8,9 +8,9 @@ from typing import Final
 
 import pygame as pg
 
+from src.simulat.core.characters.camera import Camera
 from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
-from src.simulat.core.characters.camera import Camera
 from src.simulat.core.surfaces.game_map.tiles.tile import tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 from src.simulat.data.map_layout import MapLayout
@@ -149,6 +149,12 @@ class GameMap(Surface):
         self.tiles = []
         self.collider_tiles = []
 
+        tile_count: int = 0
+        for row in MapLayout.get_map_layout():
+            tile_count += len(row)
+
+        main_menu_scene = simulat.scenes["MainMenuScene"]
+
         for y, row in enumerate(MapLayout.get_map_layout()):
             self.tiles.append([])
             for x, char in enumerate(row):
@@ -158,3 +164,5 @@ class GameMap(Surface):
                 self.tiles[y][x].draw()
                 if self.tiles[y][x].is_collider:
                     self.collider_tiles.append(self.tiles[y][x])
+                main_menu_scene.game_map_loading_progress = \
+                    (y * len(row) + x) / tile_count * 100
