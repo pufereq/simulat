@@ -29,5 +29,6 @@ class SimulatPalette:
     FOREGROUND: Final[str] = "#EDF2EF"
     ACCENT_PURPLE: Final[str] = "#9D8DF1"
     ACCENT_BLUISH: Final[str] = "#9CB7C7"
+    ACCENT_BLUISH_DISABLED: Final[str] = "#7E898F"
     HIGHLIGHT: Final[str] = "#9AE19D"
     SHADOW: Final[str] = "#251A18"
