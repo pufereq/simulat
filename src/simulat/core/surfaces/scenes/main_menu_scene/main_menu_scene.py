@@ -26,7 +26,10 @@ class MainMenuScene(Scene):
         starts. It contains the main menu, the settings menu, etc.
         """
         super().__init__()
-        self.game_map_loading_progress: float = 0
+        self.game_map_loading_progress: dict = {
+            "task": "Loading...",
+            "progress": 0.0
+        }
 
         # initialize the loading thread
         self.load_thread = th.Thread(name="Loading thread",
@@ -74,6 +77,10 @@ class MainMenuScene(Scene):
 
         if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
-            self.surface.add_text(f"Loading... {self.game_map_loading_progress:.2f}% "
-                                  , ("center", "center"))
+            self.surface.add_text(
+                f"{self.game_map_loading_progress['task']}"
+                f" {self.game_map_loading_progress['progress']:.2f}%"
+                if self.game_map_loading_progress['progress'] else "",
+                ("center", "center")
+            )
         self.draw(dest)
