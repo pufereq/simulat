@@ -2,6 +2,67 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0] - 2024-04-06
+
+### Bug Fixes
+
+- [`37607ce`](https://github.com/pufereq/simulat/commit/37607ce55ea74f47b0ba899bf008db48e053ad59) **game.py**: fix `focus_surface` making duplicates of focused surfaces
+- [`b3d3034`](https://github.com/pufereq/simulat/commit/b3d3034f5c764ff3ff332f68f7ef21f196d74492) **game.py**: fix no events being passed to `surface.input()`
+
+### Documentation
+
+- [`4b07904`](https://github.com/pufereq/simulat/commit/4b079045b8b49822b96802c2d603ad8c0be33251) **README.md**: add logo
+- [`e55b996`](https://github.com/pufereq/simulat/commit/e55b996816b5b08aa46fef6f43a42a5325bf10a6) **game_map.py**: add a logger call at beginning of `GameMap.__init__`
+
+### Features
+
+- [`20db862`](https://github.com/pufereq/simulat/commit/20db862eab96d5d68373265dec61dd507e49a9c2) **main_menu_scene.py**: display logo
+- [`3802193`](https://github.com/pufereq/simulat/commit/3802193c8cf389e2542e3a456b78628f423de173) **main_menu_scene.py**: add buttons to main menu
+- [`2a3a6a9`](https://github.com/pufereq/simulat/commit/2a3a6a9469b26c646225fa80640a6d8be8803c48) **button.py**: add `Button`s
+- [`ecd235b`](https://github.com/pufereq/simulat/commit/ecd235bba31225545184be8d64050c29de9f9448) **game.py**: add helper methods `Simulat.focus_surface()` and `Simulat.unfocus_surface()`
+- [`e13cf20`](https://github.com/pufereq/simulat/commit/e13cf206f12cc090667696a6e69eb2bb5e0a2ea6) **game.py**: add `Simulat.quit()` method
+- [`89ec98d`](https://github.com/pufereq/simulat/commit/89ec98d23b8059eb04b91ebca7b93a82e55a3ebb) **main_menu_scene.py**: add main menu scene
+- [`631dd20`](https://github.com/pufereq/simulat/commit/631dd202b5e7e85b3cad2fc17cf1d133717fb467) **game.py**: add `Simulat.change_scene()` method
+
+### Miscellaneous Tasks
+
+- [`f5a507f`](https://github.com/pufereq/simulat/commit/f5a507fdaccf04dc7b0fd459be560732b13e2f08) add simulat logos
+- [`95f71da`](https://github.com/pufereq/simulat/commit/95f71daa42dabe2e7fad89521379b943259ea090) **main_menu_scene.py**: move separate imports to one module-wide
+- [`6c8896e`](https://github.com/pufereq/simulat/commit/6c8896e9c282f0d9e4ada57eab5da39657e4d523) **main_menu_scene.py**: add `_start_load_thread()` helper method
+- [`0ad4825`](https://github.com/pufereq/simulat/commit/0ad4825159851f06f723f063c320e41d6b811287) **game_map.py**: provide more detailed loading progress to main menu
+- [`352e42b`](https://github.com/pufereq/simulat/commit/352e42b076b0600393c2249e2e86917f36f210ea) **main_menu_scene.py**: add support for more detailed loading progress
+- [`1bc4ed4`](https://github.com/pufereq/simulat/commit/1bc4ed4a6e466a0ab9197bd1b7fc483b673927e6) **button.py**: change default font to `button`
+- [`3d778e3`](https://github.com/pufereq/simulat/commit/3d778e3fd666b1100aabc2bf3b37c8243db1c1e7) **game.py**: add `button` font
+- [`5fc223e`](https://github.com/pufereq/simulat/commit/5fc223ed347f3efe2610986c20471f993118f0f4) **colors.py**: add `ACCENT_BLUISH_DISABLED` color
+- [`57dc429`](https://github.com/pufereq/simulat/commit/57dc429c5b901e48544e0d4891b3ef96f74037b6) **colors.py**: [**breaking**] rename `ACCENT` -> `ACCENT_PURPLE`
+- [`f8c2e92`](https://github.com/pufereq/simulat/commit/f8c2e9253c4e7f00d9a0a720e3571291a5f5321b) **colors.py**: [**breaking**] rename `ACCENT1` -> `ACCENT_BLUISH`
+- [`62dfb45`](https://github.com/pufereq/simulat/commit/62dfb45fc37802856a49feb78af37ae80a8f05c4) **game.py**: provide `mouse_pos` and `mouse_buttons` to focused surfaces' `input()` methods
+- [`5dd46af`](https://github.com/pufereq/simulat/commit/5dd46af3af313b581d02e0ed7b929c9630be20b8) **surface.py**: add `Surface.input()` method
+- [`a11a67b`](https://github.com/pufereq/simulat/commit/a11a67b126e2a6bde74ddf8d99ff8662a5ddf74f) **scene.py**: add `Scene.input()` method
+- [`bdf12ca`](https://github.com/pufereq/simulat/commit/bdf12cad5cae64a11ed476df740d4ac24e7adec9) **main_menu_scene.py**: add `mouse_pos` and `mouse_buttons` arguments to `input()`
+- [`c0985d3`](https://github.com/pufereq/simulat/commit/c0985d3aae9fb37df9121266280c9e0ad097c3de) **game_scene.py**: add `mouse_pos` and `mouse_buttons` arguments to `input()`
+- [`d466b93`](https://github.com/pufereq/simulat/commit/d466b93457feb6fe30652fdc7a02ac07ba1e6a3e) **game.py**: make `Simulat.focused_surfaces` a list for clarity
+- [`3be14a7`](https://github.com/pufereq/simulat/commit/3be14a715b09e3fe6cb4f47655862148103453ef) **game_map.py**: supply the `MainMenuScene.game_map_loading_progress` variable
+- [`27cd468`](https://github.com/pufereq/simulat/commit/27cd468948ff76a8609cb3501b5110b239e89e2c) **main_menu_scene.py**: add progress to game map loading screen
+- [`0261464`](https://github.com/pufereq/simulat/commit/026146411c324bad57639fdaf502d141f8fd5e34) **main_menu_scene.py**: add welcome text
+- [`22f3634`](https://github.com/pufereq/simulat/commit/22f363441b5f747d3335a3d6bacd14c42afd7b4e) **game.py**: remove duplicate init of `GameMap`
+- [`f615b82`](https://github.com/pufereq/simulat/commit/f615b8266ccb7179262d3c2aa94cd105fcbcc847) **game_scene.py**: remove `GameMap` from `simulat.focused_surfaces`
+- [`29d385f`](https://github.com/pufereq/simulat/commit/29d385fcb6d8844ed3f05aa8e0cb5e3024df08bc) **game_scene.py**: add `GameScene.input()` to redirect input to `GameScene.game_map.input`
+- [`862461d`](https://github.com/pufereq/simulat/commit/862461d0b7833a3ed56470906209e5aa9d1204a1) **game_map.py**: remove unnecesarry import
+- [`4eaa017`](https://github.com/pufereq/simulat/commit/4eaa017b09172a593574d326ae7072383c2c2ee6) **game_map.py**: remove `time_it()` decorator from `GameMao._init_tiles()`
+- [`e502834`](https://github.com/pufereq/simulat/commit/e502834c754b6ecb0fccb153597d104e410d34bb) **game.py**: add a thread name field to loggers
+- [`0c2d516`](https://github.com/pufereq/simulat/commit/0c2d516eb0370dcf65aca9993e50335041011107) **game.py**: add call to `change_scene()` in `run()` instead of setting `active_scene`
+- [`488cb4e`](https://github.com/pufereq/simulat/commit/488cb4ef4375a75ef7f73346248cdeb053b5dc8d) **game.py**: init `MainMenuScene` in `Simulat._init_scenes()`
+- [`9dbe0f6`](https://github.com/pufereq/simulat/commit/9dbe0f64bdcb9ab2d06733dc25c9e494faa4fdf9) **game.py**: provide `events` argument in call to `surface.input()` in `run()`
+- [`f45572b`](https://github.com/pufereq/simulat/commit/f45572bf538d159ae31cdfa2c5bebcad6a535768) **game_map.py**: add `events` argument to `GameMap.input()`
+- [`5bc3c47`](https://github.com/pufereq/simulat/commit/5bc3c47af95b3a6b1d33ae0088bf600d5bfdbbb4) **release**: 0.10.0
+
+### Styling
+
+- [`b1ce976`](https://github.com/pufereq/simulat/commit/b1ce976788c3a547d6f59d259dba0d0c6e5ae482) **game.py**: make font definitions cleaner
+- [`5fab889`](https://github.com/pufereq/simulat/commit/5fab889d4428a90bb8f0f5b91b6bcbed335f923b) **main_menu_scene.py**: correct placement of `MainMenuScene._load_game()` in code
+- [`fcc4987`](https://github.com/pufereq/simulat/commit/fcc498783a7cb9ef1dd995e89fc83c203ee8460c) **main_menu_scene.py**: fix whitespace
+
 ## [0.10.0] - 2024-03-29
 
 ### Features
@@ -11,6 +72,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`87b259c`](https://github.com/pufereq/simulat/commit/87b259ce01ec4f256ffe9c1872c295d9834ff8ed) **release**: 0.10.0
 - [`f4351b5`](https://github.com/pufereq/simulat/commit/f4351b5e9bc6913339739f0250a5ee76a4d3448f) **game_map.py**: use the new `Camera` class and remap keys
 - [`4906185`](https://github.com/pufereq/simulat/commit/4906185e3c1a7ce7cd43acf7f79f762ef4a69ff8) **player.py**: add the `size` and `unit` argument to init
 - [`bc08e85`](https://github.com/pufereq/simulat/commit/bc08e85ea74a5194efc100a28b16d9c3268d2e2b) **.../game_map/camera.py**: [**breaking**] remove the ye olde camera system
