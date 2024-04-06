@@ -8,12 +8,11 @@ from typing import Final
 
 import pygame as pg
 
+from src.simulat.core.characters.camera import Camera
 from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
-from src.simulat.core.characters.camera import Camera
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile, tiles_to_px
+from src.simulat.core.surfaces.game_map.tiles.tile import tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.core.time_it import time_it
 from src.simulat.data.map_layout import MapLayout
 
 
@@ -28,6 +27,7 @@ class GameMap(Surface):
         """Initialize the game map."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
+        self.logger.info("Initializing game map...")
         self.logger.debug("Initializing game map surface...")
 
         self.scene = scene
@@ -46,6 +46,10 @@ class GameMap(Surface):
             scene.size[1]
         )
 
+        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
+            "task": "Initializing player...",
+            "progress": None
+        }
         self.player = Player(self, (9, 9))
         self.character_surface = Surface(self.surface_size)
         self.character_surface.surface.set_colorkey((0, 0, 0))
@@ -56,14 +60,17 @@ class GameMap(Surface):
                           f"{self.surface_size} px")
 
         # initialize surface
+        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
+            "task": "Initializing map surface...",
+            "progress": None
+        }
         super().__init__(self.surface_size)
-        simulat.focused_surfaces[self] = True
 
         # initialize tiles
         self.tile_surface = Surface(self.surface_size)
         self._init_tiles()
 
-    def input(self, key: ScancodeWrapper) -> None:
+    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool]) -> None:
         """Handle input events.
 
         Args:
@@ -73,26 +80,26 @@ class GameMap(Surface):
         camera_attached: bool = False
 
         # camera movement
-        if key[pg.K_UP]:
+        if keys[pg.K_UP]:
             self.camera.velocity[1] += -1
-        if key[pg.K_DOWN]:
+        if keys[pg.K_DOWN]:
             self.camera.velocity[1] += 1
-        if key[pg.K_LEFT]:
+        if keys[pg.K_LEFT]:
             self.camera.velocity[0] += -1
-        if key[pg.K_RIGHT]:
+        if keys[pg.K_RIGHT]:
             self.camera.velocity[0] += 1
 
         # player movement
-        if key[pg.K_w]:
+        if keys[pg.K_w]:
             self.player.velocity[1] += -1
             camera_attached = True
-        if key[pg.K_s]:
+        if keys[pg.K_s]:
             self.player.velocity[1] += 1
             camera_attached = True
-        if key[pg.K_a]:
+        if keys[pg.K_a]:
             self.player.velocity[0] += -1
             camera_attached = True
-        if key[pg.K_d]:
+        if keys[pg.K_d]:
             self.player.velocity[0] += 1
             camera_attached = True
 
@@ -145,11 +152,16 @@ class GameMap(Surface):
         # draw onto the game scene
         self.scene.surface.blit(self.surface, (0, 0))
 
-    @time_it
     def _init_tiles(self):
         """Initialize the map tiles."""
         self.tiles = []
         self.collider_tiles = []
+
+        tile_count: int = 0
+        for row in MapLayout.get_map_layout():
+            tile_count += len(row)
+
+        main_menu_scene = simulat.scenes["MainMenuScene"]
 
         for y, row in enumerate(MapLayout.get_map_layout()):
             self.tiles.append([])
@@ -160,3 +172,7 @@ class GameMap(Surface):
                 self.tiles[y][x].draw()
                 if self.tiles[y][x].is_collider:
                     self.collider_tiles.append(self.tiles[y][x])
+                main_menu_scene.game_map_loading_progress = {
+                    "task": "Loading tiles...",
+                    "progress": (y * len(row) + x) / tile_count * 100
+                }

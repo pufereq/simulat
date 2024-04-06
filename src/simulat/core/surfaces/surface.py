@@ -43,6 +43,11 @@ class Surface:
 
         self.surface = pg.Surface(size, flags, depth)
 
+    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
+              mouse_pos: tuple[int, int],
+              mouse_buttons: tuple[bool, bool, bool]) -> None:
+        pass
+
     def subsurface(self, pos: tuple[int, int],
                    size: tuple[int, int]) -> SubSurface:
         """Create a subsurface.
