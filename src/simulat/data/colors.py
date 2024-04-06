@@ -27,7 +27,7 @@ class SimulatPalette:
     """A class containing the simulat color palette."""
     BACKGROUND: Final[str] = "#364652"
     FOREGROUND: Final[str] = "#EDF2EF"
-    ACCENT: Final[str] = "#9D8DF1"
+    ACCENT_PURPLE: Final[str] = "#9D8DF1"
     ACCENT_BLUISH: Final[str] = "#9CB7C7"
     HIGHLIGHT: Final[str] = "#9AE19D"
     SHADOW: Final[str] = "#251A18"
