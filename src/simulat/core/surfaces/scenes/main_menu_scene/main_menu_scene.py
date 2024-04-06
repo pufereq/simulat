@@ -37,6 +37,16 @@ class MainMenuScene(Scene):
         # add text
         self.surface.add_text("Press Enter to start", ("center", "center"))
 
+    def _load_game(self):
+        from src.simulat.core.game import simulat
+        from src.simulat.core.surfaces.scenes.game_scene.game_scene import \
+            GameScene
+
+        with Timer() as timer:
+            simulat.scenes["GameScene"] = GameScene()
+            simulat.change_scene("GameScene")
+        self.logger.info(f"Took {timer.elapsed} s.")
+
     def input(self, *, events: list[pg.event.Event], keys: dict[int, bool]) -> None:
         """Handle input events.
 
@@ -55,16 +65,6 @@ class MainMenuScene(Scene):
             # start loading thread only once
             if not self.load_thread.is_alive():
                 self.load_thread.start()
-
-    def _load_game(self):
-        from src.simulat.core.game import simulat
-        from src.simulat.core.surfaces.scenes.game_scene.game_scene import \
-            GameScene
-
-        with Timer() as timer:
-            simulat.scenes["GameScene"] = GameScene()
-            simulat.change_scene("GameScene")
-        self.logger.info(f"Took {timer.elapsed} s.")
 
     def render(self, dest) -> None:
         from src.simulat.core.game import simulat
