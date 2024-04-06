@@ -53,8 +53,9 @@ class MainMenuScene(Scene):
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
 
-        # add text
-        self.surface.add_text("Press Enter to start", ("center", "center"))
+        # add logo
+        logo_path = "src/simulat/assets/logo/logo_bloom.png"
+        self.logo = pg.image.load(logo_path).convert()
 
     def _load_game(self):
         from src.simulat.core.surfaces.scenes.game_scene.game_scene import \
@@ -103,6 +104,9 @@ class MainMenuScene(Scene):
 
     def render(self, dest) -> None:
         simulat.topbar.update_title("main menu")
+
+        # draw logo
+        self.surface.surface.blit(self.logo, (240, 200))
 
         # draw buttons
         for button in self.buttons:
