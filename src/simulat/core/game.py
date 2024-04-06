@@ -123,16 +123,16 @@ class Simulat:
         self.change_scene("MainMenuScene")  # initial scene
         while self.running:
             # PROCESS EVENTS / INPUT
+            # check for key events
+            events = pg.event.get()
+            keys = pg.key.get_pressed()
+
             # check for window events
-            for event in pg.event.get():
+            for event in events:
                 if event.type == pg.QUIT:
                     self.running = False
 
             self.screen.fill((30, 30, 30))
-
-            # check for key events
-            events = pg.event.get()
-            keys = pg.key.get_pressed()
 
             if keys[pg.K_ESCAPE]:
                 self.running = False
