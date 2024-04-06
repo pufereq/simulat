@@ -102,22 +102,22 @@ class Simulat:
         self.logger.info(f"Changing scene to {scene_id}...")
 
         # unfocus current scene
-        if self.active_scene:
-            self.focused_surfaces.remove(self.scenes[self.active_scene])
+        self.unfocus_surface(self.scenes[self.active_scene])
 
         # change scene
         self.active_scene = scene_id
 
         # focus new scene
-        self.focused_surfaces.append(self.scenes[self.active_scene])
+        self.focus_surface(self.scenes[self.active_scene])
 
         # update topbar title
         self.topbar.update_title(scene_id)
 
     def focus_surface(self, surface: Surface) -> None:
         """Focus a surface."""
-        self.focused_surfaces.append(surface)
-        self.logger.debug(f"Focused surface {surface}.")
+        if surface not in self.focused_surfaces:
+            self.focused_surfaces.append(surface)
+            self.logger.debug(f"Focused surface {surface}.")
 
     def unfocus_surface(self, surface: Surface,
                         supress_error: bool = True) -> None:
