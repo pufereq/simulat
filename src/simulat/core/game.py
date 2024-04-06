@@ -51,9 +51,10 @@ class Simulat:
         """Initialize fonts and scene handling."""
         # initialize fonts
         pg.font.init()
-        self.fonts: dict[str, pg.font.Font] = {}
-        self.fonts["main"] = pg.font.SysFont("monospace", 16)
-        self.fonts["topbar"] = pg.font.SysFont("monospace", 22)
+        self.fonts: dict[str, pg.font.Font] = {
+            "main": pg.font.SysFont("monospace", 16),
+            "topbar": pg.font.SysFont("monospace", 22),
+        }
 
         # initialize focused surfaces
         from src.simulat.core.surfaces.scenes.scene import Scene
