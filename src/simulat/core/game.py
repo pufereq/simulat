@@ -155,7 +155,9 @@ class Simulat:
                 self.running = False
 
             for surface in self.focused_surfaces:  # copy to avoid RuntimeError
-                surface.input(events=events, keys=keys)
+                surface.input(events=events, keys=keys,
+                              mouse_pos=pg.mouse.get_pos(),
+                              mouse_buttons=pg.mouse.get_pressed())
 
             # UPDATE
             # update scene
