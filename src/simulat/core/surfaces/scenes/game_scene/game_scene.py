@@ -40,6 +40,17 @@ class GameScene(Scene):
             border_top_right_radius=8,
         )
 
+    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
+              mouse_pos: tuple[int, int],
+              mouse_buttons: tuple[bool, bool, bool]) -> None:
+        """Handle input events.
+
+        Args:
+            events (list[pg.event.Event]): List of pygame events.
+            keys (dict[int, bool]): Dictionary of pressed keys.
+        """
+        self.game_map.input(events=events, keys=keys)
+
     def update(self, delta: float) -> None:
         """Update the game scene.
 
