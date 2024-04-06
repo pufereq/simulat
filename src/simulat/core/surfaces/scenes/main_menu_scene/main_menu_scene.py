@@ -69,8 +69,8 @@ class MainMenuScene(Scene):
     def render(self, dest) -> None:
         from src.simulat.core.game import simulat
         simulat.topbar.update_title("main menu")
-        if self.load_thread.is_alive():
 
+        if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
             self.surface.add_text(f"Loading... {self.game_map_loading_progress:.2f}% "
                                   , ("center", "center"))
