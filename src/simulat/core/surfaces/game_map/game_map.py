@@ -46,6 +46,10 @@ class GameMap(Surface):
             scene.size[1]
         )
 
+        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
+            "task": "Initializing player...",
+            "progress": None
+        }
         self.player = Player(self, (9, 9))
         self.character_surface = Surface(self.surface_size)
         self.character_surface.surface.set_colorkey((0, 0, 0))
@@ -56,6 +60,10 @@ class GameMap(Surface):
                           f"{self.surface_size} px")
 
         # initialize surface
+        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
+            "task": "Initializing map surface...",
+            "progress": None
+        }
         super().__init__(self.surface_size)
 
         # initialize tiles
@@ -164,5 +172,7 @@ class GameMap(Surface):
                 self.tiles[y][x].draw()
                 if self.tiles[y][x].is_collider:
                     self.collider_tiles.append(self.tiles[y][x])
-                main_menu_scene.game_map_loading_progress = \
-                    (y * len(row) + x) / tile_count * 100
+                main_menu_scene.game_map_loading_progress = {
+                    "task": "Loading tiles...",
+                    "progress": (y * len(row) + x) / tile_count * 100
+                }
