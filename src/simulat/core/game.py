@@ -47,8 +47,6 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
-        self.focused_surfaces: dict[Surface, bool] = {}
-
     def _init_next(self):
         """Initialize fonts and scene handling."""
         # initialize fonts
@@ -56,6 +54,11 @@ class Simulat:
         self.fonts: dict[str, pg.font.Font] = {}
         self.fonts["main"] = pg.font.SysFont("monospace", 16)
         self.fonts["topbar"] = pg.font.SysFont("monospace", 22)
+
+        # initialize focused surfaces
+        from src.simulat.core.surfaces.scenes.scene import Scene
+        from src.simulat.core.surfaces.surface import Surface
+        self.focused_surfaces: list[Surface | Scene] = []
 
         # initialize topbar
         self._init_topbar()
@@ -99,13 +102,14 @@ class Simulat:
         self.logger.info(f"Changing scene to {scene_id}...")
 
         # unfocus current scene
-        self.focused_surfaces[self.scenes[self.active_scene]] = False
+        if self.active_scene:
+            self.focused_surfaces.remove(self.scenes[self.active_scene])
 
         # change scene
         self.active_scene = scene_id
 
         # focus new scene
-        self.focused_surfaces[self.scenes[self.active_scene]] = True
+        self.focused_surfaces.append(self.scenes[self.active_scene])
 
         # update topbar title
         self.topbar.update_title(scene_id)
@@ -133,9 +137,8 @@ class Simulat:
             if keys[pg.K_ESCAPE]:
                 self.running = False
 
-            for surface in self.focused_surfaces.copy():  # copy to avoid RuntimeError
-                if self.focused_surfaces[surface]:
-                    surface.input(events=events, keys=keys)
+            for surface in self.focused_surfaces:  # copy to avoid RuntimeError
+                surface.input(events=events, keys=keys)
 
             # UPDATE
             # update scene
