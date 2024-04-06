@@ -54,6 +54,7 @@ class Simulat:
         self.fonts: dict[str, pg.font.Font] = {
             "main": pg.font.SysFont("monospace", 16),
             "topbar": pg.font.SysFont("monospace", 22),
+            "button": pg.font.SysFont("monospace", 20),
         }
 
         # initialize focused surfaces
