@@ -7,6 +7,7 @@ import threading as th
 
 import pygame as pg
 
+from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.time_it import Timer
 from src.simulat.data.colors import BasicPalette, SimulatPalette
@@ -41,7 +42,6 @@ class MainMenuScene(Scene):
         self.surface.add_text("Press Enter to start", ("center", "center"))
 
     def _load_game(self):
-        from src.simulat.core.game import simulat
         from src.simulat.core.surfaces.scenes.game_scene.game_scene import \
             GameScene
 
@@ -77,7 +77,6 @@ class MainMenuScene(Scene):
                 self.load_thread.start()
 
     def render(self, dest) -> None:
-        from src.simulat.core.game import simulat
         simulat.topbar.update_title("main menu")
 
         if self.load_thread.is_alive():
