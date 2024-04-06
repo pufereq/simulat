@@ -50,6 +50,11 @@ class MainMenuScene(Scene):
             simulat.change_scene("GameScene")
         self.logger.info(f"Took {timer.elapsed} s.")
 
+    def _start_load_thread(self):
+        if not self.load_thread.is_alive():
+            self.buttons[0].enabled = False  # prevent multiple clicks
+            self.load_thread.start()
+
     def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
               mouse_pos: tuple[int, int],
               mouse_buttons: tuple[bool, bool, bool]) -> None:
