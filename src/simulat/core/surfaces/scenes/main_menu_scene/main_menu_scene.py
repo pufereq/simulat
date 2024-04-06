@@ -8,6 +8,7 @@ import threading as th
 import pygame as pg
 
 from src.simulat.core.game import simulat
+from src.simulat.core.surfaces.buttons.button import Button
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.time_it import Timer
 from src.simulat.data.colors import BasicPalette, SimulatPalette
@@ -35,6 +36,20 @@ class MainMenuScene(Scene):
         # initialize the loading thread
         self.load_thread = th.Thread(name="Loading thread",
                                      target=self._load_game, daemon=True)
+
+        self.buttons: list[Button] = [
+            Button("New Game", (386, 400), (512, 48),
+                   on_click=self._start_load_thread),
+
+            Button("Load Game", (386, 464), (512, 48),
+                   on_click=None, enabled=False),
+
+            Button("Settings", (386, 528), (248, 48),
+                   on_click=None, enabled=False),
+
+            Button("Exit", (650, 528), (248, 48),
+                   on_click=simulat.quit)
+        ]
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
 
@@ -64,6 +79,16 @@ class MainMenuScene(Scene):
             events (list[pg.event.Event]): List of pygame events.
             keys (dict[int, bool]): Dictionary of pressed keys.
         """
+
+        # align mouse position with the surface position
+        mouse_pos = (mouse_pos[0] - self.surface.pos_x,
+                     mouse_pos[1] - self.surface.pos_y)
+
+        # handle input for buttons
+        for button in self.buttons:
+            button.input(events=events, keys=keys, mouse_pos=mouse_pos,
+                         mouse_buttons=mouse_buttons)
+
         # load the game map if the user presses enter, temporary before
         # main menu is implemented
         if keys[pg.K_RETURN]:
@@ -78,6 +103,10 @@ class MainMenuScene(Scene):
 
     def render(self, dest) -> None:
         simulat.topbar.update_title("main menu")
+
+        # draw buttons
+        for button in self.buttons:
+            button.render(self.surface)
 
         if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
