@@ -114,6 +114,23 @@ class Simulat:
         # update topbar title
         self.topbar.update_title(scene_id)
 
+    def focus_surface(self, surface: Surface) -> None:
+        """Focus a surface."""
+        self.focused_surfaces.append(surface)
+        self.logger.debug(f"Focused surface {surface}.")
+
+    def unfocus_surface(self, surface: Surface,
+                        supress_error: bool = True) -> None:
+        """Unfocus a surface."""
+        try:
+            self.focused_surfaces.remove(surface)
+        except ValueError as e:
+            if not supress_error:
+                raise e
+            self.logger.warning(f"Surface {surface} not focused. Skipping...")
+        else:
+            self.logger.debug(f"Unfocused surface {surface}.")
+
     def run(self):
         from src.simulat.core.version import VERSION
         self.running: bool = True
