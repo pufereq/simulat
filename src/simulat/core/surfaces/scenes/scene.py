@@ -43,6 +43,11 @@ class Scene:
                 color="#ff0000"
             )
 
+    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
+              mouse_pos: tuple[int, int],
+              mouse_buttons: tuple[bool, bool, bool]) -> None:
+        pass
+
     def update(self, delta: float) -> None:
         """Update the scene.
 
