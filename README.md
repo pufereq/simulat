@@ -1,6 +1,8 @@
-<h1 style="text-align: center">simulat</h1>
+<img alt="simulat" src="./src/simulat/assets/logo/logo_transparent_bloom.png" style="display: block; width: 100%; margin-right: auto; margin-left: auto">
 
-<div style="text-align: center">
+---
+
+<div style="align: center">
     <img alt="License: GPL-3.0" src="https://img.shields.io/github/license/pufereq/simulat">
     <img alt="GitHub Release" src="https://img.shields.io/github/v/release/pufereq/simulat">
     <br>
