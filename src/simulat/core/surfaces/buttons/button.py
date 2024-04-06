@@ -20,7 +20,7 @@ class Button(Surface):
     """
     def __init__(self, text: str, pos: tuple[int, int], size: tuple[int, int],
                  on_click: Callable[[], None] | None, *, enabled: bool = True,
-                 font: str = "topbar") -> None:
+                 font: str = "button") -> None:
         """Initialize the button.
 
         Args:
