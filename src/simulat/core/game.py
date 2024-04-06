@@ -112,17 +112,17 @@ class Simulat:
 
     def run(self):
         from src.simulat.core.version import VERSION
-        running: bool = True
+        self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
 
         self.logger.info("Starting main loop...")
         self.change_scene("MainMenuScene")  # initial scene
-        while running:
+        while self.running:
             # PROCESS EVENTS / INPUT
             # check for window events
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    running = False
+                    self.running = False
 
             self.screen.fill((30, 30, 30))
 
@@ -131,7 +131,7 @@ class Simulat:
             keys = pg.key.get_pressed()
 
             if keys[pg.K_ESCAPE]:
-                running = False
+                self.running = False
 
             for surface in self.focused_surfaces.copy():  # copy to avoid RuntimeError
                 if self.focused_surfaces[surface]:
@@ -159,6 +159,10 @@ class Simulat:
         # quit pygame
         self.logger.info("Quit event received, exiting.")
         pg.quit()
+
+    def quit(self):
+        """Quit the game."""
+        self.running = False
 
 
 def init():
