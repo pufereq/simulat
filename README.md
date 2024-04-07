@@ -7,7 +7,7 @@
     <img alt="GitHub Release" src="https://img.shields.io/github/v/release/pufereq/simulat">
     <br>
     <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/pufereq/simulat">
-    <img alt="GitHub commits since latest release" src="https://img.shields.io/github/commits-since/pufereq/simulat/latest">
+    <img alt="GitHub commits since latest release (branch)" src="https://img.shields.io/github/commits-since/pufereq/simulat/latest/develop">
     <br>
     <img alt="CodeFactor Grade" src="https://img.shields.io/codefactor/grade/github/pufereq/simulat">
 </div>
