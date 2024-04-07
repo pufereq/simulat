@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.1] - 2024-04-07
+
+### Documentation
+
+- [`ec5a5f6`](https://github.com/pufereq/simulat/commit/ec5a5f6ab2b30fb2245d9ea7eb2916ee18395fa2) **README.md**: use the SVG logo
+
+### Miscellaneous Tasks
+
+- [`fdaac38`](https://github.com/pufereq/simulat/commit/fdaac38b1eb35ca874d1d2dee026473b81175b38) **main_menu_scene.py**: change the displayed logo
+- [`3ce3cad`](https://github.com/pufereq/simulat/commit/3ce3cad56dae68c620ff790db0460af75ff2abe2) remove `logo_transparent.png` in favor of new SVG render `logo.png`
+- [`c15e59b`](https://github.com/pufereq/simulat/commit/c15e59b105e290522bc96c72ba88df21a31b7107) **logo.svg**: make logo a SVG
+- [`2e1a0ee`](https://github.com/pufereq/simulat/commit/2e1a0eeed22b74bc5a60ae05becb83262edfd5fb) **banner_big.png**: add a bigger version of the banner
+- [`98981e5`](https://github.com/pufereq/simulat/commit/98981e579face3a36fd32741f0e574c3a53afc8b) **banner.png**: move `banner.png` to `banner/banner.png`
+- [`e5c7c1e`](https://github.com/pufereq/simulat/commit/e5c7c1e43c3574db04c82bddfa43167975815a4a) **logo_menu.png**: include scaled version of logo for main menu
+- [`f6b5ed7`](https://github.com/pufereq/simulat/commit/f6b5ed7301c38e0765e8696fe870f956296ab50d) **logo_bloom.png**: remove the bloom version of logo
+- [`e13398e`](https://github.com/pufereq/simulat/commit/e13398e3e89a2336e2942cb6137ea29e85a9726c) **logo_transparent_bloom.png**: remove the transparent bloom version of logo
+
 ## [0.11.0] - 2024-04-06
 
 ### Bug Fixes
@@ -26,6 +43,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`40498a9`](https://github.com/pufereq/simulat/commit/40498a9c324e4bc920c8282f4633c5e53221822f) **release**: 0.11.0
 - [`f5a507f`](https://github.com/pufereq/simulat/commit/f5a507fdaccf04dc7b0fd459be560732b13e2f08) add simulat logos
 - [`95f71da`](https://github.com/pufereq/simulat/commit/95f71daa42dabe2e7fad89521379b943259ea090) **main_menu_scene.py**: move separate imports to one module-wide
 - [`6c8896e`](https://github.com/pufereq/simulat/commit/6c8896e9c282f0d9e4ada57eab5da39657e4d523) **main_menu_scene.py**: add `_start_load_thread()` helper method
