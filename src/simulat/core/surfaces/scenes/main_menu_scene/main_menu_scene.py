@@ -9,6 +9,7 @@ import pygame as pg
 
 from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.buttons.button import Button
+from src.simulat.core.surfaces.buttons.button_container import ButtonContainer
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.time_it import Timer
 from src.simulat.data.colors import BasicPalette, SimulatPalette
@@ -37,19 +38,15 @@ class MainMenuScene(Scene):
         self.load_thread = th.Thread(name="Loading thread",
                                      target=self._load_game, daemon=True)
 
-        self.buttons: list[Button] = [
-            Button("New Game", (386, 400), (512, 48),
-                   on_click=self._start_load_thread),
-
-            Button("Load Game", (386, 464), (512, 48),
-                   on_click=None, enabled=False),
-
-            Button("Settings", (386, 528), (248, 48),
-                   on_click=None, enabled=False),
-
-            Button("Exit", (650, 528), (248, 48),
-                   on_click=simulat.quit)
-        ]
+        self.button_container = ButtonContainer(
+            self.surface,
+            [
+                Button("New Game", (386, 400), (512, 48), on_click=self._start_load_thread),
+                Button("Load Game", (386, 464), (512, 48), on_click=None, enabled=False),
+                Button("Settings", (386, 528), (248, 48), on_click=None, enabled=False),
+                Button("Exit", (650, 528), (248, 48), on_click=simulat.quit)
+            ]
+        )
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
 
@@ -68,7 +65,7 @@ class MainMenuScene(Scene):
 
     def _start_load_thread(self):
         if not self.load_thread.is_alive():
-            self.buttons[0].enabled = False  # prevent multiple clicks
+            self.button_container[0].enabled = False  # prevent multiple clicks
             self.load_thread.start()
 
     def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
@@ -81,14 +78,10 @@ class MainMenuScene(Scene):
             keys (dict[int, bool]): Dictionary of pressed keys.
         """
 
-        # align mouse position with the surface position
-        mouse_pos = (mouse_pos[0] - self.surface.pos_x,
-                     mouse_pos[1] - self.surface.pos_y)
-
         # handle input for buttons
-        for button in self.buttons:
-            button.input(events=events, keys=keys, mouse_pos=mouse_pos,
-                         mouse_buttons=mouse_buttons)
+        self.button_container.input(events=events, keys=keys,
+                                    mouse_pos=mouse_pos,
+                                    mouse_buttons=mouse_buttons)
 
         # load the game map if the user presses enter, temporary before
         # main menu is implemented
@@ -109,8 +102,7 @@ class MainMenuScene(Scene):
         self.surface.surface.blit(self.logo, (240, 200))
 
         # draw buttons
-        for button in self.buttons:
-            button.render(self.surface)
+        self.button_container.render()
 
         if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
