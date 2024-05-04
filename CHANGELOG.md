@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.1] - 2024-05-04
+
+### Miscellaneous Tasks
+
+- [`8c71fc3`](https://github.com/pufereq/simulat/commit/8c71fc3712ed863eeb5c59dbc05684ee9053c053) **release.yml**: after release, merge into develop
+
 ## [0.12.0] - 2024-05-04
 
 ### Documentation
@@ -16,6 +22,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`e1ecf09`](https://github.com/pufereq/simulat/commit/e1ecf09c3dfc5fae7d5fe4c2416a7f0538f36840) **release**: 0.12.0
 - [`c07ada0`](https://github.com/pufereq/simulat/commit/c07ada0463abcbe8ffe48c421d019cd16bb23fcf) **button.py**: add `Button.pos` attribute and make `rect` independent
 - [`5053faa`](https://github.com/pufereq/simulat/commit/5053faae71dbc7a91f88d13109818987236414fc) **sidebar.py**: change attribute naming for clarity
 - [`341668b`](https://github.com/pufereq/simulat/commit/341668bde0e3ac3cd0d386a15e842d762dc5483a) **scene.py**: add `Scene.pos` attribute
