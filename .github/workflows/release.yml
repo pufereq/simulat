@@ -63,6 +63,13 @@ jobs:
           tag_name: ${{ github.event.inputs.version }}
           body_path: body.md
           draft: true
-      - name: ✅ done
+      - name: 🧹 cleanup
         run: |
           rm body.md
+      - name: 📤 merge into develop
+        run: |
+          git checkout develop
+          git merge main --no-ff
+          git push origin develop
+      - name: ✅ done
+        run: echo "done"
