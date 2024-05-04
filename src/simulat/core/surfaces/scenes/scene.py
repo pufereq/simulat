@@ -26,9 +26,11 @@ class Scene:
 
         self.logger.debug(f"Initializing scene {self.id}...")
         self.size = (simulat.SIZE[0], simulat.SIZE[1] - simulat.topbar.height)
+        self.pos = (0, simulat.topbar.height)
+
         self.surface = Surface(
             self.size,
-            (0, simulat.topbar.height)
+            self.pos
         )
 
         self.surface.fill((255, 255, 255))
