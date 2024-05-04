@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.0] - 2024-05-04
+
+### Documentation
+
+- [`be6c716`](https://github.com/pufereq/simulat/commit/be6c7161843d0f08281987a7e9167e26f39a6c3e) **button_container.py**: add Usage section to class docstring
+- [`815dd8d`](https://github.com/pufereq/simulat/commit/815dd8d4f4771e6deba2521e83a8b190c849bde5) **README.md**: modify the commit since latest release badge to show data from develop
+
+### Features
+
+- [`db70519`](https://github.com/pufereq/simulat/commit/db70519fb77a745bcbae30454f4782f314a22302) **main_menu_scene.py**: use button container
+- [`bb021d7`](https://github.com/pufereq/simulat/commit/bb021d7f856decec3f2b652639f0aef77e3e8fd9) **button_container.py**: add a button container class
+
+### Miscellaneous Tasks
+
+- [`c07ada0`](https://github.com/pufereq/simulat/commit/c07ada0463abcbe8ffe48c421d019cd16bb23fcf) **button.py**: add `Button.pos` attribute and make `rect` independent
+- [`5053faa`](https://github.com/pufereq/simulat/commit/5053faae71dbc7a91f88d13109818987236414fc) **sidebar.py**: change attribute naming for clarity
+- [`341668b`](https://github.com/pufereq/simulat/commit/341668bde0e3ac3cd0d386a15e842d762dc5483a) **scene.py**: add `Scene.pos` attribute
+
 ## [0.11.1] - 2024-04-07
 
 ### Documentation
@@ -10,6 +28,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`7cbb467`](https://github.com/pufereq/simulat/commit/7cbb4672aef59fcfc0908f40d9ff82bbcd2ff905) **release**: 0.11.1
 - [`fdaac38`](https://github.com/pufereq/simulat/commit/fdaac38b1eb35ca874d1d2dee026473b81175b38) **main_menu_scene.py**: change the displayed logo
 - [`3ce3cad`](https://github.com/pufereq/simulat/commit/3ce3cad56dae68c620ff790db0460af75ff2abe2) remove `logo_transparent.png` in favor of new SVG render `logo.png`
 - [`c15e59b`](https://github.com/pufereq/simulat/commit/c15e59b105e290522bc96c72ba88df21a31b7107) **logo.svg**: make logo a SVG
