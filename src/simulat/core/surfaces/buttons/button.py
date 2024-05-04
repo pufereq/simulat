@@ -35,10 +35,12 @@ class Button(Surface):
                 "main".
         """
         super().__init__(size, pos)
-        self.rect = self.surface.get_rect(topleft=pos)
+        self.pos = pos
+        self.rect = pg.Rect(self.pos, size)
 
-        self.logger.debug(f"Creating button: '{text}' at {pos} with size {size}, "
-                          f"enabled: {enabled}, action: {on_click}")
+        self.logger.debug(f"Creating button: '{text}' at {pos}"
+                          f" size: {size}, enabled: {enabled},"
+                          f" action: {on_click}")
 
         self.enabled = enabled
         self.text = text

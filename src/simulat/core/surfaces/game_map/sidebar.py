@@ -27,11 +27,13 @@ class Sidebar(Surface):
 
         self.scene = scene
 
-        self.DISPLAY_SIZE = scene.size
-        self.SIDEBAR_SIZE = (256, self.DISPLAY_SIZE[1])
-        self.SIDEBAR_POS = (self.DISPLAY_SIZE[0] - self.SIDEBAR_SIZE[0], 0)
+        self.PARENT_POS = scene.pos
+        self.PARENT_SIZE = scene.size
+        self.SIDEBAR_SIZE = (256, self.PARENT_SIZE[1])
+        self.ABSOLUTE_SIDEBAR_POS = (self.PARENT_SIZE[0] - self.SIDEBAR_SIZE[0], 24)
+        self.RELATIVE_SIDEBAR_POS = (self.ABSOLUTE_SIDEBAR_POS[0], 0)
 
-        super().__init__(self.SIDEBAR_SIZE)
+        super().__init__(self.SIDEBAR_SIZE, self.ABSOLUTE_SIDEBAR_POS)
 
         self.surface.fill(SimulatPalette.BACKGROUND)
 
@@ -45,4 +47,4 @@ class Sidebar(Surface):
 
     def render(self) -> None:
         """Render the sidebar."""
-        self.scene.surface.blit(self.surface, self.SIDEBAR_POS)
+        self.scene.surface.blit(self.surface, self.RELATIVE_SIDEBAR_POS)
