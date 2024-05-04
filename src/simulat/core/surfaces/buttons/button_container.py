@@ -16,6 +16,32 @@ class ButtonContainer:
 
     A button container is a container for buttons. It is used to group buttons
     together and handle their input and rendering.
+
+    Usage:
+
+    Initialization:
+    ```python
+    button_container = ButtonContainer(
+        parent_surface,
+        [
+            Button("Button 1", (100, 100), (100, 50)),
+            Button("Button 2", (100, 200), (100, 50))
+        ]
+    )
+    ```
+    Input handling:
+    ```python
+    button_container.input(
+        events=events,
+        keys=keys,
+        mouse_pos=mouse_pos,
+        mouse_buttons=mouse_buttons
+    )
+    ```
+    Rendering:
+    ```python
+    button_container.render()
+    ```
     """
     def __init__(self, parent: Surface, buttons: list[Button]):
         """Initialize the button container."""
