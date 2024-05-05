@@ -2,10 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.12.2] - 2024-05-05
+
+### Bug Fixes
+
+- [`0832fdb`](https://github.com/pufereq/simulat/commit/0832fdb62569d823d52d117efd9c1657bc723ae7) **character.py**: fix clunky collision handling
+
+### Miscellaneous Tasks
+
+- [`946a90e`](https://github.com/pufereq/simulat/commit/946a90e3516bca4936c90ba88f6cb5d83f5646a2) **character.py**: add `Character.move_to()` method
+- [`3b6ac20`](https://github.com/pufereq/simulat/commit/3b6ac20e569aa81ad3e88f1ee9d9a88cc9c050c9) **character.py**: make `Character._check_collision()` return Tile or None
+
 ## [0.12.1] - 2024-05-04
 
 ### Miscellaneous Tasks
 
+- [`b1971f8`](https://github.com/pufereq/simulat/commit/b1971f8aa152ba06c5bf45c540de0ca8479541c0) **release**: 0.12.1
 - [`8c71fc3`](https://github.com/pufereq/simulat/commit/8c71fc3712ed863eeb5c59dbc05684ee9053c053) **release.yml**: after release, merge into develop
 
 ## [0.12.0] - 2024-05-04
