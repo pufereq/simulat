@@ -179,3 +179,14 @@ class Character:
         if dy != 0:
             self.pos[1] += dy
             self.velocity[1] = 0
+
+    def move_to(self, x: float, y: float) -> None:
+        """Move the character to a specific position.
+
+        Args:
+            x (float): The x-coordinate of the position to move to (in tiles).
+            y (float): The y-coordinate of the position to move to (in tiles).
+        """
+        self.pos = [x, y]
+        self.velocity = [0, 0]
+        # self.rect.center = self.px_pos
