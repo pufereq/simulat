@@ -4,9 +4,9 @@
 from __future__ import annotations
 
 import logging as lg
-from src.simulat.core.surfaces.game_map.tiles.tile import (px_to_tiles,
-                                                           tiles_to_px)
 
+from src.simulat.core.surfaces.game_map.tiles.tile import (Tile, px_to_tiles,
+                                                           tiles_to_px)
 from src.simulat.core.surfaces.surface import Surface
 
 
@@ -103,7 +103,7 @@ class Character:
         # convert back to center position
         self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
-    def _check_collision(self, x: float, y: float) -> bool:
+    def _check_collision(self, x: float, y: float) -> Tile | None:
         """Check if the character collides with a collider tile.
 
         Args:
@@ -111,17 +111,15 @@ class Character:
             y (float): Vertical distance to move (in tiles).
 
         Returns:
-            bool: True if the character collides with a collider tile, False
-            otherwise.
+            Tile | None: The collider tile the character collides with.
         """
         x, y = tiles_to_px(x), tiles_to_px(y)
+        new_pos_rect = self.rect.copy()
+        new_pos_rect.center = (x, y)
         for tile in self.game_map.collider_tiles:
-            if tile.is_collider:
-                new_pos_rect = self.rect.copy()
-                new_pos_rect.center = (x, y)
-                if new_pos_rect.colliderect(tile.rect):
-                    return True
-        return False
+            if new_pos_rect.colliderect(tile.rect):
+                return tile
+        return None
 
     def update(self, delta: float) -> None:
         """Update the character.
@@ -162,22 +160,42 @@ class Character:
         """
 
         # check for collision
-        if self._check_collision(self.pos[0] + dx, self.pos[1]) and self.can_collide:
-            dx = 0
-            # a sneaky hack to allow the player to touch the wall on lower
-            # frame rates
-            self.velocity[0] *= 0.5
+        collider_x = self._check_collision(self.pos[0] + dx, self.pos[1])
+        if collider_x and self.can_collide:
+            # teleport the player to the left or right of the collider tile
+            if dx < 0:
+                new_pos_x = px_to_tiles(collider_x.rect.right) + self.size[0] / 2
+            elif dx > 0:
+                new_pos_x = px_to_tiles(collider_x.rect.left) - self.size[0] / 2
+            if dx != 0:
+                self.move_to(new_pos_x, self.pos[1])
+                dx = 0
 
-        if self._check_collision(self.pos[0], self.pos[1] + dy) and self.can_collide:
-            dy = 0
-            self.velocity[1] *= 0.5
-
+        collider_y = self._check_collision(self.pos[0], self.pos[1] + dy)
+        if collider_y and self.can_collide:
+            # teleport the player to the top or bottom of the collider tile
+            if dy < 0:
+                new_pos_y = px_to_tiles(collider_y.rect.bottom) + self.size[1] / 2
+            elif dy > 0:
+                new_pos_y = px_to_tiles(collider_y.rect.top) - self.size[1] / 2
+            if dy != 0:
+                self.move_to(self.pos[0], new_pos_y)
+                dy = 0
         # move horizontally
         if dx != 0:
-            self.pos[0] += dx
-            self.velocity[0] = 0
+            self.move_to(self.pos[0] + dx, self.pos[1])
 
         # move vertically
         if dy != 0:
-            self.pos[1] += dy
-            self.velocity[1] = 0
+            self.move_to(self.pos[0], self.pos[1] + dy)
+
+    def move_to(self, x: float, y: float) -> None:
+        """Move the character to a specific position.
+
+        Args:
+            x (float): The x-coordinate of the position to move to (in tiles).
+            y (float): The y-coordinate of the position to move to (in tiles).
+        """
+        self.pos = [x, y]
+        self.velocity = [0, 0]
+        # self.rect.center = self.px_pos
