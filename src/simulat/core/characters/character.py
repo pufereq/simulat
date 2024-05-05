@@ -160,25 +160,34 @@ class Character:
         """
 
         # check for collision
-        if self._check_collision(self.pos[0] + dx, self.pos[1]) and self.can_collide:
-            dx = 0
-            # a sneaky hack to allow the player to touch the wall on lower
-            # frame rates
-            self.velocity[0] *= 0.5
+        collider_x = self._check_collision(self.pos[0] + dx, self.pos[1])
+        if collider_x and self.can_collide:
+            # teleport the player to the left or right of the collider tile
+            if dx < 0:
+                new_pos_x = px_to_tiles(collider_x.rect.right) + self.size[0] / 2
+            elif dx > 0:
+                new_pos_x = px_to_tiles(collider_x.rect.left) - self.size[0] / 2
+            if dx != 0:
+                self.move_to(new_pos_x, self.pos[1])
+                dx = 0
 
-        if self._check_collision(self.pos[0], self.pos[1] + dy) and self.can_collide:
-            dy = 0
-            self.velocity[1] *= 0.5
-
+        collider_y = self._check_collision(self.pos[0], self.pos[1] + dy)
+        if collider_y and self.can_collide:
+            # teleport the player to the top or bottom of the collider tile
+            if dy < 0:
+                new_pos_y = px_to_tiles(collider_y.rect.bottom) + self.size[1] / 2
+            elif dy > 0:
+                new_pos_y = px_to_tiles(collider_y.rect.top) - self.size[1] / 2
+            if dy != 0:
+                self.move_to(self.pos[0], new_pos_y)
+                dy = 0
         # move horizontally
         if dx != 0:
-            self.pos[0] += dx
-            self.velocity[0] = 0
+            self.move_to(self.pos[0] + dx, self.pos[1])
 
         # move vertically
         if dy != 0:
-            self.pos[1] += dy
-            self.velocity[1] = 0
+            self.move_to(self.pos[0], self.pos[1] + dy)
 
     def move_to(self, x: float, y: float) -> None:
         """Move the character to a specific position.
