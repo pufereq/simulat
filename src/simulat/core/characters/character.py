@@ -4,9 +4,9 @@
 from __future__ import annotations
 
 import logging as lg
-from src.simulat.core.surfaces.game_map.tiles.tile import (px_to_tiles,
-                                                           tiles_to_px)
 
+from src.simulat.core.surfaces.game_map.tiles.tile import (Tile, px_to_tiles,
+                                                           tiles_to_px)
 from src.simulat.core.surfaces.surface import Surface
 
 
@@ -103,7 +103,7 @@ class Character:
         # convert back to center position
         self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
-    def _check_collision(self, x: float, y: float) -> bool:
+    def _check_collision(self, x: float, y: float) -> Tile | None:
         """Check if the character collides with a collider tile.
 
         Args:
@@ -111,17 +111,15 @@ class Character:
             y (float): Vertical distance to move (in tiles).
 
         Returns:
-            bool: True if the character collides with a collider tile, False
-            otherwise.
+            Tile | None: The collider tile the character collides with.
         """
         x, y = tiles_to_px(x), tiles_to_px(y)
+        new_pos_rect = self.rect.copy()
+        new_pos_rect.center = (x, y)
         for tile in self.game_map.collider_tiles:
-            if tile.is_collider:
-                new_pos_rect = self.rect.copy()
-                new_pos_rect.center = (x, y)
-                if new_pos_rect.colliderect(tile.rect):
-                    return True
-        return False
+            if new_pos_rect.colliderect(tile.rect):
+                return tile
+        return None
 
     def update(self, delta: float) -> None:
         """Update the character.
