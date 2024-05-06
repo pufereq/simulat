@@ -22,11 +22,3 @@ class Player(Character):
 
         self.logger.debug("Initializing player...")
         super().__init__(game_map, pos, (1, 1), "tiles")
-
-    def render(self) -> None:
-        from src.simulat.core.game import simulat
-        simulat.topbar.update_title(
-            f"XY: {self.pos[0]:.3f}, {self.pos[1]:.3f} on "
-            f"{self.game_map.tiles[int(self.pos[1])][int(self.pos[0])].name}"
-        )
-        return super().render()

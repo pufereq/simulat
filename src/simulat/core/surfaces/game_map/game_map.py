@@ -111,6 +111,11 @@ class GameMap(Surface):
         self.player.update(delta)
         self.camera.update(delta)
 
+        simulat.topbar.update_title(
+            f"XY: {self.player.pos[0]:.3f}, {self.player.pos[1]:.3f} on "
+            f"{self.tiles[int(self.player.pos[1])][int(self.player.pos[0])].name}"
+        )
+
     def render(self) -> None:
         """Render the game map."""
         # Calculate the distance the player can move in one frame.
