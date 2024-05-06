@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.13.0] - 2024-05-06
+
+### Features
+
+- [`fe76834`](https://github.com/pufereq/simulat/commit/fe768340d69e4d6c091ed5a2d909a817efb3613e) **game_map.py**: show camera position on topbar when detached
+- [`b30de9e`](https://github.com/pufereq/simulat/commit/b30de9e140242ac3f960a97fa505def2b8d9371d) **camera.py**: cap camera position within player's distance
+
+### Refactor
+
+- [`f0667c2`](https://github.com/pufereq/simulat/commit/f0667c29f2f055b2d3475d53e53d6a71829e302f) **game_map.py**: move `update_title` call from Player's `render()` method to `GameMap.update()`
+
 ## [0.12.2] - 2024-05-05
 
 ### Bug Fixes
@@ -10,6 +21,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`b9a984e`](https://github.com/pufereq/simulat/commit/b9a984e3e845fa4059a2d39fadfe0fcb90038cac) **release**: 0.12.2
 - [`946a90e`](https://github.com/pufereq/simulat/commit/946a90e3516bca4936c90ba88f6cb5d83f5646a2) **character.py**: add `Character.move_to()` method
 - [`3b6ac20`](https://github.com/pufereq/simulat/commit/3b6ac20e569aa81ad3e88f1ee9d9a88cc9c050c9) **character.py**: make `Character._check_collision()` return Tile or None
 
