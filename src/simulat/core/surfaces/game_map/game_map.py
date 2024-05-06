@@ -55,6 +55,7 @@ class GameMap(Surface):
         self.character_surface.surface.set_colorkey((0, 0, 0))
 
         self.camera = Camera(self, self.player.pos)
+        self.camera_attached: bool | None = None
 
         self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
                           f"{self.surface_size} px")
@@ -77,39 +78,54 @@ class GameMap(Surface):
             key: The keys pressed.
         """
 
-        camera_attached: bool = False
-
         # camera movement
         if keys[pg.K_UP]:
             self.camera.velocity[1] += -1
+            self.camera_attached = False
         if keys[pg.K_DOWN]:
             self.camera.velocity[1] += 1
+            self.camera_attached = False
         if keys[pg.K_LEFT]:
             self.camera.velocity[0] += -1
+            self.camera_attached = False
         if keys[pg.K_RIGHT]:
             self.camera.velocity[0] += 1
+            self.camera_attached = False
 
         # player movement
         if keys[pg.K_w]:
             self.player.velocity[1] += -1
-            camera_attached = True
+            self.camera_attached = True
         if keys[pg.K_s]:
             self.player.velocity[1] += 1
-            camera_attached = True
+            self.camera_attached = True
         if keys[pg.K_a]:
             self.player.velocity[0] += -1
-            camera_attached = True
+            self.camera_attached = True
         if keys[pg.K_d]:
             self.player.velocity[0] += 1
-            camera_attached = True
+            self.camera_attached = True
 
-        if camera_attached:
+        if self.camera_attached:
             self.camera.pos = self.player.pos
 
     def update(self, delta: float) -> None:
         """Update the game map."""
         self.player.update(delta)
         self.camera.update(delta)
+
+        if self.camera_attached:
+            simulat.topbar.update_title(
+                f"XY: {self.player.pos[0]:.3f}, {self.player.pos[1]:.3f} on "
+                f"{self.tiles[int(self.player.pos[1])][int(self.player.pos[0])].name}"
+            )
+        elif self.camera_attached is None:
+            # player hasn't moved yet
+            simulat.topbar.update_title("WASD to move, ←↑↓→ to move camera")
+        else:
+            simulat.topbar.update_title(
+                f"Camera XY: {self.camera.pos[0]:.3f}, {self.camera.pos[1]:.3f}"
+            )
 
     def render(self) -> None:
         """Render the game map."""
