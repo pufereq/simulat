@@ -51,7 +51,7 @@ class MainMenuScene(Scene):
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
 
         # add logo
-        logo_path = "src/simulat/assets/logo/ingame/logo_menu.png"
+        logo_path = "assets/logo/ingame/logo_menu.png"
         self.logo = pg.image.load(logo_path).convert_alpha()
 
     def _load_game(self):
