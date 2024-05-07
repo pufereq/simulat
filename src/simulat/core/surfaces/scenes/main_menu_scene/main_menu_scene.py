@@ -41,10 +41,10 @@ class MainMenuScene(Scene):
         self.button_container = ButtonContainer(
             self.surface,
             [
-                Button("New Game", (386, 400), (512, 48), on_click=self._start_load_thread),
-                Button("Load Game", (386, 464), (512, 48), on_click=None, enabled=False),
-                Button("Settings", (386, 528), (248, 48), on_click=None, enabled=False),
-                Button("Exit", (650, 528), (248, 48), on_click=simulat.quit)
+                Button("New Game", (193, 200), (256, 24), on_click=self._start_load_thread),
+                Button("Load Game", (193, 230), (256, 24), on_click=None, enabled=False),
+                Button("Settings", (193, 260), (124, 24), on_click=None, enabled=False),
+                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit)
             ]
         )
 
@@ -53,6 +53,7 @@ class MainMenuScene(Scene):
         # add logo
         logo_path = "assets/logo/ingame/logo_menu.png"
         self.logo = pg.image.load(logo_path).convert_alpha()
+        self.logo = pg.transform.scale(self.logo, (412, 82))
 
     def _load_game(self):
         from src.simulat.core.surfaces.scenes.game_scene.game_scene import \
@@ -99,7 +100,7 @@ class MainMenuScene(Scene):
         simulat.topbar.update_title("main menu")
 
         # draw logo
-        self.surface.surface.blit(self.logo, (240, 200))
+        self.surface.surface.blit(self.logo, (120, 100))
 
         # draw buttons
         self.button_container.render()
