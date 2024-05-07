@@ -9,7 +9,7 @@ from typing import Final
 from src.simulat.core.surfaces.surface import Surface
 
 
-TILE_SIZE: Final = 64  # pixels
+TILE_SIZE: Final = 32  # pixels
 
 
 class Tile():
