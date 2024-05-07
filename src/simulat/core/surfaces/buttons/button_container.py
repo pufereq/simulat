@@ -10,6 +10,8 @@ import pygame as pg
 from src.simulat.core.surfaces.buttons.button import Button
 from src.simulat.core.surfaces.surface import Surface
 
+from src.simulat.core.game import simulat
+
 
 class ButtonContainer:
     """Button container class.
@@ -73,8 +75,8 @@ class ButtonContainer:
         """
 
         mouse_pos = (
-            mouse_pos[0] - self.parent.pos_x,
-            mouse_pos[1] - self.parent.pos_y
+            (mouse_pos[0] / (simulat.DISPLAY_SIZE[0] / simulat.INTERNAL_SCREEN_SIZE[0])) - self.parent.pos_x,
+            (mouse_pos[1] / (simulat.DISPLAY_SIZE[1] / simulat.INTERNAL_SCREEN_SIZE[1])) - self.parent.pos_y
         )
 
         for button in self.buttons:
