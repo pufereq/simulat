@@ -25,7 +25,8 @@ class Simulat:
         """Initialize pygame and the main window."""
         # constants
         self.FPS: Final = 60
-        self.SIZE: Final = (1280, 720)
+        self.INTERNAL_SCREEN_SIZE: Final = (640, 360)
+        self.DISPLAY_SIZE = (1280, 720)
 
         # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
