@@ -9,7 +9,7 @@ from typing import Final
 
 import pygame as pg
 
-from src.simulat.core import log_exception
+from src.simulat.core.log_exception import log_exception
 
 # set up logging
 lg.basicConfig(format="%(asctime)s : %(levelname)-8s : %(threadName)s : %(filename)s:"
@@ -153,7 +153,7 @@ class Simulat:
                 if event.type == pg.QUIT:
                     self.running = False
 
-            self.screen.fill((30, 30, 30))
+            self.internal_screen.fill((30, 30, 30))
 
             if keys[pg.K_ESCAPE]:
                 self.running = False
@@ -169,10 +169,10 @@ class Simulat:
 
             # RENDER
             # draw scene
-            self.scenes[self.active_scene].render(self.screen)
+            self.scenes[self.active_scene].render(self.internal_screen)
 
             # draw topbar
-            self.screen.blit(self.topbar.surface, (0, 0))
+            self.internal_screen.blit(self.topbar.surface, (0, 0))
 
             pg.display.set_caption(f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}")
 
