@@ -15,7 +15,7 @@ class Topbar(Surface):
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.debug("Initializing topbar...")
 
-        super().__init__((simulat.SIZE[0], 24), (0, 0))
+        super().__init__((simulat.INTERNAL_SCREEN_SIZE[0], 12), (0, 0))
 
         self.debug_text: str = ""
         self.title_text: str = ""
