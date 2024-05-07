@@ -29,7 +29,7 @@ class Sidebar(Surface):
 
         self.PARENT_POS = scene.pos
         self.PARENT_SIZE = scene.size
-        self.SIDEBAR_SIZE = (256, self.PARENT_SIZE[1])
+        self.SIDEBAR_SIZE = (128, self.PARENT_SIZE[1])
         self.ABSOLUTE_SIDEBAR_POS = (self.PARENT_SIZE[0] - self.SIDEBAR_SIZE[0], 24)
         self.RELATIVE_SIDEBAR_POS = (self.ABSOLUTE_SIDEBAR_POS[0], 0)
 
