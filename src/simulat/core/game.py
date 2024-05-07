@@ -177,6 +177,10 @@ class Simulat:
             pg.display.set_caption(f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}")
 
             # update screen
+            self.display.blit(
+                pg.transform.scale(self.internal_screen, self.DISPLAY_SIZE),
+                (0, 0)
+            )
             pg.display.flip()
 
             # limit framerate
