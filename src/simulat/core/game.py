@@ -43,7 +43,8 @@ class Simulat:
         pg.display.set_caption(f"simulat {VERSION}")
 
         # initialize screen
-        self.screen = pg.display.set_mode(self.SIZE)
+        self.internal_screen = pg.Surface(self.INTERNAL_SCREEN_SIZE)
+        self.display = pg.display.set_mode(self.DISPLAY_SIZE)
 
         # initialize clock
         self.clock = pg.time.Clock()
