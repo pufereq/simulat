@@ -41,10 +41,10 @@ class MainMenuScene(Scene):
         self.button_container = ButtonContainer(
             self.surface,
             [
-                Button("New Game", (386, 400), (512, 48), on_click=self._start_load_thread),
-                Button("Load Game", (386, 464), (512, 48), on_click=None, enabled=False),
-                Button("Settings", (386, 528), (248, 48), on_click=None, enabled=False),
-                Button("Exit", (650, 528), (248, 48), on_click=simulat.quit)
+                Button("New Game", (193, 200), (256, 24), on_click=self._start_load_thread),
+                Button("Load Game", (193, 230), (256, 24), on_click=None, enabled=False),
+                Button("Settings", (193, 260), (124, 24), on_click=None, enabled=False),
+                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit)
             ]
         )
 
