@@ -8,6 +8,7 @@ import sys
 from typing import Final
 
 import pygame as pg
+import pygame.ftfont
 
 from src.simulat.core.log_exception import log_exception
 
@@ -54,9 +55,9 @@ class Simulat:
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pg.font.SysFont("monospace", 8),
-            "topbar": pg.font.SysFont("monospace", 11),
-            "button": pg.font.SysFont("monospace", 10),
+            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
         }
 
         # initialize focused surfaces
