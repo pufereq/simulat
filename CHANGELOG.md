@@ -2,12 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.14.0] - 2024-05-08
+
+### Features
+
+- [`93d4014`](https://github.com/pufereq/simulat/commit/93d401432e76f09c848a3e7ad3d56c570f22aca5) **simulat.ttf**: add the simulat font
+- [`ae58007`](https://github.com/pufereq/simulat/commit/ae58007a3ef5715fde9abf8952e298e53b55833f) **button_container.py**: add calculations to ensure correct mouse interaction independetly from resolution
+- [`5c574e6`](https://github.com/pufereq/simulat/commit/5c574e6c16cf819efb929f4688ba256608faf6dc) **game.py**: add `Simulat.internal_screen` and `Simulat.display` surfaces
+
+### Miscellaneous Tasks
+
+- [`5220601`](https://github.com/pufereq/simulat/commit/5220601e2b70c1cadbc607e66ca70d5ba86111e6) **game.py**: use the simulat font
+- [`6be9dcd`](https://github.com/pufereq/simulat/commit/6be9dcd8f32eda3635dd062e3e89ced12eb37423) **game.py**: decrease font sizes
+- [`61af88b`](https://github.com/pufereq/simulat/commit/61af88b840e2b8fe0df8981076eee81a47f4a4d2) **main_menu_scene.py**: change position and scaling of logo on main menu
+- [`e79bed3`](https://github.com/pufereq/simulat/commit/e79bed33bc13a93ac7839f3f893cfe76a08dfbc0) **main_menu_scene.py**: correct wrong button size and position on main menu
+- [`37097d2`](https://github.com/pufereq/simulat/commit/37097d2189969f09e3603d8fcd16d7c0320a4883) **tile.py**: lower the `TILE_SIZE` to 32px for consistent scale
+- [`f0f2b22`](https://github.com/pufereq/simulat/commit/f0f2b222e356e787c02839eb9a001ac47d22e784) **sidebar.py**: adjust button rounded corner radius for consistency with pre-scaling style
+- [`2019fa4`](https://github.com/pufereq/simulat/commit/2019fa4e066bf179bcbf50980d13f7dbf70a5851) **sidebar.py**: adjust sidebar width for consistency with pre-scaled size
+- [`a8232e8`](https://github.com/pufereq/simulat/commit/a8232e8d05faafb35d1422cc34de401cb758022d) **game.py**: draw scaled to `DISPLAY_SIZE``internal_screen` onto the `display`
+
+### Refactor
+
+- [`6d08e33`](https://github.com/pufereq/simulat/commit/6d08e337b346871b72c17f33ddddf40b4654ae73) **scene.py**: replace `simulat.SIZE` with `simulat.INTERNAL_SCREEN_SIZE` for consistency
+- [`93e4c9c`](https://github.com/pufereq/simulat/commit/93e4c9c391a85a7c8ee84b4a86f282722c4d3f2e) **topbar.py**: replace `simulat.SIZE` with `simulat.INTERNAL_SCREEN_SIZE` for consistency
+- [`d6d97fe`](https://github.com/pufereq/simulat/commit/d6d97fe8a27ccbf1a01cd583c82f06cc98847ab8) **game.py**: replace `Simulat.screen` surface calls with `internal_screen`
+- [`75b690c`](https://github.com/pufereq/simulat/commit/75b690c6cfaded38de5f360cb5669d481aae3db6) **game.py**: rename variable `Simulat.SIZE` -> `Simulat.INTERNAL_SCREEN_SIZE`
+- [`afc6b8e`](https://github.com/pufereq/simulat/commit/afc6b8e3b957a85ce149de667fdd4eb16e62a49a) move `src/simulat/assets/` to `assets/`
+
 ## [0.13.0] - 2024-05-06
 
 ### Features
 
 - [`fe76834`](https://github.com/pufereq/simulat/commit/fe768340d69e4d6c091ed5a2d909a817efb3613e) **game_map.py**: show camera position on topbar when detached
 - [`b30de9e`](https://github.com/pufereq/simulat/commit/b30de9e140242ac3f960a97fa505def2b8d9371d) **camera.py**: cap camera position within player's distance
+
+### Miscellaneous Tasks
+
+- [`ec8d20e`](https://github.com/pufereq/simulat/commit/ec8d20e5035abd3f7e06f78427ef73b340197b49) **release**: 0.13.0
 
 ### Refactor
 
