@@ -25,7 +25,8 @@ class Scene:
         self.logger = lg.getLogger(f"{__name__}.{self.id}")
 
         self.logger.debug(f"Initializing scene {self.id}...")
-        self.size = (simulat.SIZE[0], simulat.SIZE[1] - simulat.topbar.height)
+        self.size = (simulat.INTERNAL_SCREEN_SIZE[0],
+                     simulat.INTERNAL_SCREEN_SIZE[1] - simulat.topbar.height)
         self.pos = (0, simulat.topbar.height)
 
         self.surface = Surface(

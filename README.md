@@ -1,4 +1,4 @@
-<img alt="simulat" src="./src/simulat/assets/logo/logo.svg" style="display: block; width: 100%; margin-right: auto; margin-left: auto">
+<img alt="simulat" src="./assets/logo/logo.svg" style="display: block; width: 100%; margin-right: auto; margin-left: auto">
 
 ---
 

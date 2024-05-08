@@ -74,7 +74,7 @@ class Button(Surface):
             self.rounded_corner_overlay.surface,
             BasicPalette.MAGENTA,
             (0, 0, *size),
-            border_radius=8
+            border_radius=4
         )
 
     def __repr__(self) -> str:

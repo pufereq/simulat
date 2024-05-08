@@ -8,8 +8,9 @@ import sys
 from typing import Final
 
 import pygame as pg
+import pygame.ftfont
 
-from src.simulat.core import log_exception
+from src.simulat.core.log_exception import log_exception
 
 # set up logging
 lg.basicConfig(format="%(asctime)s : %(levelname)-8s : %(threadName)s : %(filename)s:"
@@ -25,7 +26,8 @@ class Simulat:
         """Initialize pygame and the main window."""
         # constants
         self.FPS: Final = 60
-        self.SIZE: Final = (1280, 720)
+        self.INTERNAL_SCREEN_SIZE: Final = (640, 360)
+        self.DISPLAY_SIZE = (1280, 720)
 
         # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
@@ -42,7 +44,8 @@ class Simulat:
         pg.display.set_caption(f"simulat {VERSION}")
 
         # initialize screen
-        self.screen = pg.display.set_mode(self.SIZE)
+        self.internal_screen = pg.Surface(self.INTERNAL_SCREEN_SIZE)
+        self.display = pg.display.set_mode(self.DISPLAY_SIZE)
 
         # initialize clock
         self.clock = pg.time.Clock()
@@ -52,9 +55,9 @@ class Simulat:
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pg.font.SysFont("monospace", 16),
-            "topbar": pg.font.SysFont("monospace", 22),
-            "button": pg.font.SysFont("monospace", 20),
+            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
         }
 
         # initialize focused surfaces
@@ -151,7 +154,7 @@ class Simulat:
                 if event.type == pg.QUIT:
                     self.running = False
 
-            self.screen.fill((30, 30, 30))
+            self.internal_screen.fill((30, 30, 30))
 
             if keys[pg.K_ESCAPE]:
                 self.running = False
@@ -167,14 +170,18 @@ class Simulat:
 
             # RENDER
             # draw scene
-            self.scenes[self.active_scene].render(self.screen)
+            self.scenes[self.active_scene].render(self.internal_screen)
 
             # draw topbar
-            self.screen.blit(self.topbar.surface, (0, 0))
+            self.internal_screen.blit(self.topbar.surface, (0, 0))
 
             pg.display.set_caption(f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}")
 
             # update screen
+            self.display.blit(
+                pg.transform.scale(self.internal_screen, self.DISPLAY_SIZE),
+                (0, 0)
+            )
             pg.display.flip()
 
             # limit framerate
