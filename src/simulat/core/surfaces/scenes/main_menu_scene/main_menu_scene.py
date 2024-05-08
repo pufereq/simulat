@@ -12,7 +12,7 @@ from src.simulat.core.surfaces.buttons.button import Button
 from src.simulat.core.surfaces.buttons.button_container import ButtonContainer
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.time_it import Timer
-from src.simulat.data.colors import BasicPalette, SimulatPalette
+from src.simulat.core.colors import BasicPalette, SimulatPalette
 
 
 class MainMenuScene(Scene):

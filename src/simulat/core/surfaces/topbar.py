@@ -6,7 +6,7 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.colors import SimulatPalette
+from src.simulat.core.colors import SimulatPalette
 
 
 class Topbar(Surface):

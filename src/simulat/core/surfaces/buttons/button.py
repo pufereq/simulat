@@ -10,7 +10,7 @@ import pygame as pg
 
 from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.colors import BasicPalette, SimulatPalette
+from src.simulat.core.colors import BasicPalette, SimulatPalette
 
 
 class Button(Surface):

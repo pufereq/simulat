@@ -7,7 +7,7 @@ import logging as lg
 
 import pygame as pg
 
-from src.simulat.data.colors import SimulatPalette
+from src.simulat.core.colors import SimulatPalette
 from src.simulat.core.game import simulat
 
 

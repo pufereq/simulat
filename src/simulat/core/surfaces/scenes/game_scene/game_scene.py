@@ -9,7 +9,7 @@ from src.simulat.core.surfaces.game_map.game_map import GameMap
 from src.simulat.core.surfaces.game_map.sidebar import Sidebar
 from src.simulat.core.surfaces.scenes.scene import Scene
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.colors import BasicPalette, SimulatPalette
+from src.simulat.core.colors import BasicPalette, SimulatPalette
 
 
 class GameScene(Scene):
