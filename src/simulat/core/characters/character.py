@@ -5,8 +5,7 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.surfaces.game_map.tiles.tile import (Tile, px_to_tiles,
-                                                           tiles_to_px)
+from src.simulat.core.surfaces.game_map.tiles.tile import Tile, px_to_tiles, tiles_to_px
 from src.simulat.core.surfaces.surface import Surface
 
 
@@ -17,9 +16,16 @@ class Character:
     an enemy, an NPC, etc. Each character has its own class, which inherits
     from this class.
     """
-    def __init__(self, game_map: GameMap, pos: tuple[float, float],
-                 size: tuple[float, float], unit: str, *,
-                 can_collide: bool = True) -> None:
+
+    def __init__(
+        self,
+        game_map: GameMap,
+        pos: tuple[float, float],
+        size: tuple[float, float],
+        unit: str,
+        *,
+        can_collide: bool = True,
+    ) -> None:
         """Initialize the character.
 
         Args:
@@ -45,15 +51,20 @@ class Character:
 
         if unit == "px":
             self.px_size: tuple[float, float] = size
-            self.size: tuple[float, float] = (px_to_tiles(size[0]),
-                                              px_to_tiles(size[1]))
+            self.size: tuple[float, float] = (
+                px_to_tiles(size[0]),
+                px_to_tiles(size[1]),
+            )
         elif unit == "tiles":
             self.size: tuple[float, float] = size
-            self.px_size: tuple[float, float] = (tiles_to_px(size[0]),
-                                                  tiles_to_px(size[1]))
+            self.px_size: tuple[float, float] = (
+                tiles_to_px(size[0]),
+                tiles_to_px(size[1]),
+            )
 
-        self.logger.debug(f"Initializing character {type(self).__name__} "
-                          f"at {self.pos}...")
+        self.logger.debug(
+            f"Initializing character {type(self).__name__} " f"at {self.pos}..."
+        )
 
         self.can_collide: bool = can_collide
 
@@ -87,18 +98,11 @@ class Character:
     def _cap_position(self, pos_tiles: tuple[float, float]) -> None:
         """Cap the character's position to the game map's size."""
         # covert to top-left position
-        topleft_pos = (pos_tiles[0] - self.size[0] / 2,
-                       pos_tiles[1] - self.size[1] / 2)
+        topleft_pos = (pos_tiles[0] - self.size[0] / 2, pos_tiles[1] - self.size[1] / 2)
 
         # cap position
-        x = max(
-            min(topleft_pos[0], self.game_map.MAP_SIZE[0] - self.size[0]),
-            0
-        )
-        y = max(
-            min(topleft_pos[1], self.game_map.MAP_SIZE[1] - self.size[1]),
-            0
-        )
+        x = max(min(topleft_pos[0], self.game_map.MAP_SIZE[0] - self.size[0]), 0)
+        y = max(min(topleft_pos[1], self.game_map.MAP_SIZE[1] - self.size[1]), 0)
 
         # convert back to center position
         self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
@@ -138,7 +142,7 @@ class Character:
 
         self.move(
             self.velocity[0] * self.max_speed * delta,
-            self.velocity[1] * self.max_speed * delta
+            self.velocity[1] * self.max_speed * delta,
         )
 
         # cap position

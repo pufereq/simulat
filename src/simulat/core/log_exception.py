@@ -16,5 +16,7 @@ def log_exception(exc_type, exc_value, exc_traceback):
     # set up logging
     logger = lg.getLogger(__name__)
 
-    logger.critical(f"{exc_type.__name__}: {exc_value}",
-                    exc_info=(exc_type, exc_value, exc_traceback))
+    logger.critical(
+        f"{exc_type.__name__}: {exc_value}",
+        exc_info=(exc_type, exc_value, exc_traceback),
+    )

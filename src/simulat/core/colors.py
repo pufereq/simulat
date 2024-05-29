@@ -6,6 +6,7 @@ from typing import Final
 
 class BasicPalette:
     """A class containing basic color definitions."""
+
     BLACK: Final[str] = "#000000"
     WHITE: Final[str] = "#ffffff"
     RED: Final[str] = "#ff0000"
@@ -25,6 +26,7 @@ class BasicPalette:
 
 class SimulatPalette:
     """A class containing the simulat color palette."""
+
     BACKGROUND: Final[str] = "#364652"
     FOREGROUND: Final[str] = "#EDF2EF"
     ACCENT_PURPLE: Final[str] = "#9D8DF1"

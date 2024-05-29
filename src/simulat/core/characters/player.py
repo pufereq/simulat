@@ -15,7 +15,11 @@ class Player(Character):
     `Character`.
     """
 
-    def __init__(self, game_map: GameMap, pos: tuple[float, float], ) -> None:
+    def __init__(
+        self,
+        game_map: GameMap,
+        pos: tuple[float, float],
+    ) -> None:
         """Initialize the player."""
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")

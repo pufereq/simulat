@@ -18,9 +18,17 @@ class Button(Surface):
 
     A button is a clickable surface that can be used to trigger an action.
     """
-    def __init__(self, text: str, pos: tuple[int, int], size: tuple[int, int],
-                 on_click: Callable[[], None] | None, *, enabled: bool = True,
-                 font: str = "button") -> None:
+
+    def __init__(
+        self,
+        text: str,
+        pos: tuple[int, int],
+        size: tuple[int, int],
+        on_click: Callable[[], None] | None,
+        *,
+        enabled: bool = True,
+        font: str = "button",
+    ) -> None:
         """Initialize the button.
 
         Args:
@@ -38,9 +46,11 @@ class Button(Surface):
         self.pos = pos
         self.rect = pg.Rect(self.pos, size)
 
-        self.logger.debug(f"Creating button: '{text}' at {pos}"
-                          f" size: {size}, enabled: {enabled},"
-                          f" action: {on_click}")
+        self.logger.debug(
+            f"Creating button: '{text}' at {pos}"
+            f" size: {size}, enabled: {enabled},"
+            f" action: {on_click}"
+        )
 
         self.enabled = enabled
         self.text = text
@@ -50,17 +60,13 @@ class Button(Surface):
 
         # state: (bg, fg)
         self.color_scheme: Final[dict[str, tuple[str, str]]] = {
-            "disabled": (SimulatPalette.ACCENT_BLUISH_DISABLED,
-                         SimulatPalette.BACKGROUND),
-
-            "normal": (SimulatPalette.ACCENT_BLUISH,
-                       SimulatPalette.BACKGROUND),
-
-            "hover": (SimulatPalette.HIGHLIGHT,
-                      SimulatPalette.BACKGROUND),
-
-            "click": (SimulatPalette.ACCENT_PURPLE,
-                      SimulatPalette.FOREGROUND)
+            "disabled": (
+                SimulatPalette.ACCENT_BLUISH_DISABLED,
+                SimulatPalette.BACKGROUND,
+            ),
+            "normal": (SimulatPalette.ACCENT_BLUISH, SimulatPalette.BACKGROUND),
+            "hover": (SimulatPalette.HIGHLIGHT, SimulatPalette.BACKGROUND),
+            "click": (SimulatPalette.ACCENT_PURPLE, SimulatPalette.FOREGROUND),
         }
 
         self.font = font
@@ -74,16 +80,21 @@ class Button(Surface):
             self.rounded_corner_overlay.surface,
             BasicPalette.MAGENTA,
             (0, 0, *size),
-            border_radius=4
+            border_radius=4,
         )
 
     def __repr__(self) -> str:
         """Return a string representation of the button."""
         return f"Button({self.text}, {self.pos}, {self.size}, {self.on_click})"
 
-    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
-              mouse_pos: tuple[int, int],
-              mouse_buttons: tuple[bool, bool, bool]) -> None:
+    def input(
+        self,
+        *,
+        events: list[pg.event.Event],
+        keys: dict[int, bool],
+        mouse_pos: tuple[int, int],
+        mouse_buttons: tuple[bool, bool, bool],
+    ) -> None:
         """Handle input events.
 
         Args:
@@ -126,7 +137,11 @@ class Button(Surface):
 
         self.surface.blit(self.rounded_corner_overlay.surface, (0, 0))
 
-        self.add_text(self.text, ("center", "center"),
-                      color=self.color_scheme[self.state][1], font=self.font)
+        self.add_text(
+            self.text,
+            ("center", "center"),
+            color=self.color_scheme[self.state][1],
+            font=self.font,
+        )
 
         parent.blit(self.surface, self.pos)

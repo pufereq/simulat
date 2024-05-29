@@ -20,6 +20,7 @@ def time_it(func):
         end = t.perf_counter()
         logger.debug(f"{func.__name__} took {end - start} seconds to run.")
         return result
+
     return wrapper
 
 
@@ -33,6 +34,7 @@ class Timer:
     print(t.elapsed)
     ```
     """
+
     def __init__(self) -> None:
         """Initialize the timer."""
         pass

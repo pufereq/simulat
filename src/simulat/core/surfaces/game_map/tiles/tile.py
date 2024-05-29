@@ -12,12 +12,13 @@ from src.simulat.core.surfaces.surface import Surface
 TILE_SIZE: Final = 32  # pixels
 
 
-class Tile():
+class Tile:
     """Tile base class.
 
     A tile is a square on the game map. It can be a wall, a floor, a door, etc.
     Each tile type has its own class, which inherits from this class.
     """
+
     _id = 0
 
     def __init__(self, game_map: GameMap, pos: tuple[int, int]) -> None:
@@ -32,10 +33,7 @@ class Tile():
         self.pos_x = pos[0]
         self.pos_y = pos[1]
 
-        self.px_pos = (
-            self.pos_x * TILE_SIZE,
-            self.pos_y * TILE_SIZE
-        )
+        self.px_pos = (self.pos_x * TILE_SIZE, self.pos_y * TILE_SIZE)
 
         self.size = TILE_SIZE
         self.width = self.size
@@ -51,8 +49,13 @@ class Tile():
 
         # NOTE: this is just a placeholder, it will be replaced by the actual
         # tile image/character depending on the tile type.
-        self.surface.fill((self.pos_x * 16 % 255, self.pos_y * 16 % 255,
-                           (self.pos_x + self.pos_y) * 8 % 255))
+        self.surface.fill(
+            (
+                self.pos_x * 16 % 255,
+                self.pos_y * 16 % 255,
+                (self.pos_x + self.pos_y) * 8 % 255,
+            )
+        )
 
     def __repr__(self) -> str:
         """Return a string representation of the tile."""

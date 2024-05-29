@@ -23,6 +23,7 @@ class GameMap(Surface):
     tiles (see `Tile` class) that can be walls, floors, doors, etc. The game
     map is a subsurface of the game scene.
     """
+
     def __init__(self, scene: Scene) -> None:
         """Initialize the game map."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
@@ -33,22 +34,24 @@ class GameMap(Surface):
         self.scene = scene
 
         # self.MAP_SIZE: Final = (80, 80)  # tiles
-        self.MAP_SIZE: Final = (len(MapLayout.get_map_layout()[0]),
-                                len(MapLayout.get_map_layout()))
+        self.MAP_SIZE: Final = (
+            len(MapLayout.get_map_layout()[0]),
+            len(MapLayout.get_map_layout()),
+        )
 
         self.surface_size = (
             tiles_to_px(self.MAP_SIZE[0]),
-            tiles_to_px(self.MAP_SIZE[1])
+            tiles_to_px(self.MAP_SIZE[1]),
         )
 
         self.display_size: tuple = (
             scene.size[0] - scene.sidebar.SIDEBAR_SIZE[0],
-            scene.size[1]
+            scene.size[1],
         )
 
         simulat.scenes["MainMenuScene"].game_map_loading_progress = {
             "task": "Initializing player...",
-            "progress": None
+            "progress": None,
         }
         self.player = Player(self, (9, 9))
         self.character_surface = Surface(self.surface_size)
@@ -57,13 +60,14 @@ class GameMap(Surface):
         self.camera = Camera(self, self.player.pos)
         self.camera_attached: bool | None = None
 
-        self.logger.debug(f"Game map size: {self.MAP_SIZE} tiles, "
-                          f"{self.surface_size} px")
+        self.logger.debug(
+            f"Game map size: {self.MAP_SIZE} tiles, " f"{self.surface_size} px"
+        )
 
         # initialize surface
         simulat.scenes["MainMenuScene"].game_map_loading_progress = {
             "task": "Initializing map surface...",
-            "progress": None
+            "progress": None,
         }
         super().__init__(self.surface_size)
 
@@ -132,8 +136,12 @@ class GameMap(Surface):
         # Calculate the distance the player can move in one frame.
         # We only want to fill the area the player has moved out of, not the
         # whole map.
-        player_step_x = self.player.max_speed * simulat.frame_delta + self.player.rect.width
-        player_step_y = self.player.max_speed * simulat.frame_delta + self.player.rect.height
+        player_step_x = (
+            self.player.max_speed * simulat.frame_delta + self.player.rect.width
+        )
+        player_step_y = (
+            self.player.max_speed * simulat.frame_delta + self.player.rect.height
+        )
 
         # Fill the area the player has moved out of with black (color key).
         self.character_surface.surface.fill(
@@ -142,28 +150,20 @@ class GameMap(Surface):
                 self.player.rect.left - player_step_x,
                 self.player.rect.top - player_step_y,
                 self.player.rect.right + player_step_x,
-                self.player.rect.bottom + player_step_y
-            )
+                self.player.rect.bottom + player_step_y,
+            ),
         )
 
         # Render the visible parts of the tile surface onto the main
         # (game_map) surface.
-        self.blit(
-            self.tile_surface.surface,
-            (0, 0),
-            self.camera.rect
-        )
+        self.blit(self.tile_surface.surface, (0, 0), self.camera.rect)
 
         # Render the player onto the character surface.
         self.player.render()
 
         # Render the visible parts of character surface onto the main
         # (game_map) surface.
-        self.blit(
-            self.character_surface.surface,
-            (0, 0),
-            self.camera.rect
-        )
+        self.blit(self.character_surface.surface, (0, 0), self.camera.rect)
 
         # draw onto the game scene
         self.scene.surface.blit(self.surface, (0, 0))
@@ -182,13 +182,11 @@ class GameMap(Surface):
         for y, row in enumerate(MapLayout.get_map_layout()):
             self.tiles.append([])
             for x, char in enumerate(row):
-                self.tiles[y].append(
-                    MapLayout.get_tile_from_char(char)(self, (x, y))
-                )
+                self.tiles[y].append(MapLayout.get_tile_from_char(char)(self, (x, y)))
                 self.tiles[y][x].draw()
                 if self.tiles[y][x].is_collider:
                     self.collider_tiles.append(self.tiles[y][x])
                 main_menu_scene.game_map_loading_progress = {
                     "task": "Loading tiles...",
-                    "progress": (y * len(row) + x) / tile_count * 100
+                    "progress": (y * len(row) + x) / tile_count * 100,
                 }

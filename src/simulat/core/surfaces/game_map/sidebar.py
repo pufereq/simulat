@@ -15,6 +15,7 @@ class Sidebar(Surface):
     The sidebar is a surface that is displayed on the right side of the game
     scene. It contains information about the game, the player, etc.
     """
+
     def __init__(self, scene: Scene) -> None:
         """Initialize the sidebar.
 
