@@ -58,9 +58,9 @@ class Simulat:
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
-            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
-            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
         }
 
         # initialize focused surfaces
