@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile
+from src.simulat.core.scenes.game_scene.game_map.tiles.tile import Tile
 
 
 class ColliderTile(Tile):

@@ -5,12 +5,10 @@ from __future__ import annotations
 
 from typing import Final
 
-from src.simulat.core.surfaces.game_map.tiles.collider_tiles.collider_tile import (
-    ColliderTile,
-)
-from src.simulat.core.surfaces.game_map.tiles.decorative_tiles.decorative_tile import (
-    DecorativeTile,
-)
+from src.simulat.core.scenes.game_scene.game_map.tiles.collider_tiles.collider_tile import \
+    ColliderTile
+from src.simulat.core.scenes.game_scene.game_map.tiles.decorative_tiles.decorative_tile import \
+    DecorativeTile
 
 
 class MapLayout:

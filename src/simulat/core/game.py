@@ -64,7 +64,7 @@ class Simulat:
         }
 
         # initialize focused surfaces
-        from src.simulat.core.surfaces.scenes.scene import Scene
+        from src.simulat.core.scenes.scene import Scene
         from src.simulat.core.surfaces.surface import Surface
 
         self.focused_surfaces: list[Surface | Scene] = []
@@ -85,8 +85,8 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from .surfaces.scenes.game_scene.game_scene import GameScene
-        from .surfaces.scenes.scene import Scene
+        from .scenes.game_scene.game_scene import GameScene
+        from .scenes.scene import Scene
 
         self.scenes: dict[str | None, Scene] = {}
         self.active_scene: str | None = None  # initial scene is defined in `run()`
@@ -96,7 +96,7 @@ class Simulat:
         self.scenes[None] = fallback_scene
 
         # main menu scene
-        from .surfaces.scenes.main_menu_scene.main_menu_scene import MainMenuScene
+        from .scenes.main_menu_scene.main_menu_scene import MainMenuScene
 
         main_menu_scene = MainMenuScene()
         self.scenes[main_menu_scene.id] = main_menu_scene

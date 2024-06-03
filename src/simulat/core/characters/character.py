@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.surfaces.game_map.tiles.tile import Tile, px_to_tiles, tiles_to_px
+from src.simulat.core.scenes.game_scene.game_map.tiles.tile import (
+    Tile, px_to_tiles, tiles_to_px)
 from src.simulat.core.surfaces.surface import Surface
 
 

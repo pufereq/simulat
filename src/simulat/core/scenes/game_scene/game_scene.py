@@ -6,9 +6,9 @@ from __future__ import annotations
 import pygame as pg
 
 from src.simulat.core.colors import BasicPalette, SimulatPalette
+from src.simulat.core.scenes.game_scene.game_map.game_map import GameMap
+from src.simulat.core.scenes.game_scene.game_map.sidebar import Sidebar
 from src.simulat.core.scenes.scene import Scene
-from src.simulat.core.surfaces.game_map.game_map import GameMap
-from src.simulat.core.surfaces.game_map.sidebar import Sidebar
 from src.simulat.core.surfaces.surface import Surface
 
 
