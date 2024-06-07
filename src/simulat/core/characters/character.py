@@ -6,7 +6,10 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.scenes.game_scene.game_map.tiles.tile import (
-    Tile, px_to_tiles, tiles_to_px)
+    Tile,
+    px_to_tiles,
+    tiles_to_px,
+)
 from src.simulat.core.surfaces.surface import Surface
 
 
@@ -23,7 +26,7 @@ class Character:
         game_map: GameMap,
         pos: tuple[float, float],
         size: tuple[float, float],
-        unit: str,
+        size_unit: str,
         *,
         can_collide: bool = True,
     ) -> None:
@@ -33,7 +36,7 @@ class Character:
             game_map (GameMap): The game map.
             pos (tuple[float, float]): The character's position in tiles.
             size (tuple[float, float]): The character's size.
-            unit (str): The unit of the character's size ("tiles" OR "px").
+            size_unit (str): The unit of the character's size ("tiles" OR "px").
             can_collide (bool): Whether the character can collide with
             collider tiles.
 
@@ -42,21 +45,21 @@ class Character:
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        if unit not in ("tiles", "px"):
-            raise ValueError(f"Invalid unit: {unit}")
+        if size_unit not in ("tiles", "px"):
+            raise ValueError(f"Invalid unit: {size_unit}")
 
         self.first_name: str = "John"
         self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
 
-        if unit == "px":
+        if size_unit == "px":
             self.px_size: tuple[float, float] = size
             self.size: tuple[float, float] = (
                 px_to_tiles(size[0]),
                 px_to_tiles(size[1]),
             )
-        elif unit == "tiles":
+        elif size_unit == "tiles":
             self.size: tuple[float, float] = size
             self.px_size: tuple[float, float] = (
                 tiles_to_px(size[0]),
