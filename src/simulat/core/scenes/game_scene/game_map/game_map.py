@@ -1,79 +1,73 @@
 # -*- coding: utf-8 -*-
-"""Game map module for GameScene."""
+"""Game map module for GameScene.
+
+This module contains the game map, which is responsible for managing the game map in the game scene.
+"""
 
 from __future__ import annotations
 
 import logging as lg
-from typing import Final
+import math
 
 import pygame as pg
 
-from src.simulat.core.characters.camera import Camera
-from src.simulat.core.characters.player import Player
 from src.simulat.core.game import simulat
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile import tiles_to_px
+from src.simulat.core.scenes.game_scene.game_map.tiles.tile_manager import (
+    initialize_tiles,
+)
+from src.simulat.core.scenes.game_scene.game_map.world import World
+from src.simulat.core.scenes.game_scene.game_map.world_manager import (
+    get_world,
+    initialize_worlds,
+)
+from src.simulat.core.scenes.game_scene.game_scene import GameScene
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.map_layout import MapLayout
 
 
-class GameMap(Surface):
+class GameMap:
     """Game map class.
 
-    The game map is the surface where the game takes place. It is a grid of
-    tiles (see `Tile` class) that can be walls, floors, doors, etc. The game
-    map is a subsurface of the game scene.
+    The game map is responsible for managing the game map in the game scene.
     """
 
-    def __init__(self, scene: Scene) -> None:
-        """Initialize the game map."""
+    def __init__(self, game_scene: GameScene) -> None:
+        """Initialize the game map.
+
+        Args:
+            game_scene: The game scene.
+        """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
-
         self.logger.info("Initializing game map...")
-        self.logger.debug("Initializing game map surface...")
 
-        self.scene = scene
+        self.game_scene = game_scene
 
-        # self.MAP_SIZE: Final = (80, 80)  # tiles
-        self.MAP_SIZE: Final = (
-            len(MapLayout.get_map_layout()[0]),
-            len(MapLayout.get_map_layout()),
+        initialize_worlds()
+        initialize_tiles()
+
+        self.viewport_size: tuple[int, int] = (
+            game_scene.size[0] - game_scene.sidebar.SIDEBAR_SIZE[0],
+            game_scene.size[1],
         )
 
-        self.surface_size = (
-            tiles_to_px(self.MAP_SIZE[0]),
-            tiles_to_px(self.MAP_SIZE[1]),
-        )
+        self.world: World | None = None
 
-        self.display_size: tuple = (
-            scene.size[0] - scene.sidebar.SIDEBAR_SIZE[0],
-            scene.size[1],
-        )
+        self.surface = Surface(self.viewport_size)
 
-        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
-            "task": "Initializing player...",
-            "progress": None,
-        }
-        self.player = Player(self, (9, 9))
-        self.character_surface = Surface(self.surface_size)
-        self.character_surface.surface.set_colorkey((0, 0, 0))
+        # NOTE: debug
+        self.load_world("simulat.world.debug_world")
 
-        self.camera = Camera(self, self.player.pos)
-        self.camera_attached: bool | None = None
+    def load_world(self, world_id: str) -> None:
+        """Load a world.
 
-        self.logger.debug(
-            f"Game map size: {self.MAP_SIZE} tiles, " f"{self.surface_size} px"
-        )
+        Args:
+            world_id: The ID of the world to load.
+        """
+        self.logger.info(f"Loading world: {world_id}")
 
-        # initialize surface
-        simulat.scenes["MainMenuScene"].game_map_loading_progress = {
-            "task": "Initializing map surface...",
-            "progress": None,
-        }
-        super().__init__(self.surface_size)
+        self.world = get_world(world_id)
 
-        # initialize tiles
-        self.tile_surface = Surface(self.surface_size)
-        self._init_tiles()
+        # camera currently unused
+        # self.camera: Camera = Camera(self.world, self.viewport_size)
 
     def input(self, *, events: list[pg.event.Event], keys: dict[int, bool]) -> None:
         """Handle input events.
@@ -82,111 +76,88 @@ class GameMap(Surface):
             key: The keys pressed.
         """
 
-        # camera movement
-        if keys[pg.K_UP]:
-            self.camera.velocity[1] += -1
-            self.camera_attached = False
-        if keys[pg.K_DOWN]:
-            self.camera.velocity[1] += 1
-            self.camera_attached = False
-        if keys[pg.K_LEFT]:
-            self.camera.velocity[0] += -1
-            self.camera_attached = False
-        if keys[pg.K_RIGHT]:
-            self.camera.velocity[0] += 1
-            self.camera_attached = False
-
-        # player movement
-        if keys[pg.K_w]:
-            self.player.velocity[1] += -1
-            self.camera_attached = True
-        if keys[pg.K_s]:
-            self.player.velocity[1] += 1
-            self.camera_attached = True
-        if keys[pg.K_a]:
-            self.player.velocity[0] += -1
-            self.camera_attached = True
-        if keys[pg.K_d]:
-            self.player.velocity[0] += 1
-            self.camera_attached = True
-
-        if self.camera_attached:
-            self.camera.pos = self.player.pos
+        if self.world is not None:
+            # player movement
+            if keys[pg.K_w]:
+                self.world.player.velocity[1] += -1
+            if keys[pg.K_s]:
+                self.world.player.velocity[1] += 1
+            if keys[pg.K_a]:
+                self.world.player.velocity[0] += -1
+            if keys[pg.K_d]:
+                self.world.player.velocity[0] += 1
 
     def update(self, delta: float) -> None:
-        """Update the game map."""
-        self.player.update(delta)
-        self.camera.update(delta)
+        """Update the game map.
 
-        if self.camera_attached:
+        Args:
+            delta: The time since the last frame.
+        """
+        if self.world is not None:
+            self.world.player.update(delta)
+            # self.camera.update(delta)
+            try:
+                standing_on_tile_name = self.world.player.current_tile.tile_type.label
+            except KeyError:
+                standing_on_tile_name = "Void"
             simulat.topbar.update_title(
-                f"XY: {self.player.pos[0]:.3f}, {self.player.pos[1]:.3f} on "
-                f"{self.tiles[int(self.player.pos[1])][int(self.player.pos[0])].name}"
-            )
-        elif self.camera_attached is None:
-            # player hasn't moved yet
-            simulat.topbar.update_title("WASD to move, ←↑↓→ to move camera")
-        else:
-            simulat.topbar.update_title(
-                f"Camera XY: {self.camera.pos[0]:.3f}, {self.camera.pos[1]:.3f}"
+                f"XY: {self.world.player.pos[0]:.3f}, {self.world.player.pos[1]:.3f} on "
+                f"{standing_on_tile_name}"
             )
 
     def render(self) -> None:
-        """Render the game map."""
-        # Calculate the distance the player can move in one frame.
-        # We only want to fill the area the player has moved out of, not the
-        # whole map.
-        player_step_x = (
-            self.player.max_speed * simulat.frame_delta + self.player.rect.width
-        )
-        player_step_y = (
-            self.player.max_speed * simulat.frame_delta + self.player.rect.height
-        )
+        """Render the game map.
 
-        # Fill the area the player has moved out of with black (color key).
-        self.character_surface.surface.fill(
-            (0, 0, 0),
-            (
-                self.player.rect.left - player_step_x,
-                self.player.rect.top - player_step_y,
-                self.player.rect.right + player_step_x,
-                self.player.rect.bottom + player_step_y,
-            ),
-        )
+        This method renders the game map onto the surface. It fills the surface with a specific color,
+        and then iterates over the chunks of the world to blit the tiles onto the surface based on the player's position.
 
-        # Render the visible parts of the tile surface onto the main
-        # (game_map) surface.
-        self.blit(self.tile_surface.surface, (0, 0), self.camera.rect)
+        Returns:
+            None
+        """
+        self.surface.fill((12, 34, 56))
 
-        # Render the player onto the character surface.
-        self.player.render()
+        if self.world is not None:
+            from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+                TILE_SIZE,
+            )
 
-        # Render the visible parts of character surface onto the main
-        # (game_map) surface.
-        self.blit(self.character_surface.surface, (0, 0), self.camera.rect)
+            # calculate the number of chunks to render
+            x_chunks = (
+                math.ceil(self.viewport_size[0] / (self.world.CHUNK_SIZE * TILE_SIZE)) + 2  # fmt: skip
+            )
+            y_chunks = (
+                math.ceil(self.viewport_size[1] / (self.world.CHUNK_SIZE * TILE_SIZE)) + 2  # fmt: skip
+            )
 
-        # draw onto the game scene
-        self.scene.surface.blit(self.surface, (0, 0))
+            # render the chunks
+            for y in range(y_chunks):
+                for x in range(x_chunks):
+                    # calculate the target chunk
+                    target_x = (x - 1 + int(round((self.world.player.px_pos[0] - self.viewport_size[0] // 2) / (self.world.CHUNK_SIZE * TILE_SIZE))))  # fmt: skip
+                    target_y = (y - 1 + int(round((self.world.player.px_pos[1] - self.viewport_size[1] // 2) / (self.world.CHUNK_SIZE * TILE_SIZE))))  # fmt: skip
+                    target_chunk = (target_x, target_y)
 
-    def _init_tiles(self):
-        """Initialize the map tiles."""
-        self.tiles = []
-        self.collider_tiles = []
+                    # generate the target chunk if it doesn't exist
+                    if target_chunk not in self.world.chunk_map:
+                        self.world.chunk_map[target_chunk] = self.world.generate_chunk(
+                            target_x, target_y
+                        )
 
-        tile_count: int = 0
-        for row in MapLayout.get_map_layout():
-            tile_count += len(row)
+                    # render the tiles in the target chunk
+                    for tile in self.world.chunk_map[target_chunk].values():
+                        self.surface.blit(
+                            tile.tile_type.texture,
+                            (
+                                tile.px_pos[0] - self.world.player.px_pos[0] + self.viewport_size[0] // 2,  # fmt: skip
+                                tile.px_pos[1] - self.world.player.px_pos[1] + self.viewport_size[1] // 2,  # fmt: skip
+                            ),
+                        )
 
-        main_menu_scene = simulat.scenes["MainMenuScene"]
+            # render the entities
+            for entity in self.world.entities:
+                entity.render(self.surface)
 
-        for y, row in enumerate(MapLayout.get_map_layout()):
-            self.tiles.append([])
-            for x, char in enumerate(row):
-                self.tiles[y].append(MapLayout.get_tile_from_char(char)(self, (x, y)))
-                self.tiles[y][x].draw()
-                if self.tiles[y][x].is_collider:
-                    self.collider_tiles.append(self.tiles[y][x])
-                main_menu_scene.game_map_loading_progress = {
-                    "task": "Loading tiles...",
-                    "progress": (y * len(row) + x) / tile_count * 100,
-                }
+            # render the player
+            self.world.player.render(self.surface)
+
+        self.game_scene.surface.blit(self.surface.surface, (0, 0))
