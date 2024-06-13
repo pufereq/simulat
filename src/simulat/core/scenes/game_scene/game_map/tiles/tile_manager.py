@@ -29,9 +29,19 @@ def initialize_tiles() -> None:
     logger = lg.getLogger(f"{__name__}.{initialize_tiles.__name__}")
     tiles_path: Final[str] = "data/simulat/tiles.yml"
 
+    # `missing` tile, used when a tile is not found
+    missing_tile = {
+        "id": "missing",
+        "label": "Missing",
+        "texture": "missing.png",
+        "collision": False,
+    }
+
     # load tiles from file
     with open(tiles_path, "r") as file:
         tiles_parsed = yaml.safe_load(file)
+
+    tiles_parsed.append(missing_tile)
 
     # initialize tiles
     for tile in tiles_parsed:
