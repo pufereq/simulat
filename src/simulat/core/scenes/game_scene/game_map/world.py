@@ -99,3 +99,20 @@ class World:
                     # )
                     pass
         return chunk_data
+
+    def get_tile(self, pos: tuple[int, int]) -> MapTile:
+        """Get the tile at the specified coordinates.
+
+        Args:
+            pos (tuple[int, int]): The coordinates of the tile to get.
+
+        Returns:
+            MapTile: The tile at the specified coordinates.
+        """
+        chunk_pos = (pos[0] // self.CHUNK_SIZE, pos[1] // self.CHUNK_SIZE)
+        chunk_offset = (pos[0] % self.CHUNK_SIZE, pos[1] % self.CHUNK_SIZE)
+        try:
+            return self.chunk_map[chunk_pos][chunk_offset]
+        except KeyError:
+            self.chunk_map[chunk_pos] = self.generate_chunk(chunk_pos)
+            return self.chunk_map[chunk_pos][chunk_offset]
