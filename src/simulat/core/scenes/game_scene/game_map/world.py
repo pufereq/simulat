@@ -59,7 +59,7 @@ class World:
 
         add_world(self)
 
-    def generate_chunk(self, x: int, y: int) -> dict[tuple[int, int], MapTile]:
+    def generate_chunk(self, pos: tuple[int, int]) -> dict[tuple[int, int], MapTile]:
         """Generate a chunk of the world.
 
         Args:
@@ -73,25 +73,25 @@ class World:
         for y_offset in range(self.CHUNK_SIZE):
             for x_offset in range(self.CHUNK_SIZE):
                 # get the actual tile coordinates
-                tile_x = x * self.CHUNK_SIZE + x_offset
-                tile_y = y * self.CHUNK_SIZE + y_offset
+                tile_pos = (
+                    pos[0] * self.CHUNK_SIZE + x_offset,
+                    pos[1] * self.CHUNK_SIZE + y_offset,
+                )
                 try:
                     # check if the tile is out of bounds to prevent
                     # the layout from being accessed with negative indices
-                    if tile_x < 0 or tile_y < 0:
+                    if tile_pos[0] < 0 or tile_pos[1] < 0:
                         raise IndexError
 
                     # create a MapTile object for the tile
                     chunk_data[(x_offset, y_offset)] = MapTile(
-                        (tile_x, tile_y), self.layout[tile_y][tile_x]
+                        tile_pos, self.layout[tile_pos[1]][tile_pos[0]]
                     )
 
                     # check if the tile is collidable and add it to
                     # the collidables dictionary
                     if chunk_data[(x_offset, y_offset)].tile_type.collision:
-                        self.collidables[(tile_x, tile_y)] = chunk_data[
-                            (x_offset, y_offset)
-                        ]
+                        self.collidables[tile_pos] = chunk_data[(x_offset, y_offset)]
                 except IndexError:
                     # for now, just ignore out of bounds tiles
                     # chunk_data[(x_offset, y_offset)] = MapTile(
