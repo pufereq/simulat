@@ -7,10 +7,9 @@ import logging as lg
 
 import pygame as pg
 
+from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.buttons.button import Button
 from src.simulat.core.surfaces.surface import Surface
-
-from src.simulat.core.game import simulat
 
 
 class ButtonContainer:

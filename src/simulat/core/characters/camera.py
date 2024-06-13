@@ -4,12 +4,15 @@
 from __future__ import annotations
 
 from src.simulat.core.characters.character import Character
+from src.simulat.core.scenes.game_scene.game_map.world import World
 
 
 class Camera(Character):
-    def __init__(self, game_map: GameMap, pos: tuple[float, float]) -> None:
-        super().__init__(game_map, pos, game_map.display_size, "px", can_collide=False)
+    def __init__(self, world: World, size_px: tuple[float, float]) -> None:
+        super().__init__(world, (0, 0), size_px, "px", can_collide=False)
         self.max_distance_from_player: float = 8  # tiles
+        self.attached_to_player: bool | None = None
+        self.world = world
 
         self.logger.debug(f"Camera size: {self.px_size} px")
 
@@ -18,7 +21,7 @@ class Camera(Character):
         Cap the camera position to within the distance to player. Then call
         the parent method to cap the position to within the map size.
         """
-        player_pos = self.game_map.player.pos
+        player_pos = self.world.player.pos
         pos_tiles = list(pos_tiles)
 
         # cap x
