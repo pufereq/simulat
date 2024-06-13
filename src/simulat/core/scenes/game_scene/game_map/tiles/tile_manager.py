@@ -8,7 +8,7 @@ tiles used in the game map.
 from __future__ import annotations
 
 import logging as lg
-from typing import Final
+from typing import Any, Final
 
 import yaml
 
@@ -39,7 +39,10 @@ def initialize_tiles() -> None:
 
     # load tiles from file
     with open(tiles_path, "r") as file:
-        tiles_parsed = yaml.safe_load(file)
+        tiles_parsed: list[dict[str, Any]] | None = yaml.safe_load(file)
+        if tiles_parsed is None:
+            logger.error(f"No tiles found in: {tiles_path}")
+            tiles_parsed = []
 
     tiles_parsed.append(missing_tile)
 
