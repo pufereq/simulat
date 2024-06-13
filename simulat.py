@@ -8,4 +8,5 @@ if __name__ == "__main__":
     init()
 
     from src.simulat.core.game import simulat
+
     simulat.run()

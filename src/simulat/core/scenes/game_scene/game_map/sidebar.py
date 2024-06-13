@@ -6,7 +6,7 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.colors import SimulatPalette
+from src.simulat.core.colors import SimulatPalette
 
 
 class Sidebar(Surface):
@@ -15,6 +15,7 @@ class Sidebar(Surface):
     The sidebar is a surface that is displayed on the right side of the game
     scene. It contains information about the game, the player, etc.
     """
+
     def __init__(self, scene: Scene) -> None:
         """Initialize the sidebar.
 

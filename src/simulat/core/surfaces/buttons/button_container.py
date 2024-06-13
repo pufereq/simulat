@@ -7,10 +7,9 @@ import logging as lg
 
 import pygame as pg
 
+from src.simulat.core.game import simulat
 from src.simulat.core.surfaces.buttons.button import Button
 from src.simulat.core.surfaces.surface import Surface
-
-from src.simulat.core.game import simulat
 
 
 class ButtonContainer:
@@ -45,6 +44,7 @@ class ButtonContainer:
     button_container.render()
     ```
     """
+
     def __init__(self, parent: Surface, buttons: list[Button]):
         """Initialize the button container."""
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
@@ -62,9 +62,14 @@ class ButtonContainer:
     def __len__(self) -> int:
         return len(self.buttons)
 
-    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
-              mouse_pos: tuple[int, int],
-              mouse_buttons: tuple[bool, bool, bool]) -> None:
+    def input(
+        self,
+        *,
+        events: list[pg.event.Event],
+        keys: dict[int, bool],
+        mouse_pos: tuple[int, int],
+        mouse_buttons: tuple[bool, bool, bool],
+    ) -> None:
         """Handle input events.
 
         Args:
@@ -75,13 +80,19 @@ class ButtonContainer:
         """
 
         mouse_pos = (
-            (mouse_pos[0] / (simulat.DISPLAY_SIZE[0] / simulat.INTERNAL_SCREEN_SIZE[0])) - self.parent.pos_x,
-            (mouse_pos[1] / (simulat.DISPLAY_SIZE[1] / simulat.INTERNAL_SCREEN_SIZE[1])) - self.parent.pos_y
+            (mouse_pos[0] / (simulat.DISPLAY_SIZE[0] / simulat.INTERNAL_SCREEN_SIZE[0]))
+            - self.parent.pos_x,
+            (mouse_pos[1] / (simulat.DISPLAY_SIZE[1] / simulat.INTERNAL_SCREEN_SIZE[1]))
+            - self.parent.pos_y,
         )
 
         for button in self.buttons:
-            button.input(events=events, keys=keys, mouse_pos=mouse_pos,
-                         mouse_buttons=mouse_buttons)
+            button.input(
+                events=events,
+                keys=keys,
+                mouse_pos=mouse_pos,
+                mouse_buttons=mouse_buttons,
+            )
 
     def render(self) -> None:
         """Render the button container."""

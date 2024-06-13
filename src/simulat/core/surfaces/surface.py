@@ -7,7 +7,7 @@ import logging as lg
 
 import pygame as pg
 
-from src.simulat.data.colors import SimulatPalette
+from src.simulat.core.colors import SimulatPalette
 from src.simulat.core.game import simulat
 
 
@@ -17,9 +17,16 @@ class Surface:
     A surface is a part of the screen. It can be a scene, a topbar, a button,
     etc. Each surface has its own class, which inherits from this class.
     """
-    def __init__(self, size: tuple[int, int], pos: tuple[int, int] = (0, 0),
-                 *, flags: int = 0, depth: int = 24,
-                 masks: tuple[int, int, int, int] | None = None):
+
+    def __init__(
+        self,
+        size: tuple[int, int],
+        pos: tuple[int, int] = (0, 0),
+        *,
+        flags: int = 0,
+        depth: int = 24,
+        masks: tuple[int, int, int, int] | None = None,
+    ):
         """Initialize the surface.
 
         Args:
@@ -43,13 +50,17 @@ class Surface:
 
         self.surface = pg.Surface(size, flags, depth)
 
-    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
-              mouse_pos: tuple[int, int],
-              mouse_buttons: tuple[bool, bool, bool]) -> None:
+    def input(
+        self,
+        *,
+        events: list[pg.event.Event],
+        keys: dict[int, bool],
+        mouse_pos: tuple[int, int],
+        mouse_buttons: tuple[bool, bool, bool],
+    ) -> None:
         pass
 
-    def subsurface(self, pos: tuple[int, int],
-                   size: tuple[int, int]) -> SubSurface:
+    def subsurface(self, pos: tuple[int, int], size: tuple[int, int]) -> SubSurface:
         """Create a subsurface.
 
         Args:
@@ -61,8 +72,9 @@ class Surface:
         """
         return SubSurface(self, pos, size)
 
-    def fill(self, color: tuple[int, int, int] |
-             tuple[int, int, int, int] | str) -> pg.Rect:
+    def fill(
+        self, color: tuple[int, int, int] | tuple[int, int, int, int] | str
+    ) -> pg.Rect:
         """Fill the surface with a color.
 
         Args:
@@ -84,9 +96,13 @@ class Surface:
         """
         return self.surface.convert(surface)
 
-    def blit(self, source: pg.Surface, dest: tuple[int, int],
-             area: tuple[int, int, int, int] | pg.Rect | None = None,
-             special_flags: int = 0):
+    def blit(
+        self,
+        source: pg.Surface,
+        dest: tuple[int, int],
+        area: tuple[int, int, int, int] | pg.Rect | None = None,
+        special_flags: int = 0,
+    ):
         """Draw one surface onto another.
 
         Args:
@@ -102,10 +118,16 @@ class Surface:
         """
         return self.surface.blit(source, dest, area, special_flags)
 
-    def add_text(self, text: str, pos: tuple[int | str, int | str], *,
-                 color: tuple[int, int, int] | tuple[int, int, int, int]
-                 | str = SimulatPalette.FOREGROUND,
-                 font: str = "main"):
+    def add_text(
+        self,
+        text: str,
+        pos: tuple[int | str, int | str],
+        *,
+        color: (
+            tuple[int, int, int] | tuple[int, int, int, int] | str
+        ) = SimulatPalette.FOREGROUND,
+        font: str = "main",
+    ):
         """Add text to the surface.
 
         Args:
@@ -153,21 +175,21 @@ class Surface:
                     int(color_str[0], 16) * 17,  # R
                     int(color_str[1], 16) * 17,  # G
                     int(color_str[2], 16) * 17,  # B
-                    255  # A
+                    255,  # A
                 )
             elif len(color_str) == 6:  # #RRGGBB -> (RRR, GGG, BBB, 255)
                 color = (
                     int(color_str[:2], 16),  # R
                     int(color_str[2:4], 16),  # G
                     int(color_str[4:6], 16),  # B
-                    255  # A
+                    255,  # A
                 )
             elif len(color_str) == 8:  # #RRGGBBAA -> (RRR, GGG, BBB, AAA)
                 color = (
                     int(color_str[:2], 16),  # R
                     int(color_str[2:4], 16),  # G
                     int(color_str[4:6], 16),  # B
-                    int(color_str[6:8], 16)  # A
+                    int(color_str[6:8], 16),  # A
                 )
 
         text_surface = simulat.fonts[font].render(text, True, color)
@@ -187,8 +209,10 @@ class SubSurface(Surface):
     A subsurface is a surface that is part of another surface. It can be a
     button, a text box, etc.
     """
-    def __init__(self, parent: Surface, pos: tuple[int, int],
-                 size: tuple[int, int] = (0, 0)):
+
+    def __init__(
+        self, parent: Surface, pos: tuple[int, int], size: tuple[int, int] = (0, 0)
+    ):
         """Initialize the subsurface.
 
         Args:

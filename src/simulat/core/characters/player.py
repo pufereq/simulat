@@ -6,19 +6,48 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.characters.character import Character
+from src.simulat.core.scenes.game_scene.game_map.world import World
+from src.simulat.core.surfaces.surface import Surface
 
 
 class Player(Character):
     """Player class.
 
-    The player is the character controlled by the user. It inherits from
-    `Character`.
+    The player is the character controlled by the player.
     """
 
-    def __init__(self, game_map: GameMap, pos: tuple[float, float], ) -> None:
-        """Initialize the player."""
+    def __init__(
+        self,
+        world: World,
+        pos: tuple[float, float],
+    ) -> None:
+        """Initialize the player.
+
+        Args:
+            world (World): The world.
+            pos (tuple[float, float]): The player's position in tiles.
+        """
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.logger.debug("Initializing player...")
-        super().__init__(game_map, pos, (1, 1), "tiles")
+        super().__init__(world, pos, (1, 1), "tiles")
+
+    def render(self, surface: Surface) -> None:
+        """Render the player.
+
+        The player is rendered at the center of the viewport.
+
+        Args:
+            surface (Surface): The surface to render the player on.
+        """
+        from src.simulat.core.game import simulat
+
+        game_map = simulat.scenes["GameScene"].game_map
+        surface.blit(
+            self.sprite.surface,
+            (
+                (game_map.viewport_size[0] - self.px_size[0]) // 2,
+                (game_map.viewport_size[1] - self.px_size[1]) // 2,
+            ),
+        )

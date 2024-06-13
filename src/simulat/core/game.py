@@ -13,15 +13,18 @@ import pygame.ftfont
 from src.simulat.core.log_exception import log_exception
 
 # set up logging
-lg.basicConfig(format="%(asctime)s : %(levelname)-8s : %(threadName)s : %(filename)s:"
-               "%(lineno)d : %(name)s :: %(message)s",
-               level=lg.DEBUG)
+lg.basicConfig(
+    format="%(asctime)s : %(levelname)-8s : %(threadName)s : %(filename)s:"
+    "%(lineno)d : %(name)s :: %(message)s",
+    level=lg.DEBUG,
+)
 
 module_lg = lg.getLogger(__name__)
 
 
 class Simulat:
     """Main class for simulat."""
+
     def __init__(self):
         """Initialize pygame and the main window."""
         # constants
@@ -55,14 +58,15 @@ class Simulat:
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
-            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
-            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 9),
+            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
         }
 
         # initialize focused surfaces
-        from src.simulat.core.surfaces.scenes.scene import Scene
+        from src.simulat.core.scenes.scene import Scene
         from src.simulat.core.surfaces.surface import Surface
+
         self.focused_surfaces: list[Surface | Scene] = []
 
         # initialize topbar
@@ -81,8 +85,8 @@ class Simulat:
 
     def _init_scenes(self):
         """Initialize scenes."""
-        from .surfaces.scenes.game_scene.game_scene import GameScene
-        from .surfaces.scenes.scene import Scene
+        from .scenes.game_scene.game_scene import GameScene
+        from .scenes.scene import Scene
 
         self.scenes: dict[str | None, Scene] = {}
         self.active_scene: str | None = None  # initial scene is defined in `run()`
@@ -92,8 +96,8 @@ class Simulat:
         self.scenes[None] = fallback_scene
 
         # main menu scene
-        from .surfaces.scenes.main_menu_scene.main_menu_scene import \
-            MainMenuScene
+        from .scenes.main_menu_scene.main_menu_scene import MainMenuScene
+
         main_menu_scene = MainMenuScene()
         self.scenes[main_menu_scene.id] = main_menu_scene
 
@@ -124,8 +128,7 @@ class Simulat:
             self.focused_surfaces.append(surface)
             self.logger.debug(f"Focused surface {surface}.")
 
-    def unfocus_surface(self, surface: Surface,
-                        supress_error: bool = True) -> None:
+    def unfocus_surface(self, surface: Surface, supress_error: bool = True) -> None:
         """Unfocus a surface."""
         try:
             self.focused_surfaces.remove(surface)
@@ -138,6 +141,7 @@ class Simulat:
 
     def run(self):
         from src.simulat.core.version import VERSION
+
         self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
 
@@ -160,9 +164,12 @@ class Simulat:
                 self.running = False
 
             for surface in self.focused_surfaces:  # copy to avoid RuntimeError
-                surface.input(events=events, keys=keys,
-                              mouse_pos=pg.mouse.get_pos(),
-                              mouse_buttons=pg.mouse.get_pressed())
+                surface.input(
+                    events=events,
+                    keys=keys,
+                    mouse_pos=pg.mouse.get_pos(),
+                    mouse_buttons=pg.mouse.get_pressed(),
+                )
 
             # UPDATE
             # update scene
@@ -175,17 +182,18 @@ class Simulat:
             # draw topbar
             self.internal_screen.blit(self.topbar.surface, (0, 0))
 
-            pg.display.set_caption(f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}")
+            pg.display.set_caption(
+                f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}"
+            )
 
             # update screen
             self.display.blit(
-                pg.transform.scale(self.internal_screen, self.DISPLAY_SIZE),
-                (0, 0)
+                pg.transform.scale(self.internal_screen, self.DISPLAY_SIZE), (0, 0)
             )
             pg.display.flip()
 
             # limit framerate
-            self.frame_delta = self.clock.tick(self.FPS) * .001  # in seconds
+            self.frame_delta = self.clock.tick(self.FPS) * 0.001  # in seconds
 
         # quit pygame
         self.logger.info("Quit event received, exiting.")

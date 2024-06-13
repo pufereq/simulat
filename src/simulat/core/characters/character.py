@@ -5,8 +5,14 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.surfaces.game_map.tiles.tile import (Tile, px_to_tiles,
-                                                           tiles_to_px)
+import pygame as pg
+
+from src.simulat.core.scenes.game_scene.game_map.tiles.map_tile import MapTile
+from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+    px_to_tiles,
+    tiles_to_px,
+)
+from src.simulat.core.scenes.game_scene.game_map.world import World
 from src.simulat.core.surfaces.surface import Surface
 
 
@@ -17,17 +23,24 @@ class Character:
     an enemy, an NPC, etc. Each character has its own class, which inherits
     from this class.
     """
-    def __init__(self, game_map: GameMap, pos: tuple[float, float],
-                 size: tuple[float, float], unit: str, *,
-                 can_collide: bool = True) -> None:
+
+    def __init__(
+        self,
+        world: World,
+        pos: tuple[float, float],
+        size: tuple[float, float],
+        size_unit: str,
+        *,
+        can_collide: bool = True,
+    ) -> None:
         """Initialize the character.
 
         Args:
-            game_map (GameMap): The game map.
-            pos (tuple[float, float]): The character's position in tiles.
-            size (tuple[float, float]): The character's size.
-            unit (str): The unit of the character's size ("tiles" OR "px").
-            can_collide (bool): Whether the character can collide with
+            world (World): The world.
+            pos (tuple[float, float]): The Character's position in tiles.
+            size (tuple[float, float]): The Character's size.
+            size_unit (str): The unit of the Character's size ("tiles" OR "px").
+            can_collide (bool): Whether the Character can collide with
             collider tiles.
 
         Raises:
@@ -35,25 +48,30 @@ class Character:
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
-        if unit not in ("tiles", "px"):
-            raise ValueError(f"Invalid unit: {unit}")
+        if size_unit not in ("tiles", "px"):
+            raise ValueError(f"Invalid unit: {size_unit}")
 
         self.first_name: str = "John"
         self.last_name: str = "Doe"
 
         self.pos: list[float] = list(pos)  # position in tiles
 
-        if unit == "px":
+        if size_unit == "px":
             self.px_size: tuple[float, float] = size
-            self.size: tuple[float, float] = (px_to_tiles(size[0]),
-                                              px_to_tiles(size[1]))
-        elif unit == "tiles":
+            self.size: tuple[float, float] = (
+                px_to_tiles(size[0]),
+                px_to_tiles(size[1]),
+            )
+        elif size_unit == "tiles":
             self.size: tuple[float, float] = size
-            self.px_size: tuple[float, float] = (tiles_to_px(size[0]),
-                                                  tiles_to_px(size[1]))
+            self.px_size: tuple[float, float] = (
+                tiles_to_px(size[0]),
+                tiles_to_px(size[1]),
+            )
 
-        self.logger.debug(f"Initializing character {type(self).__name__} "
-                          f"at {self.pos}...")
+        self.logger.debug(
+            f"Initializing character {type(self).__name__} " f"at {self.pos}..."
+        )
 
         self.can_collide: bool = can_collide
 
@@ -65,9 +83,12 @@ class Character:
 
         self.sprite.fill((255, 255, 0))
 
-        self.rect = self.sprite.surface.get_rect(center=self.px_pos)
+        self.rect = pg.Rect(
+            self.px_pos,
+            self.px_size,
+        )
 
-        self.game_map = game_map
+        self.world = world
 
     @property
     def name(self) -> str:
@@ -79,6 +100,28 @@ class Character:
         """list[int]: The character's position in pixels."""
         return (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
 
+    @px_pos.setter
+    def px_pos(self, value: tuple[int, int]) -> None:
+        self.pos = [px_to_tiles(value[0]), px_to_tiles(value[1])]
+
+    @property
+    def current_chunk(self) -> tuple[int, int]:
+        return (
+            int(self.pos[0] // self.world.CHUNK_SIZE),
+            int(self.pos[1] // self.world.CHUNK_SIZE),
+        )
+
+    @property
+    def pos_in_chunk(self) -> tuple[int, int]:
+        return (
+            int(self.pos[0] % self.world.CHUNK_SIZE),
+            int(self.pos[1] % self.world.CHUNK_SIZE),
+        )
+
+    @property
+    def current_tile(self) -> MapTile:
+        return self.world.chunk_map[self.current_chunk][self.pos_in_chunk]
+
     @property
     def current_speed(self) -> float:
         """float: The character's current speed."""
@@ -87,23 +130,16 @@ class Character:
     def _cap_position(self, pos_tiles: tuple[float, float]) -> None:
         """Cap the character's position to the game map's size."""
         # covert to top-left position
-        topleft_pos = (pos_tiles[0] - self.size[0] / 2,
-                       pos_tiles[1] - self.size[1] / 2)
+        topleft_pos = (pos_tiles[0] - self.size[0] / 2, pos_tiles[1] - self.size[1] / 2)
 
         # cap position
-        x = max(
-            min(topleft_pos[0], self.game_map.MAP_SIZE[0] - self.size[0]),
-            0
-        )
-        y = max(
-            min(topleft_pos[1], self.game_map.MAP_SIZE[1] - self.size[1]),
-            0
-        )
+        x = max(min(topleft_pos[0], self.world.size[0] - self.size[0]), 0)
+        y = max(min(topleft_pos[1], self.world.size[1] - self.size[1]), 0)
 
         # convert back to center position
         self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
-    def _check_collision(self, x: float, y: float) -> Tile | None:
+    def _check_collision(self, x: float, y: float) -> list[MapTile]:
         """Check if the character collides with a collider tile.
 
         Args:
@@ -111,15 +147,16 @@ class Character:
             y (float): Vertical distance to move (in tiles).
 
         Returns:
-            Tile | None: The collider tile the character collides with.
+            list[MapTile]: The colliding tiles.
         """
         x, y = tiles_to_px(x), tiles_to_px(y)
         new_pos_rect = self.rect.copy()
         new_pos_rect.center = (x, y)
-        for tile in self.game_map.collider_tiles:
+        colliding: list[MapTile] = []
+        for tile in self.world.collidables.values():
             if new_pos_rect.colliderect(tile.rect):
-                return tile
-        return None
+                colliding.append(tile)
+        return colliding
 
     def update(self, delta: float) -> None:
         """Update the character.
@@ -138,18 +175,28 @@ class Character:
 
         self.move(
             self.velocity[0] * self.max_speed * delta,
-            self.velocity[1] * self.max_speed * delta
+            self.velocity[1] * self.max_speed * delta,
         )
 
         # cap position
-        self._cap_position(self.pos)
+        # self._cap_position(self.pos)
 
         # update px position
         self.rect.center = self.px_pos
 
-    def render(self) -> None:
-        """Render the character."""
-        self.game_map.character_surface.blit(self.sprite.surface, self.rect)
+    def render(self, surface: Surface) -> None:
+        """Render the character.
+
+        Args:
+            surface (Surface): The surface to render the Character on.
+        """
+        surface.blit(
+            self.sprite.surface,
+            (
+                self.px_pos[0] - self.world.player.px_pos[0] + surface.width // 2,
+                self.px_pos[1] - self.world.player.px_pos[1] + surface.height // 2,
+            ),
+        )
 
     def move(self, dx: float, dy: float) -> None:
         """Move the character.
@@ -159,35 +206,31 @@ class Character:
             dy (float): Vertical distance to move (in tiles).
         """
 
-        # check for collision
-        collider_x = self._check_collision(self.pos[0] + dx, self.pos[1])
-        if collider_x and self.can_collide:
-            # teleport the player to the left or right of the collider tile
-            if dx < 0:
-                new_pos_x = px_to_tiles(collider_x.rect.right) + self.size[0] / 2
-            elif dx > 0:
-                new_pos_x = px_to_tiles(collider_x.rect.left) - self.size[0] / 2
-            if dx != 0:
-                self.move_to(new_pos_x, self.pos[1])
-                dx = 0
+        # check collision
+        colliding_x = self._check_collision(self.pos[0] + dx, self.pos[1])
+        new_pos_x = self.pos[0] + dx
 
-        collider_y = self._check_collision(self.pos[0], self.pos[1] + dy)
-        if collider_y and self.can_collide:
-            # teleport the player to the top or bottom of the collider tile
-            if dy < 0:
-                new_pos_y = px_to_tiles(collider_y.rect.bottom) + self.size[1] / 2
-            elif dy > 0:
-                new_pos_y = px_to_tiles(collider_y.rect.top) - self.size[1] / 2
-            if dy != 0:
-                self.move_to(self.pos[0], new_pos_y)
-                dy = 0
-        # move horizontally
+        if colliding_x:
+            for tile in colliding_x:
+                if dx > 0:
+                    new_pos_x = px_to_tiles(tile.rect.left) - self.size[0] / 2
+                elif dx < 0:
+                    new_pos_x = px_to_tiles(tile.rect.right) + self.size[0] / 2
+
         if dx != 0:
-            self.move_to(self.pos[0] + dx, self.pos[1])
+            self.move_to(new_pos_x, self.pos[1])
 
-        # move vertically
+        colliding_y = self._check_collision(self.pos[0], self.pos[1] + dy)
+        new_pos_y = self.pos[1] + dy
+
+        if colliding_y:
+            for tile in colliding_y:
+                if dy > 0:
+                    new_pos_y = px_to_tiles(tile.rect.top) - self.size[1] / 2
+                elif dy < 0:
+                    new_pos_y = px_to_tiles(tile.rect.bottom) + self.size[1] / 2
         if dy != 0:
-            self.move_to(self.pos[0], self.pos[1] + dy)
+            self.move_to(self.pos[0], new_pos_y)
 
     def move_to(self, x: float, y: float) -> None:
         """Move the character to a specific position.

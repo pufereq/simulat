@@ -6,12 +6,13 @@ from __future__ import annotations
 import logging as lg
 
 from src.simulat.core.surfaces.surface import Surface
-from src.simulat.data.colors import SimulatPalette
+from src.simulat.core.colors import SimulatPalette
 
 
 class Topbar(Surface):
     def __init__(self):
         from ..game import simulat
+
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.debug("Initializing topbar...")
 
@@ -21,12 +22,18 @@ class Topbar(Surface):
         self.title_text: str = ""
         self.details_text: str = ""
 
-        self.debug_color: list[str] = [SimulatPalette.FOREGROUND,
-                                       SimulatPalette.BACKGROUND]
-        self.title_color: list[str] = [SimulatPalette.FOREGROUND,
-                                       SimulatPalette.BACKGROUND]
-        self.details_color: list[str] = [SimulatPalette.FOREGROUND,
-                                         SimulatPalette.BACKGROUND]
+        self.debug_color: list[str] = [
+            SimulatPalette.FOREGROUND,
+            SimulatPalette.BACKGROUND,
+        ]
+        self.title_color: list[str] = [
+            SimulatPalette.FOREGROUND,
+            SimulatPalette.BACKGROUND,
+        ]
+        self.details_color: list[str] = [
+            SimulatPalette.FOREGROUND,
+            SimulatPalette.BACKGROUND,
+        ]
 
         # init sub-surfaces
         self._init_sub_surfaces()
@@ -38,16 +45,13 @@ class Topbar(Surface):
 
     def _init_sub_surfaces(self):
         self.debug_surface = self.subsurface(
-            (0, 0),
-            (round(self.width * 0.3), self.height)
+            (0, 0), (round(self.width * 0.3), self.height)
         )
         self.title_surface = self.subsurface(
-            (round(self.width * 0.3), 0),
-            (round(self.width * 0.4), self.height)
+            (round(self.width * 0.3), 0), (round(self.width * 0.4), self.height)
         )
         self.details_surface = self.subsurface(
-            (round(self.width * 0.7), 0),
-            (round(self.width * 0.3), self.height)
+            (round(self.width * 0.7), 0), (round(self.width * 0.3), self.height)
         )
 
         self.debug_surface.fill(self.debug_color[1])
@@ -59,9 +63,10 @@ class Topbar(Surface):
 
         self.debug_surface.fill(self.debug_color[1])
         self.debug_surface.add_text(
-            self.debug_text, ("left", "center"),
+            self.debug_text,
+            ("left", "center"),
             color=self.debug_color[0],
-            font="topbar"
+            font="topbar",
         )
 
     def update_title(self, text: str):
@@ -69,9 +74,10 @@ class Topbar(Surface):
 
         self.title_surface.fill(self.title_color[1])
         self.title_surface.add_text(
-            self.title_text, ("center", "center"),
+            self.title_text,
+            ("center", "center"),
             color=self.title_color[0],
-            font="topbar"
+            font="topbar",
         )
 
     def update_details(self, text: str):
@@ -79,7 +85,8 @@ class Topbar(Surface):
 
         self.details_surface.fill(self.details_color[1])
         self.details_surface.add_text(
-            self.details_text, ("right", "center"),
+            self.details_text,
+            ("right", "center"),
             color=self.details_color[0],
-            font="topbar"
+            font="topbar",
         )

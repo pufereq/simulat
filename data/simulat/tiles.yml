@@ -1,0 +1,17 @@
+# A list of all the tiles in the game
+
+# Usage:
+# - id: The unique identifier for the tile
+#   label: The name of the tile
+#   texture: The path to the texture file
+#   collision: Whether the tile has collision or not
+
+- id: "simulat.tile.grass"
+  label: "Grass"
+  texture: "tiles/grass.png"
+  collision: false
+
+- id: "simulat.tile.bricks"
+  label: "Bricks"
+  texture: "tiles/bricks.png"
+  collision: true
