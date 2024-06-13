@@ -140,7 +140,7 @@ class GameMap:
                     # generate the target chunk if it doesn't exist
                     if target_chunk not in self.world.chunk_map:
                         self.world.chunk_map[target_chunk] = self.world.generate_chunk(
-                            target_x, target_y
+                            (target_x, target_y)
                         )
 
                     # render the tiles in the target chunk
