@@ -116,3 +116,23 @@ class World:
         except KeyError:
             self.chunk_map[chunk_pos] = self.generate_chunk(chunk_pos)
             return self.chunk_map[chunk_pos][chunk_offset]
+
+    def set_tile(self, pos: tuple[int, int], tile_id: str) -> None:
+        """Set a tile at the specified coordinates.
+
+        Args:
+            pos (tuple[int, int]): The coordinates of the tile to set.
+            tile_id (str): The ID of the tile to set.
+        """
+        chunk_pos = (pos[0] // self.CHUNK_SIZE, pos[1] // self.CHUNK_SIZE)
+        chunk_offset = (pos[0] % self.CHUNK_SIZE, pos[1] % self.CHUNK_SIZE)
+        try:
+            self.chunk_map[chunk_pos][chunk_offset] = MapTile(pos, tile_id)
+        except KeyError:
+            self.chunk_map[chunk_pos] = self.generate_chunk(chunk_pos)
+            self.chunk_map[chunk_pos][chunk_offset] = MapTile(pos, tile_id)
+
+        if self.chunk_map[chunk_pos][chunk_offset].tile_type.collision:
+            self.collidables[pos] = self.chunk_map[chunk_pos][chunk_offset]
+        else:
+            self.collidables.pop(pos, None)
