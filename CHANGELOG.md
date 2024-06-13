@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.15.0] - 2024-06-13
+
+### Bug Fixes
+
+- [`a754dc2`](https://github.com/pufereq/simulat/commit/a754dc2568b45d495fe9c48912a12424a7e57eae) **grass.png**: fix rotation of grass texture
+- [`8229799`](https://github.com/pufereq/simulat/commit/8229799aa04ce2d9a8a29e65795222ddf8a205d9) **tile_manager.py**: handle empty `tiles.yml` parsing gracefully
+
+### Features
+
+- [`b5e51ac`](https://github.com/pufereq/simulat/commit/b5e51acf1b2f91919360fe7b08f0b7773acaedc1) **tile_manager.py**: add fallback for missing tiles in `id_to_tile()` function
+- [`b048e7d`](https://github.com/pufereq/simulat/commit/b048e7d1d5d3895c958e48ece4a174f3aeca0bdb) **tile_manager.py**: add `missing` tile (as a fallback)
+- [`f3be33c`](https://github.com/pufereq/simulat/commit/f3be33c15a0365c66bc5706315b7437f8f9cc4dc) **world.py**: add `World.set_tile()` method
+- [`6ace62c`](https://github.com/pufereq/simulat/commit/6ace62c8474273786fedf9d2e671b1e876e8cf58) **world.py**: add `World.get_tile()` method
+- [`bc190c7`](https://github.com/pufereq/simulat/commit/bc190c74031f3b15663fd8e8b619d83ac9200958) **world_manager.py**: add world_manager.py for world management
+- [`06a76ad`](https://github.com/pufereq/simulat/commit/06a76ad5f2a489b03d9f08f35c5470e070a1a797) **debug_world.py**: add a debug world
+- [`d371169`](https://github.com/pufereq/simulat/commit/d371169df86941c2ac99a8b7fe3cc50f6e438ac3) **world.py**: add `World` class
+- [`dc66f87`](https://github.com/pufereq/simulat/commit/dc66f876d51e5450b36439eb3c27e1089523877f) **map_tile.py**: add MapTile class
+- [`c4f2892`](https://github.com/pufereq/simulat/commit/c4f28921380caa5bf5d803d12d2014f9e9506551) **tile_manager.py**: add tile_manager.py
+- [`54dbed2`](https://github.com/pufereq/simulat/commit/54dbed2716b40a9a49c5982eeb4bf03ead8e5d70) **textures.py**: add textures module
+- [`7b98d86`](https://github.com/pufereq/simulat/commit/7b98d86f40dbacdebe2432f12c66cbf3768feb6b) **tile_type.py**: add TileType class to define the different types of tiles
+
+### Miscellaneous Tasks
+
+- [`0d43cdc`](https://github.com/pufereq/simulat/commit/0d43cdca966613ea78637bd73f82c2daf8c49200) **world.py**: make `World.generate_chunk()`'s argument a tuple of ints
+- [`03d5903`](https://github.com/pufereq/simulat/commit/03d5903091b4ead85f18586ff18218b1d4b6666a) **character.py**: refactor Character class to support the new GameMap
+- [`499b10d`](https://github.com/pufereq/simulat/commit/499b10d641cbe60eb6677c22cedcef79a46606e3) **player.py**: refactor player class for support of the new GameMap
+- [`1a0e574`](https://github.com/pufereq/simulat/commit/1a0e57478b9f2b6dc82c2006046b1ae792c4e25a) **bricks.png**: add bricks tile texture
+- [`065666a`](https://github.com/pufereq/simulat/commit/065666ae830220d6b6925a5a5ddd8a36e747132d) **grass.png**: add grass tile texture
+- [`3d51b9f`](https://github.com/pufereq/simulat/commit/3d51b9f1a3466a380287ed3aa5a4f7c5208ef10a) **tiles.yml**: add tiles configuration file
+- [`b2c9712`](https://github.com/pufereq/simulat/commit/b2c9712bb14c4bde28c6ef3bca6c45668176bd2c) **tile.py**: remove tile.py for splitting
+- [`7ae2c38`](https://github.com/pufereq/simulat/commit/7ae2c3845990299f21c6733deee47181008d5d39) **game_scene.py**: remove rounded corner overlay
+- [`d775ce7`](https://github.com/pufereq/simulat/commit/d775ce7cf88b49f942ea505331461fa20c907570) **camera.py**: untie camera size from `GameMap.display_size` variable
+- [`de943aa`](https://github.com/pufereq/simulat/commit/de943aa1f5004e6720e87a517c7950d364020ee8) **character.py**: rename `unit` attribute to `size_unit` for clarity
+- [`261a4f2`](https://github.com/pufereq/simulat/commit/261a4f27ac864c7bb0d46c6492fc7a51f7775018) **map_layout.py**: remove map_layout.py
+- [`9331d43`](https://github.com/pufereq/simulat/commit/9331d4344290b60cfd2f2cbde3dd730415528cb2) remove `ColliderTile` and `DecorativeTile` classes
+- [`a2d1e04`](https://github.com/pufereq/simulat/commit/a2d1e04d59b6ce115dca1c2054faddbd7ee89e45) [**breaking**] move `src/simulat/core/surfaces/game_map` to `src/simulat/core/scenes/game_scene/game_map`
+- [`3620c4d`](https://github.com/pufereq/simulat/commit/3620c4d77df9a1736d2676f64d18c7e255040cba) **simulat.ttf**: size changes (9px → 12px)
+- [`569eae0`](https://github.com/pufereq/simulat/commit/569eae010741e6149152b05cf37f7fe67f234ab3) move `src/simulat/core/surfaces/scenes` to `src/simulat/core/scenes`
+- [`4ed0cc1`](https://github.com/pufereq/simulat/commit/4ed0cc18e857ef5da6453f9f636288e04215e2bf) **colors.py**: move colors.py to `src/simulat/core/`
+
+### Refactor
+
+- [`ae9b640`](https://github.com/pufereq/simulat/commit/ae9b64037f8b95c64f92a6b0ec9f764f05e5437c) **game_map.py**: adjust `world.generate_chunk()` arguments
+- [`4b89eef`](https://github.com/pufereq/simulat/commit/4b89eeff94d526b575d856fc4a9026fd9c6e1b4e) **camera.py**: refactor Camera class to support the new GameMap
+- [`fb6755e`](https://github.com/pufereq/simulat/commit/fb6755e23c858c6713210bf7ca10c1caee1acfc8) **game_map.py**: rewrite the `GameMap` class
+
+### Styling
+
+- [`dbd9802`](https://github.com/pufereq/simulat/commit/dbd9802f9ba0e9d060a7e024597022cc1bb8f0f2) **button_container.py**: change import order
+- [`61b1cf4`](https://github.com/pufereq/simulat/commit/61b1cf47d6ee169be43c5d2659cfadbeaa004bf4) **button.py**: change import order
+- [`188bce6`](https://github.com/pufereq/simulat/commit/188bce6f6828f19aea3478e0f652851988cb574d) use black formatter
+
+### Build
+
+- [`b308ad1`](https://github.com/pufereq/simulat/commit/b308ad1e41dec51d843d2895bb904fad42c43578) **requirements.txt**: add PyYAML dependency
+- [`d08bb65`](https://github.com/pufereq/simulat/commit/d08bb65454cd0800e561e4774c1d35d0d659367a) **.vscode/settings.json**: set type checking mode to strict
+
 ## [0.14.0] - 2024-05-08
 
 ### Features
@@ -12,6 +69,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`388af08`](https://github.com/pufereq/simulat/commit/388af08992865cd143736bc7963fc560b24817b8) **release**: 0.14.0
 - [`5220601`](https://github.com/pufereq/simulat/commit/5220601e2b70c1cadbc607e66ca70d5ba86111e6) **game.py**: use the simulat font
 - [`6be9dcd`](https://github.com/pufereq/simulat/commit/6be9dcd8f32eda3635dd062e3e89ced12eb37423) **game.py**: decrease font sizes
 - [`61af88b`](https://github.com/pufereq/simulat/commit/61af88b840e2b8fe0df8981076eee81a47f4a4d2) **main_menu_scene.py**: change position and scaling of logo on main menu
