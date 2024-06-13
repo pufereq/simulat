@@ -20,8 +20,21 @@ tiles: dict[str, TileType] = {}
 
 
 def id_to_tile(tile_id: str) -> TileType:
-    """Get a tile type by its ID."""
-    return tiles[tile_id]
+    """Get a tile type by its ID.
+
+    Args:
+        tile_id (str): The tile ID.
+
+    Returns:
+        The tile type with the specified ID. If the tile is not found,
+        the `missing` tile is returned.
+    """
+    logger = lg.getLogger(f"{__name__}.{id_to_tile.__name__}")
+    try:
+        return tiles[tile_id]
+    except KeyError:
+        logger.error(f"Tile '{tile_id}' not found, using 'missing' tile")
+        return tiles["missing"]
 
 
 def initialize_tiles() -> None:
