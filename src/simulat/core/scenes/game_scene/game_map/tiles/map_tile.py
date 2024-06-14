@@ -50,10 +50,11 @@ class MapTile:
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.pos}, {self.tile_type.id})"
 
-    def draw(self, surface: Surface) -> None:
+    def draw(self, surface: Surface, pos: tuple[int, int]) -> None:
         """Draw the map tile on the surface.
 
         Args:
             surface (Surface): The surface to draw the map tile on.
+            pos (tuple[int, int]): The position to draw the map tile at.
         """
-        self.tile_type.draw(surface, self.pos)
+        surface.blit(self.texture, pos)
