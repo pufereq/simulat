@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging as lg
+import math
 
 import pygame as pg
 
@@ -42,6 +43,7 @@ class MapTile:
         self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
 
         self.tile_type: TileType = id_to_tile(tile_id)
+        self.texture = self._get_random_texture(self.tile_type.textures)
 
         self.rect = pg.Rect(
             self.px_pos,
@@ -53,6 +55,16 @@ class MapTile:
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.pos}, {self.tile_type.id})"
+
+    def _get_random_texture(self, texture_list: list[pg.Surface]) -> pg.Surface:
+        """Get a random texture from the tile type textures based on instance_num.
+
+        Returns:
+            pg.Surface: A random texture from the tile type textures.
+        """
+        random = round(math.tan(self.instance_num))
+
+        return texture_list[random % len(texture_list)]
 
     def draw(self, surface: Surface, pos: tuple[int, int]) -> None:
         """Draw the map tile on the surface.
