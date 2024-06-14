@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import logging as lg
 
+import pygame as pg
+
 from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+    TILE_SIZE,
     TileType,
     tiles_to_px,
 )
@@ -36,7 +39,10 @@ class MapTile:
 
         self.tile_type: TileType = id_to_tile(tile_id)
 
-        self.rect = self.tile_type.texture.get_rect(topleft=self.px_pos)
+        self.rect = pg.Rect(
+            self.px_pos,
+            (TILE_SIZE, TILE_SIZE),
+        )
 
     def __str__(self) -> str:
         return f"{type(self).__name__}({self.pos}, {self.tile_type.id})"
