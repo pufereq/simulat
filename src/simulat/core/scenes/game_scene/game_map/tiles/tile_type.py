@@ -8,8 +8,6 @@ from typing import Final
 
 import pygame as pg
 
-from src.simulat.core.surfaces.surface import Surface
-
 TILE_SIZE: Final = 32  # pixels
 
 
@@ -45,17 +43,6 @@ class TileType:
 
     def __str__(self) -> str:
         return f"{self.label} ({self.id})"
-
-    def draw(self, surface: Surface, pos_tiles: tuple[int, int]) -> None:
-        """Draw the tile type on the surface.
-
-        Args:
-            surface (Surface): The surface to draw the tile type on.
-            pos_tiles (tuple[int, int]): The position of the tile in tiles.
-        """
-        surface.blit(
-            self.texture, (tiles_to_px(pos_tiles[0]), tiles_to_px(pos_tiles[1]))
-        )
 
 
 def tiles_to_px(tiles: int | float) -> int:
