@@ -46,7 +46,7 @@ def initialize_tiles() -> None:
     missing_tile = {
         "id": "missing",
         "label": "Missing",
-        "texture": "missing.png",
+        "textures": ["missing.png"],
         "collision": False,
     }
 
@@ -61,11 +61,11 @@ def initialize_tiles() -> None:
 
     # initialize tiles
     for tile in tiles_parsed:
-        tile_texture = get_texture(tile["texture"])
+        tile_textures = [get_texture(texture) for texture in tile["textures"]]
         tiles[tile["id"]] = TileType(
             tile["id"],
             tile["label"],
-            tile_texture,
+            tile_textures,
             tile["collision"],
         )
         logger.debug(f"Loaded tile {tile["id"]}")
