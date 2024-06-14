@@ -21,6 +21,8 @@ class MapTile:
     (see `TileType`).
     """
 
+    instances: int = 0
+
     def __init__(self, position: tuple[int, int], tile_id: str) -> None:
         """Initialize the map tile.
 
@@ -28,11 +30,13 @@ class MapTile:
             position (tuple[int, int]): The position of the tile in tiles.
             tile_id (str): The ID of the tile type.
         """
+        MapTile.instances += 1
         from src.simulat.core.scenes.game_scene.game_map.tiles.tile_manager import (
             id_to_tile,
         )
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
+        self.instance_num = MapTile.instances
 
         self.pos = position
         self.px_pos = (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
