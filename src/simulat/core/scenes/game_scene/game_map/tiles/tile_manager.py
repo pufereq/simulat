@@ -40,7 +40,7 @@ def id_to_tile(tile_id: str) -> TileType:
 def initialize_tiles() -> None:
     """Initialize the tiles."""
     logger = lg.getLogger(f"{__name__}.{initialize_tiles.__name__}")
-    tiles_path: Final[str] = "data/simulat/tiles.yml"
+    tiles_path: Final[str] = "data/simulat/tiles.yaml"
 
     # `missing` tile, used when a tile is not found
     missing_tile = {
