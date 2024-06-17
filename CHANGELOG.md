@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.16.1] - 2024-06-17
+
+### Miscellaneous Tasks
+
+- [`a5d1ae6`](https://github.com/pufereq/simulat/commit/a5d1ae6730eed6459c65958c1306df68322f573d) **release.yml**: fix typo
+- [`9885fa0`](https://github.com/pufereq/simulat/commit/9885fa0574e97787c3a191c640501d3099d837ff) **release.yml**: add pre-release input and disable version drafting
+
 ## [0.16.0] - 2024-06-17
 
 ### Features
@@ -11,6 +18,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`6cf2924`](https://github.com/pufereq/simulat/commit/6cf292428b4d12fc897254dcfc020980c459f85d) **release**: 0.16.0
 - [`884acd7`](https://github.com/pufereq/simulat/commit/884acd741940ab8f3a17a5f1a360b705e4bb0be6) **tiles.yml**: use new textures
 - [`53116e6`](https://github.com/pufereq/simulat/commit/53116e6217f2b9fff7ea889c80b5d67794a388c5) **grass.png**: remove old grass texture
 - [`6a03942`](https://github.com/pufereq/simulat/commit/6a03942edc56193ac5dca34a58cf9c79b8c34613) add more grass textures
