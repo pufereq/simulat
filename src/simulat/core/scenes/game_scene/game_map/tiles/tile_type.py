@@ -8,8 +8,6 @@ from typing import Final
 
 import pygame as pg
 
-from src.simulat.core.surfaces.surface import Surface
-
 TILE_SIZE: Final = 32  # pixels
 
 
@@ -21,41 +19,30 @@ class TileType:
     """
 
     def __init__(
-        self, _id: str, label: str, texture: pg.Surface, collision: bool
+        self, _id: str, label: str, textures: list[pg.Surface], collision: bool
     ) -> None:
         """Initialize the tile type.
 
         Args:
             _id (str): The tile type's ID.
             label (str): The tile type's label.
-            texture (Surface): The tile type's texture.
+            textures (list[pg.Surface]): The tile type's texture.
             collision (bool): The tile type's collision property.
         """
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
         self.id = _id
         self.label = label
-        self.texture = texture
+        self.textures = textures
         self.collision = collision
 
         self.logger.debug(f"Initialized tile type: {self}")
 
     def __repr__(self) -> str:
-        return f"{type(self).__name__}({self.id=}, {self.label=}, {self.texture=}, {self.collision=})"
+        return f"{type(self).__name__}({self.id=}, {self.label=}, {self.textures=}, {self.collision=})"
 
     def __str__(self) -> str:
         return f"{self.label} ({self.id})"
-
-    def draw(self, surface: Surface, pos_tiles: tuple[int, int]) -> None:
-        """Draw the tile type on the surface.
-
-        Args:
-            surface (Surface): The surface to draw the tile type on.
-            pos_tiles (tuple[int, int]): The position of the tile in tiles.
-        """
-        surface.blit(
-            self.texture, (tiles_to_px(pos_tiles[0]), tiles_to_px(pos_tiles[1]))
-        )
 
 
 def tiles_to_px(tiles: int | float) -> int:

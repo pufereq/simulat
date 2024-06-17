@@ -145,8 +145,8 @@ class GameMap:
 
                     # render the tiles in the target chunk
                     for tile in self.world.chunk_map[target_chunk].values():
-                        self.surface.blit(
-                            tile.tile_type.texture,
+                        tile.draw(
+                            self.surface,
                             (
                                 tile.px_pos[0] - self.world.player.px_pos[0] + self.viewport_size[0] // 2,  # fmt: skip
                                 tile.px_pos[1] - self.world.player.px_pos[1] + self.viewport_size[1] // 2,  # fmt: skip
