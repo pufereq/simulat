@@ -7,6 +7,10 @@ on:
         type: string
         description: 'new tag number'
         required: true
+      pre_release:
+        type: boolean
+        description: 'pre-release?'
+        required: true
       description:
         type: string
         descirption: 'version description'
@@ -62,7 +66,8 @@ jobs:
           name: simulat ${{ github.event.inputs.version }} - ${{ github.event.inputs.description}}
           tag_name: ${{ github.event.inputs.version }}
           body_path: body.md
-          draft: true
+          prerelease: ${{ github.event.inputs.pre_release }}
+          discussion_category_name: 'Announcements'
       - name: 🧹 cleanup
         run: |
           rm body.md
