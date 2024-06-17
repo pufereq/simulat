@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.16.0] - 2024-06-17
+
+### Features
+
+- [`026288f`](https://github.com/pufereq/simulat/commit/026288fa410ba7bf1e0a604f7623b95c42ec220b) **map_tile.py**: add multiple texture randomization
+- [`4e38bfc`](https://github.com/pufereq/simulat/commit/4e38bfcb86d5b5e592cd69e2c0fd00ed3821c479) **tile_manager.py**: add support for multiple textures for one tile
+
+### Miscellaneous Tasks
+
+- [`884acd7`](https://github.com/pufereq/simulat/commit/884acd741940ab8f3a17a5f1a360b705e4bb0be6) **tiles.yml**: use new textures
+- [`53116e6`](https://github.com/pufereq/simulat/commit/53116e6217f2b9fff7ea889c80b5d67794a388c5) **grass.png**: remove old grass texture
+- [`6a03942`](https://github.com/pufereq/simulat/commit/6a03942edc56193ac5dca34a58cf9c79b8c34613) add more grass textures
+- [`d92043d`](https://github.com/pufereq/simulat/commit/d92043d012dd7c1f44b5f92c9b6d07c21ac480be) **map_tile.py**: add `MapTile.instances` counter and `MapTile.instance_num` for randomization purposes
+- [`b617cd0`](https://github.com/pufereq/simulat/commit/b617cd053033c0145e413363eb372b974337a3f9) **tile_type.py**: remove `TileType.draw()` method as drawing is handled by `MapTile`
+- [`7c2d410`](https://github.com/pufereq/simulat/commit/7c2d41098144dc5af6ac4c49cf9d36f9c6bf6116) **map_tile.py**: add `pos` argument to `MapTile.draw()` and call `blit`
+
+### Refactor
+
+- [`96fd57b`](https://github.com/pufereq/simulat/commit/96fd57b4d2b5196cef5e32732e2b6f4d3f074258) **game_map.py**: use `tile.draw` method instead of manually blitting a tile
+- [`6b48904`](https://github.com/pufereq/simulat/commit/6b48904278459f4a711c6a6a4bcacb4dc0c746d0) **tile_type.py**: rename `TileType.texture` to `TileType.textures`
+- [`afe7d6f`](https://github.com/pufereq/simulat/commit/afe7d6fd9e1d163ab95bc8b55a52e37894ee8d0c) **map_tile.py**: set `MapTile.rect` based on `TILE_SIZE` rather then texture size
+
 ## [0.15.0] - 2024-06-13
 
 ### Bug Fixes
@@ -25,6 +47,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`366379d`](https://github.com/pufereq/simulat/commit/366379d6791c99c72de4314b64fcad7c3afde87f) **release**: 0.15.0
 - [`0d43cdc`](https://github.com/pufereq/simulat/commit/0d43cdca966613ea78637bd73f82c2daf8c49200) **world.py**: make `World.generate_chunk()`'s argument a tuple of ints
 - [`03d5903`](https://github.com/pufereq/simulat/commit/03d5903091b4ead85f18586ff18218b1d4b6666a) **character.py**: refactor Character class to support the new GameMap
 - [`499b10d`](https://github.com/pufereq/simulat/commit/499b10d641cbe60eb6677c22cedcef79a46606e3) **player.py**: refactor player class for support of the new GameMap
