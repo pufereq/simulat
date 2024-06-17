@@ -5,12 +5,12 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.characters.character import Character
+from src.simulat.core.entities.entity import Entity
 from src.simulat.core.scenes.game_scene.game_map.world import World
 from src.simulat.core.surfaces.surface import Surface
 
 
-class Player(Character):
+class Player(Entity):
     """Player class.
 
     The player is the character controlled by the player.

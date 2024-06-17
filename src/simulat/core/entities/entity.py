@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Character module."""
+"""Entity module."""
 
 from __future__ import annotations
 
@@ -16,11 +16,11 @@ from src.simulat.core.scenes.game_scene.game_map.world import World
 from src.simulat.core.surfaces.surface import Surface
 
 
-class Character:
-    """Character class.
+class Entity:
+    """Entity class.
 
-    A character is an entity that can move on the game map. It can be a player,
-    an enemy, an NPC, etc. Each character has its own class, which inherits
+    An entity is an object that can move on the game map. It can be a player,
+    an enemy, an NPC, etc. Each entity has its own class, which inherits
     from this class.
     """
 
@@ -33,14 +33,14 @@ class Character:
         *,
         can_collide: bool = True,
     ) -> None:
-        """Initialize the character.
+        """Initialize the entity.
 
         Args:
             world (World): The world.
-            pos (tuple[float, float]): The Character's position in tiles.
-            size (tuple[float, float]): The Character's size.
-            size_unit (str): The unit of the Character's size ("tiles" OR "px").
-            can_collide (bool): Whether the Character can collide with
+            pos (tuple[float, float]): The Entity's position in tiles.
+            size (tuple[float, float]): The Entity's size.
+            size_unit (str): The unit of the Entity's size ("tiles" OR "px").
+            can_collide (bool): Whether the Entity can collide with
             collider tiles.
 
         Raises:
@@ -70,7 +70,7 @@ class Character:
             )
 
         self.logger.debug(
-            f"Initializing character {type(self).__name__} " f"at {self.pos}..."
+            f"Initializing entity {type(self).__name__} " f"at {self.pos}..."
         )
 
         self.can_collide: bool = can_collide
@@ -92,12 +92,12 @@ class Character:
 
     @property
     def name(self) -> str:
-        """str: The character's full name."""
+        """str: The entity's full name."""
         return f"{self.first_name} {self.last_name}"
 
     @property
     def px_pos(self) -> tuple[int, int]:
-        """list[int]: The character's position in pixels."""
+        """list[int]: The entity's position in pixels."""
         return (tiles_to_px(self.pos[0]), tiles_to_px(self.pos[1]))
 
     @px_pos.setter
@@ -124,11 +124,11 @@ class Character:
 
     @property
     def current_speed(self) -> float:
-        """float: The character's current speed."""
+        """float: The entity's current speed."""
         return self.max_speed * (self.velocity[0] ** 2 + self.velocity[1] ** 2) ** 0.5
 
     def _cap_position(self, pos_tiles: tuple[float, float]) -> None:
-        """Cap the character's position to the game map's size."""
+        """Cap the entity's position to the game map's size."""
         # covert to top-left position
         topleft_pos = (pos_tiles[0] - self.size[0] / 2, pos_tiles[1] - self.size[1] / 2)
 
@@ -140,7 +140,7 @@ class Character:
         self.pos = [x + self.size[0] / 2, y + self.size[1] / 2]
 
     def _check_collision(self, x: float, y: float) -> list[MapTile]:
-        """Check if the character collides with a collider tile.
+        """Check if the entity collides with a collider tile.
 
         Args:
             x (float): Horizontal distance to move (in tiles).
@@ -159,7 +159,7 @@ class Character:
         return colliding
 
     def update(self, delta: float) -> None:
-        """Update the character.
+        """Update the entity.
 
         Args:
             delta (float): Time passed since the last update (in seconds).
@@ -185,10 +185,10 @@ class Character:
         self.rect.center = self.px_pos
 
     def render(self, surface: Surface) -> None:
-        """Render the character.
+        """Render the entity.
 
         Args:
-            surface (Surface): The surface to render the Character on.
+            surface (Surface): The surface to render the Entity on.
         """
         surface.blit(
             self.sprite.surface,
@@ -199,7 +199,7 @@ class Character:
         )
 
     def move(self, dx: float, dy: float) -> None:
-        """Move the character.
+        """Move the entity.
 
         Args:
             dx (float): Horizontal distance to move (in tiles).
@@ -233,7 +233,7 @@ class Character:
             self.move_to(self.pos[0], new_pos_y)
 
     def move_to(self, x: float, y: float) -> None:
-        """Move the character to a specific position.
+        """Move the entity to a specific position.
 
         Args:
             x (float): The x-coordinate of the position to move to (in tiles).
