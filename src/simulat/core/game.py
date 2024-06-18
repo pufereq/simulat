@@ -10,6 +10,7 @@ from typing import Final
 import pygame as pg
 import pygame.ftfont
 
+from src.simulat.core.config_handler import ConfigHandler
 from src.simulat.core.log_exception import log_exception
 
 # set up logging
@@ -27,14 +28,19 @@ class Simulat:
 
     def __init__(self):
         """Initialize pygame and the main window."""
-        # constants
-        self.FPS: Final = 60
-        self.INTERNAL_SCREEN_SIZE: Final = (640, 360)
-        self.DISPLAY_SIZE = (1280, 720)
 
         # set up logging
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
         self.logger.info("Starting simulat...")
+
+        # load settings
+        self.config_handler = ConfigHandler()
+
+        self.FPS = self.config_handler.get("fps_limit")
+        self.INTERNAL_SCREEN_SIZE: Final = (640, 360)
+
+        _resolution = self.config_handler.get("resolution")
+        self.DISPLAY_SIZE = (_resolution["width"], _resolution["height"])
 
         self.logger.debug("Initializing exception logging...")
         sys.excepthook = log_exception
@@ -82,6 +88,10 @@ class Simulat:
 
         self.topbar = Topbar()
         self.topbar.update_debug(f"simulat {VERSION}")
+
+        if not self.config_handler.versions_match:
+            details_text = f"outdated config, see log ({self.config_handler.default_config['version']}~{self.config_handler.config['version']})"
+            self.topbar.update_details(details_text)
 
     def _init_scenes(self):
         """Initialize scenes."""
