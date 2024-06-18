@@ -53,7 +53,7 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
-    def _init_next(self):
+    def init_next(self):
         """Initialize fonts and scene handling."""
         # initialize fonts
         pg.font.init()
@@ -208,4 +208,4 @@ def init():
     """Initialize the game."""
     global simulat
     simulat = Simulat()
-    simulat._init_next()
+    simulat.init_next()
