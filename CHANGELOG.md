@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.17.1] - 2024-06-18
+
+### Bug Fixes
+
+- [`a166680`](https://github.com/pufereq/simulat/commit/a166680f182ed56eb0df729dcf335dd484b6fc73) **game.py**: fix error on outdated config
+
 ## [0.17.0] - 2024-06-18
 
 ### Features
@@ -11,6 +17,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`c076567`](https://github.com/pufereq/simulat/commit/c076567c874d1ead84dc4897ab81d9a0fa28d3b9) **release**: 0.17.0
 - [`5b14c9b`](https://github.com/pufereq/simulat/commit/5b14c9b54e14f90d74096d59f1e9e7a5479d31dc) add `data/user/` folder for storing user data
 - [`dcd211d`](https://github.com/pufereq/simulat/commit/dcd211ddbaad985e9f188d07b46c98445d081c22) rename `src/simulat/core/characters` to `src/simulat/core/entities`
 

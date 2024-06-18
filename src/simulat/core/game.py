@@ -90,7 +90,7 @@ class Simulat:
         self.topbar.update_debug(f"simulat {VERSION}")
 
         if not self.config_handler.versions_match:
-            details_text = f"outdated config, see log ({self.config_handler.default_config['version']}~{self.config_handler.config['version']})"
+            details_text = f"outdated config, see log ({self.config_handler.get_default('version')}~{self.config_handler.get('version')})"
             self.topbar.update_details(details_text)
 
     def _init_scenes(self):
