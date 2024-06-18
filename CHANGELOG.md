@@ -2,10 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.17.0] - 2024-06-18
+
+### Features
+
+- [`a0f3492`](https://github.com/pufereq/simulat/commit/a0f34926b57a64dd4fb72879f5104fb442740e07) **game.py**: use `ConfigHandler`
+- [`13090a9`](https://github.com/pufereq/simulat/commit/13090a9710f97502100aa04362622f146748c257) **config_handler.py**: add `ConfigHandler`
+
+### Miscellaneous Tasks
+
+- [`5b14c9b`](https://github.com/pufereq/simulat/commit/5b14c9b54e14f90d74096d59f1e9e7a5479d31dc) add `data/user/` folder for storing user data
+- [`dcd211d`](https://github.com/pufereq/simulat/commit/dcd211ddbaad985e9f188d07b46c98445d081c22) rename `src/simulat/core/characters` to `src/simulat/core/entities`
+
+### Refactor
+
+- [`c37eb27`](https://github.com/pufereq/simulat/commit/c37eb27a76a5067239a3fb0a0a33960ea707fff3) **game.py**: rename `Simulat._init_next()` method to `init_next()`
+- [`5c03e67`](https://github.com/pufereq/simulat/commit/5c03e67078d5d83a486051c2a42cb16e7128281e) **tiles.yaml**: rename `tiles.yml` to `tiles.yaml`
+- [`19f3a07`](https://github.com/pufereq/simulat/commit/19f3a07d2aec7fcbd70a0a194bb80331825f26fb) **world.py**: change the `Character` imports to point to `Entity`
+
+### Build
+
+- [`4d5d91a`](https://github.com/pufereq/simulat/commit/4d5d91abebb741951468dff1559eda7d6542cca5) **.gitignore**: add `data/user/` folder to gitignore
+- [`332f72e`](https://github.com/pufereq/simulat/commit/332f72e8977984f66915e0c7db912ac7f2ec7bff) **requirements.txt**: add a dependency on `cerberus`
+
 ## [0.16.1] - 2024-06-17
 
 ### Miscellaneous Tasks
 
+- [`6efef1a`](https://github.com/pufereq/simulat/commit/6efef1aaa10ee5a95d5cc0fa6a1fa3c89c6b1be8) **release**: 0.16.1
 - [`a5d1ae6`](https://github.com/pufereq/simulat/commit/a5d1ae6730eed6459c65958c1306df68322f573d) **release.yml**: fix typo
 - [`9885fa0`](https://github.com/pufereq/simulat/commit/9885fa0574e97787c3a191c640501d3099d837ff) **release.yml**: add pre-release input and disable version drafting
 
