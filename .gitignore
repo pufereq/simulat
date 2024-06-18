@@ -23,3 +23,7 @@ venv.bak/
 # Log files
 logs/
 *.log
+
+# User data
+data/user/*
+!data/user/.gitkeep
