@@ -3,11 +3,11 @@
 
 from __future__ import annotations
 
-from src.simulat.core.characters.character import Character
+from src.simulat.core.entities.entity import Entity
 from src.simulat.core.scenes.game_scene.game_map.world import World
 
 
-class Camera(Character):
+class Camera(Entity):
     def __init__(self, world: World, size_px: tuple[float, float]) -> None:
         super().__init__(world, (0, 0), size_px, "px", can_collide=False)
         self.max_distance_from_player: float = 8  # tiles
