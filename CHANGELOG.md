@@ -2,11 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.17.2] - 2024-06-21
+
+### Documentation
+
+- [`a4c17e9`](https://github.com/pufereq/simulat/commit/a4c17e9061b0f1b8d378be532474498aea65bfa4) add issue templates
+
 ## [0.17.1] - 2024-06-18
 
 ### Bug Fixes
 
 - [`a166680`](https://github.com/pufereq/simulat/commit/a166680f182ed56eb0df729dcf335dd484b6fc73) **game.py**: fix error on outdated config
+
+### Miscellaneous Tasks
+
+- [`f47c323`](https://github.com/pufereq/simulat/commit/f47c3230013afd7d123d0fefbb56eafb3eb2c1d2) **release**: 0.17.1
 
 ## [0.17.0] - 2024-06-18
 
