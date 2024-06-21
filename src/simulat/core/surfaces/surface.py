@@ -118,7 +118,7 @@ class Surface:
         """
         return self.surface.blit(source, dest, area, special_flags)
 
-    def add_text(
+    def blit_text(
         self,
         text: str,
         pos: tuple[int | str, int | str],

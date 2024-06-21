@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.surfaces.surface import Surface
 from src.simulat.core.colors import SimulatPalette
+from src.simulat.core.surfaces.surface import Surface
 
 
 class Topbar(Surface):
@@ -62,7 +62,7 @@ class Topbar(Surface):
         self.debug_text = text
 
         self.debug_surface.fill(self.debug_color[1])
-        self.debug_surface.add_text(
+        self.debug_surface.blit_text(
             self.debug_text,
             ("left", "center"),
             color=self.debug_color[0],
@@ -73,7 +73,7 @@ class Topbar(Surface):
         self.title_text = text
 
         self.title_surface.fill(self.title_color[1])
-        self.title_surface.add_text(
+        self.title_surface.blit_text(
             self.title_text,
             ("center", "center"),
             color=self.title_color[0],
@@ -84,7 +84,7 @@ class Topbar(Surface):
         self.details_text = text
 
         self.details_surface.fill(self.details_color[1])
-        self.details_surface.add_text(
+        self.details_surface.blit_text(
             self.details_text,
             ("right", "center"),
             color=self.details_color[0],

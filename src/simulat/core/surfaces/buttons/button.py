@@ -137,7 +137,7 @@ class Button(Surface):
 
         self.surface.blit(self.rounded_corner_overlay.surface, (0, 0))
 
-        self.add_text(
+        self.blit_text(
             self.text,
             ("center", "center"),
             color=self.color_scheme[self.state][1],
