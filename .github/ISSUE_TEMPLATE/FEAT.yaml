@@ -1,0 +1,63 @@
+name: Feature request
+description: Suggest an idea for this project.
+title: "[FEAT] "
+labels:
+  - enhancement
+assignees:
+  - 'pufereq'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hey! Thanks for taking the time to suggest a feature. Please fill out the form below to help us understand it better.
+  - type: input
+    id: feature_title
+    attributes:
+      label: Feature Title
+      description: A clear and concise title that describes the feature.
+      placeholder: "Ex. Add a new tile type: Water"
+    validations:
+      required: true
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: Feature Description
+      description: Describe the feature you are suggesting.
+      placeholder: "Ex. Add a new tile type that can be placed on water."
+    validations:
+      required: true
+  - type: textarea
+    id: feature_usage
+    attributes:
+      label: Feature Usage
+      description: Describe how the feature should be used.
+      placeholder: |
+        Add a Water tile. This tile should have collision.
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Information
+      description: How can we reach you to ask for more details or provide updates?
+      placeholder: "ex. email@example.com"
+    validations:
+      required: false
+  - type: textarea
+    id: feature_reason
+    attributes:
+      label: Feature Reason
+      description: Why should this feature be added?
+      placeholder: |
+        Water tiles are a common feature in games and can be used to create interesting worlds.
+    validations:
+      required: true
+  - type: textarea
+    id: feature_additional_info
+    attributes:
+      label: Additional Information
+      description: Provide any additional information that may be helpful.
+      placeholder: |
+        The Water tile should have a blue texture.
+    validations:
+      required: false
