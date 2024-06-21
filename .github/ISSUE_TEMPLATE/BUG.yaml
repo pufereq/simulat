@@ -1,0 +1,102 @@
+name: Bug Report
+description: Create a bug report to help improve simulat.
+title: "[BUG] "
+labels:
+  - bug
+  - triage
+assignees:
+  - 'pufereq'
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hey! Thanks for taking the time to report a bug. Please fill out the form below to help us fix it.
+  - type: checkboxes
+    id: checked_existing_issues
+    attributes:
+      label: Have you checked the existing issues?
+      description: Before submitting a new issue, please check if there is an existing issue that reports the same bug.
+      options:
+        - label: I have checked the existing issues.
+          required: true
+  - type: input
+    id: bug_title
+    attributes:
+      label: Bug Title
+      description: A clear and concise title that describes the bug.
+      placeholder: "Ex. Game crashes when I open the inventory"
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Information
+      description: How can we reach you to ask for more details or provide updates?
+      placeholder: "ex. email@example.com"
+    validations:
+      required: false
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current Behavior
+      description: Describe what is currently happening.
+      placeholder: "Ex. When I open the inventory, the game crashes."
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: Describe what you expected to happen.
+      placeholder: "Ex. When I open the inventory, I should see my items."
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Provide detailed steps to reproduce the bug.
+      placeholder: |
+        1. Open the game
+        2. Click on the inventory button
+        3. Observe the crash
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Provide information about your environment.
+      placeholder: |
+        - OS: Windows 10
+        - Python Version: 3.12.3
+        - simulat Version: 0.17.1
+      value: |
+        - "OS: "
+        - "Python Version: "
+        - "simulat Version: "
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: If you have any logs, paste them here.
+      placeholder: "Ex. Error message, stack trace, etc."
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional Information
+      description: |
+        Add any other information that might be helpful, such as links, screenshots etc.
+
+        Tip: You can attach files by dragging and dropping them here.
+        **Note: Please do not include any sensitive information.**
+      placeholder: "Ex. I have tried restarting the game and it still crashes."
+      render: markdown
+    validations:
+      required: false
