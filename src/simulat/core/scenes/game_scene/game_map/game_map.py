@@ -51,6 +51,10 @@ class GameMap:
 
         self.world: World | None = None
 
+        from src.simulat.core.scenes.game_scene.game_map.debug_screen import DebugScreen
+
+        self.debug_screen: DebugScreen = DebugScreen(self)
+
         self.surface = Surface(self.viewport_size)
 
         # NOTE: debug
@@ -87,6 +91,12 @@ class GameMap:
             if keys[pg.K_d]:
                 self.world.player.velocity[0] += 1
 
+        # debug screen toggle
+        for event in events:
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_F9:
+                    self.debug_screen.visible = not self.debug_screen.visible
+
     def update(self, delta: float) -> None:
         """Update the game map.
 
@@ -96,10 +106,11 @@ class GameMap:
         if self.world is not None:
             self.world.player.update(delta)
             # self.camera.update(delta)
-            try:
-                standing_on_tile_name = self.world.player.current_tile.tile_type.label
-            except KeyError:
-                standing_on_tile_name = "Void"
+            current_tile = self.world.player.current_tile
+            if current_tile is not None:
+                standing_on_tile_name = current_tile.tile_type.label
+            else:
+                standing_on_tile_name = "Out of bounds"
             simulat.topbar.update_title(
                 f"XY: {self.world.player.pos[0]:.3f}, {self.world.player.pos[1]:.3f} on "
                 f"{standing_on_tile_name}"
@@ -130,6 +141,7 @@ class GameMap:
             )
 
             # render the chunks
+            self.debug_screen.tiles_loaded = 0
             for y in range(y_chunks):
                 for x in range(x_chunks):
                     # calculate the target chunk
@@ -145,6 +157,7 @@ class GameMap:
 
                     # render the tiles in the target chunk
                     for tile in self.world.chunk_map[target_chunk].values():
+                        self.debug_screen.tiles_loaded += 1
                         tile.draw(
                             self.surface,
                             (
@@ -159,5 +172,9 @@ class GameMap:
 
             # render the player
             self.world.player.render(self.surface)
+
+        # render the debug screen
+        if self.debug_screen.visible:
+            self.debug_screen.render()
 
         self.game_scene.surface.blit(self.surface.surface, (0, 0))
