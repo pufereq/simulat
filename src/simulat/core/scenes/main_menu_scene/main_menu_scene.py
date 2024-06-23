@@ -29,10 +29,6 @@ class MainMenuScene(Scene):
         starts. It contains the main menu, the settings menu, etc.
         """
         super().__init__()
-        self.game_map_loading_progress: dict = {
-            "task": "Loading...",
-            "progress": 0.0
-        }
 
         # initialize the loading thread
         self.load_thread = th.Thread(name="Loading thread",
@@ -79,18 +75,16 @@ class MainMenuScene(Scene):
         """
 
         # handle input for buttons
-        self.button_container.input(events=events, keys=keys,
-                                    mouse_pos=mouse_pos,
-                                    mouse_buttons=mouse_buttons)
+        self.button_container.input(
+            events=events, keys=keys, mouse_pos=mouse_pos, mouse_buttons=mouse_buttons
+        )
 
         # load the game map if the user presses enter, temporary before
         # main menu is implemented
         if keys[pg.K_RETURN]:
-            # draw loading screen
-            self.surface.surface.fill(SimulatPalette.BACKGROUND)
-            self.surface.add_text("Loading...", ("center", "center"),
-                                  color=BasicPalette.WHITE)
+            # clear screen
 
+            self.surface.surface.fill(SimulatPalette.BACKGROUND)
             # start loading thread only once
             if not self.load_thread.is_alive():
                 self.load_thread.start()
@@ -106,10 +100,5 @@ class MainMenuScene(Scene):
 
         if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
-            self.surface.add_text(
-                f"{self.game_map_loading_progress['task']}"
-                f" {self.game_map_loading_progress['progress']:.2f}%"
-                if self.game_map_loading_progress['progress'] else "",
-                ("center", "center")
-            )
+
         self.draw(dest)
