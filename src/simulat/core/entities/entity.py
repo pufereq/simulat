@@ -119,8 +119,12 @@ class Entity:
         )
 
     @property
-    def current_tile(self) -> MapTile:
-        return self.world.chunk_map[self.current_chunk][self.pos_in_chunk]
+    def current_tile(self) -> MapTile | None:
+        """MapTile: The tile the entity is currently on."""
+        try:
+            return self.world.chunk_map[self.current_chunk][self.pos_in_chunk]
+        except KeyError:
+            return None
 
     @property
     def current_speed(self) -> float:

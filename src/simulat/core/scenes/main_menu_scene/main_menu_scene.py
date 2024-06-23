@@ -29,23 +29,24 @@ class MainMenuScene(Scene):
         starts. It contains the main menu, the settings menu, etc.
         """
         super().__init__()
-        self.game_map_loading_progress: dict = {
-            "task": "Loading...",
-            "progress": 0.0
-        }
 
         # initialize the loading thread
-        self.load_thread = th.Thread(name="Loading thread",
-                                     target=self._load_game, daemon=True)
+        self.load_thread = th.Thread(
+            name="Loading thread", target=self._load_game, daemon=True
+        )
 
         self.button_container = ButtonContainer(
             self.surface,
             [
-                Button("New Game", (193, 200), (256, 24), on_click=self._start_load_thread),
-                Button("Load Game", (193, 230), (256, 24), on_click=None, enabled=False),
+                Button(
+                    "New Game", (193, 200), (256, 24), on_click=self._start_load_thread
+                ),
+                Button(
+                    "Load Game", (193, 230), (256, 24), on_click=None, enabled=False
+                ),
                 Button("Settings", (193, 260), (124, 24), on_click=None, enabled=False),
-                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit)
-            ]
+                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit),
+            ],
         )
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
@@ -68,9 +69,14 @@ class MainMenuScene(Scene):
             self.button_container[0].enabled = False  # prevent multiple clicks
             self.load_thread.start()
 
-    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
-              mouse_pos: tuple[int, int],
-              mouse_buttons: tuple[bool, bool, bool]) -> None:
+    def input(
+        self,
+        *,
+        events: list[pg.event.Event],
+        keys: dict[int, bool],
+        mouse_pos: tuple[int, int],
+        mouse_buttons: tuple[bool, bool, bool],
+    ) -> None:
         """Handle input events.
 
         Args:
@@ -79,18 +85,16 @@ class MainMenuScene(Scene):
         """
 
         # handle input for buttons
-        self.button_container.input(events=events, keys=keys,
-                                    mouse_pos=mouse_pos,
-                                    mouse_buttons=mouse_buttons)
+        self.button_container.input(
+            events=events, keys=keys, mouse_pos=mouse_pos, mouse_buttons=mouse_buttons
+        )
 
         # load the game map if the user presses enter, temporary before
         # main menu is implemented
         if keys[pg.K_RETURN]:
-            # draw loading screen
-            self.surface.surface.fill(SimulatPalette.BACKGROUND)
-            self.surface.add_text("Loading...", ("center", "center"),
-                                  color=BasicPalette.WHITE)
+            # clear screen
 
+            self.surface.surface.fill(SimulatPalette.BACKGROUND)
             # start loading thread only once
             if not self.load_thread.is_alive():
                 self.load_thread.start()
@@ -106,10 +110,5 @@ class MainMenuScene(Scene):
 
         if self.load_thread.is_alive():
             self.surface.fill(SimulatPalette.BACKGROUND)
-            self.surface.add_text(
-                f"{self.game_map_loading_progress['task']}"
-                f" {self.game_map_loading_progress['progress']:.2f}%"
-                if self.game_map_loading_progress['progress'] else "",
-                ("center", "center")
-            )
+
         self.draw(dest)

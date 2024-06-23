@@ -27,14 +27,6 @@ body:
       placeholder: "Ex. Game crashes when I open the inventory"
     validations:
       required: true
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Information
-      description: How can we reach you to ask for more details or provide updates?
-      placeholder: "ex. email@example.com"
-    validations:
-      required: false
   - type: textarea
     id: current_behavior
     attributes:
