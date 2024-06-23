@@ -2,11 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.18.0-dev.1] - 2024-06-23
+
+### Bug Fixes
+
+- [`93152ee`](https://github.com/pufereq/simulat/commit/93152ee8ae7bf4e45cce19effe82364f6c8469e4) **entity.py**: fix error on `Entity.current_tile()` call if entity is out of bounds
+
+### Documentation
+
+- [`b1a624d`](https://github.com/pufereq/simulat/commit/b1a624d279d56a4c324877e8a2a1a65b6ed44e2d) **FEAT.yaml**: remove contact information input
+- [`c6077d4`](https://github.com/pufereq/simulat/commit/c6077d4db832ac20cfd7858c33c9ac9d757ed993) **BUG.yaml**: remove contact information input
+
+### Features
+
+- [`a08e724`](https://github.com/pufereq/simulat/commit/a08e72499869b0d6d81063aca367f40bc4c6fb1f) **debug_screen.py**: add a debug screen
+- [`62777af`](https://github.com/pufereq/simulat/commit/62777afb05c45c81030e716469200249c9f2e0bf) **surface.py**: add `antialias` argument
+
+### Miscellaneous Tasks
+
+- [`959e3af`](https://github.com/pufereq/simulat/commit/959e3af5aa3985b47d91dea5ab5af644d8f992fd) **game_map.py**: use the `DebugScreen`, toggled using `F9`
+- [`17143ac`](https://github.com/pufereq/simulat/commit/17143ac18a4af86e7d63a6350951539c1993040a) **game.py**: add a `Simulat.version` constant
+- [`0298b12`](https://github.com/pufereq/simulat/commit/0298b124f8826fa332309d0e48192c295143a700) **main_menu_scene.py**: remove unused loading screen
+
+### Refactor
+
+- [`8cf721c`](https://github.com/pufereq/simulat/commit/8cf721cc2a6c6a206f9963dc7901f754bea35cd9) **game_map.py**: change `GameMap.update()` method to adapt to changes in `Entity.current_tile`
+- [`eebf61c`](https://github.com/pufereq/simulat/commit/eebf61c1d53397cf6913ab24dcac06d1dc199aa4) **sidebar.py**: change `Surface.add_text()` call to `blit_text()`
+- [`4cf554b`](https://github.com/pufereq/simulat/commit/4cf554bd884abb9ab78eca3662e52096650a7080) **surface.py**: rename `Surface.add_text()` to `blit_text()`
+
+### Styling
+
+- [`6ca841c`](https://github.com/pufereq/simulat/commit/6ca841c9199a3aa9db982d4d178fbe710e189223) **main_menu_scene.py**: format module using black
+- [`0350157`](https://github.com/pufereq/simulat/commit/0350157919a9979f86ef83429d92594585aec771) **scene.py**: format module using black
+
 ## [0.17.2] - 2024-06-21
 
 ### Documentation
 
 - [`a4c17e9`](https://github.com/pufereq/simulat/commit/a4c17e9061b0f1b8d378be532474498aea65bfa4) add issue templates
+
+### Miscellaneous Tasks
+
+- [`53cb1fd`](https://github.com/pufereq/simulat/commit/53cb1fd09251cfae832268d3d874fd138ff45517) **release**: 0.17.2
 
 ## [0.17.1] - 2024-06-18
 
