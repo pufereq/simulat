@@ -31,17 +31,22 @@ class MainMenuScene(Scene):
         super().__init__()
 
         # initialize the loading thread
-        self.load_thread = th.Thread(name="Loading thread",
-                                     target=self._load_game, daemon=True)
+        self.load_thread = th.Thread(
+            name="Loading thread", target=self._load_game, daemon=True
+        )
 
         self.button_container = ButtonContainer(
             self.surface,
             [
-                Button("New Game", (193, 200), (256, 24), on_click=self._start_load_thread),
-                Button("Load Game", (193, 230), (256, 24), on_click=None, enabled=False),
+                Button(
+                    "New Game", (193, 200), (256, 24), on_click=self._start_load_thread
+                ),
+                Button(
+                    "Load Game", (193, 230), (256, 24), on_click=None, enabled=False
+                ),
                 Button("Settings", (193, 260), (124, 24), on_click=None, enabled=False),
-                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit)
-            ]
+                Button("Exit", (325, 260), (124, 24), on_click=simulat.quit),
+            ],
         )
 
         self.surface.surface.fill(SimulatPalette.BACKGROUND)
@@ -64,9 +69,14 @@ class MainMenuScene(Scene):
             self.button_container[0].enabled = False  # prevent multiple clicks
             self.load_thread.start()
 
-    def input(self, *, events: list[pg.event.Event], keys: dict[int, bool],
-              mouse_pos: tuple[int, int],
-              mouse_buttons: tuple[bool, bool, bool]) -> None:
+    def input(
+        self,
+        *,
+        events: list[pg.event.Event],
+        keys: dict[int, bool],
+        mouse_pos: tuple[int, int],
+        mouse_buttons: tuple[bool, bool, bool],
+    ) -> None:
         """Handle input events.
 
         Args:
