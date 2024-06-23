@@ -127,6 +127,7 @@ class Surface:
             tuple[int, int, int] | tuple[int, int, int, int] | str
         ) = SimulatPalette.FOREGROUND,
         font: str = "main",
+        antialias: bool = True,
     ):
         """Add text to the surface.
 
@@ -192,7 +193,7 @@ class Surface:
                     int(color_str[6:8], 16),  # A
                 )
 
-        text_surface = simulat.fonts[font].render(text, True, color)
+        text_surface = simulat.fonts[font].render(text, antialias, color)
 
         if text_surface.get_width() > self.width:
             self.logger.warning(
