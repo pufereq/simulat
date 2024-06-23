@@ -35,14 +35,6 @@ body:
         Add a Water tile. This tile should have collision.
     validations:
       required: true
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Information
-      description: How can we reach you to ask for more details or provide updates?
-      placeholder: "ex. email@example.com"
-    validations:
-      required: false
   - type: textarea
     id: feature_reason
     attributes:
