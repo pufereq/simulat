@@ -96,10 +96,11 @@ class GameMap:
         if self.world is not None:
             self.world.player.update(delta)
             # self.camera.update(delta)
-            try:
-                standing_on_tile_name = self.world.player.current_tile.tile_type.label
-            except KeyError:
-                standing_on_tile_name = "Void"
+            current_tile = self.world.player.current_tile
+            if current_tile is not None:
+                standing_on_tile_name = current_tile.tile_type.label
+            else:
+                standing_on_tile_name = "Out of bounds"
             simulat.topbar.update_title(
                 f"XY: {self.world.player.pos[0]:.3f}, {self.world.player.pos[1]:.3f} on "
                 f"{standing_on_tile_name}"
