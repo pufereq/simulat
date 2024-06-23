@@ -49,8 +49,10 @@ class Simulat:
         self.logger.debug("Initializing pygame...")
         from src.simulat.core.version import VERSION
 
+        self.version = VERSION
+
         pg.init()
-        pg.display.set_caption(f"simulat {VERSION}")
+        pg.display.set_caption(f"simulat {self.version}")
 
         # initialize screen
         self.internal_screen = pg.Surface(self.INTERNAL_SCREEN_SIZE)
