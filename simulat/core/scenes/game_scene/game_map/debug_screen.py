@@ -12,10 +12,10 @@ from typing import Any
 
 import pygame as pg
 
-from src.simulat.core.colors import BasicPalette, SimulatPalette
-from src.simulat.core.game import simulat
-from src.simulat.core.scenes.game_scene.game_map.game_map import GameMap
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.colors import BasicPalette, SimulatPalette
+from simulat.core.game import simulat
+from simulat.core.scenes.game_scene.game_map.game_map import GameMap
+from simulat.core.surfaces.surface import Surface
 
 
 class DebugScreen:

@@ -10,8 +10,8 @@ from typing import Final
 import pygame as pg
 import pygame.ftfont
 
-from src.simulat.core.config_handler import ConfigHandler
-from src.simulat.core.log_exception import log_exception
+from simulat.core.config_handler import ConfigHandler
+from simulat.core.log_exception import log_exception
 
 # set up logging
 lg.basicConfig(
@@ -47,7 +47,7 @@ class Simulat:
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
-        from src.simulat.core.version import VERSION
+        from simulat.core.version import VERSION
 
         self.version = VERSION
 
@@ -72,8 +72,8 @@ class Simulat:
         }
 
         # initialize focused surfaces
-        from src.simulat.core.scenes.scene import Scene
-        from src.simulat.core.surfaces.surface import Surface
+        from simulat.core.scenes.scene import Scene
+        from simulat.core.surfaces.surface import Surface
 
         self.focused_surfaces: list[Surface | Scene] = []
 
@@ -85,8 +85,8 @@ class Simulat:
 
     def _init_topbar(self):
         """Initialize topbar."""
-        from src.simulat.core.surfaces.topbar import Topbar
-        from src.simulat.core.version import VERSION
+        from simulat.core.surfaces.topbar import Topbar
+        from simulat.core.version import VERSION
 
         self.topbar = Topbar()
         self.topbar.update_debug(f"simulat {VERSION}")
@@ -152,7 +152,7 @@ class Simulat:
             self.logger.debug(f"Unfocused surface {surface}.")
 
     def run(self):
-        from src.simulat.core.version import VERSION
+        from simulat.core.version import VERSION
 
         self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame

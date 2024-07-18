@@ -5,9 +5,9 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.entities.entity import Entity
-from src.simulat.core.scenes.game_scene.game_map.world import World
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.entities.entity import Entity
+from simulat.core.scenes.game_scene.game_map.world import World
+from simulat.core.surfaces.surface import Surface
 
 
 class Player(Entity):
@@ -41,7 +41,7 @@ class Player(Entity):
         Args:
             surface (Surface): The surface to render the player on.
         """
-        from src.simulat.core.game import simulat
+        from simulat.core.game import simulat
 
         game_map = simulat.scenes["GameScene"].game_map
         surface.blit(

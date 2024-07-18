@@ -6,7 +6,7 @@ import logging as lg
 
 import pygame as pg
 
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.surfaces.surface import Surface
 
 
 class Scene:
@@ -20,7 +20,7 @@ class Scene:
 
     def __init__(self) -> None:
         """Initialize the scene."""
-        from src.simulat.core.game import simulat
+        from simulat.core.game import simulat
 
         self.id = type(self).__name__
 

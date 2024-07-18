@@ -7,8 +7,8 @@ import logging as lg
 
 import pygame as pg
 
-from src.simulat.core.colors import SimulatPalette
-from src.simulat.core.game import simulat
+from simulat.core.colors import SimulatPalette
+from simulat.core.game import simulat
 
 
 class Surface:

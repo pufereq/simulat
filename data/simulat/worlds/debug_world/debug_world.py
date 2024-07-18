@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.scenes.game_scene.game_map.world import World
+from simulat.core.scenes.game_scene.game_map.world import World
 
 
 class DebugWorld(World):

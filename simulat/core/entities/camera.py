@@ -3,8 +3,8 @@
 
 from __future__ import annotations
 
-from src.simulat.core.entities.entity import Entity
-from src.simulat.core.scenes.game_scene.game_map.world import World
+from simulat.core.entities.entity import Entity
+from simulat.core.scenes.game_scene.game_map.world import World
 
 
 class Camera(Entity):

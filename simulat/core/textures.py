@@ -11,8 +11,8 @@ from functools import cache
 
 import pygame as pg
 
-from src.simulat.core.colors import BasicPalette
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import TILE_SIZE
+from simulat.core.colors import BasicPalette
+from simulat.core.scenes.game_scene.game_map.tiles.tile_type import TILE_SIZE
 
 textures: dict[str, pg.Surface] = {}
 

@@ -12,9 +12,8 @@ from typing import Any, Final
 
 import yaml
 
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import \
-    TileType
-from src.simulat.core.textures import get_texture
+from simulat.core.scenes.game_scene.game_map.tiles.tile_type import TileType
+from simulat.core.textures import get_texture
 
 tiles: dict[str, TileType] = {}
 

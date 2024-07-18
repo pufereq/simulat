@@ -7,12 +7,12 @@ import math
 
 import pygame as pg
 
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+from simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
     TILE_SIZE,
     TileType,
     tiles_to_px,
 )
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.surfaces.surface import Surface
 
 
 class MapTile:
@@ -32,7 +32,7 @@ class MapTile:
             tile_id (str): The ID of the tile type.
         """
         MapTile.instances += 1
-        from src.simulat.core.scenes.game_scene.game_map.tiles.tile_manager import (
+        from simulat.core.scenes.game_scene.game_map.tiles.tile_manager import (
             id_to_tile,
         )
 
