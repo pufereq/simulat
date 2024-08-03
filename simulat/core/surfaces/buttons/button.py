@@ -139,7 +139,9 @@ class Button(Surface):
 
         self.blit_text(
             self.text,
-            ("center", "center"),
+            (0, 0),
+            text_align="center",
+            vertical_align="middle",
             color=self.color_scheme[self.state][1],
             font=self.font,
         )
