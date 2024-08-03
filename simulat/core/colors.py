@@ -4,6 +4,42 @@
 from typing import Final
 
 
+def hex_to_rgba(hex_color: str) -> tuple[int, int, int, int]:
+    """Convert a hex color to an RGBA tuple.
+
+    Args:
+        hex_color (str): Hex color string.
+
+    Returns:
+        tuple[int, int, int, int]: RGBA tuple.
+    """
+    hex_color = hex_color.lstrip("#").lower()
+    if len(hex_color) == 3:  # #RGB -> (RRR, GGG, BBB, 255)
+        rgba_value = (
+            int(hex_color[0], 16) * 17,  # R
+            int(hex_color[1], 16) * 17,  # G
+            int(hex_color[2], 16) * 17,  # B
+            255,  # A
+        )
+    elif len(hex_color) == 6:  # #RRGGBB -> (RRR, GGG, BBB, 255)
+        rgba_value = (
+            int(hex_color[:2], 16),  # R
+            int(hex_color[2:4], 16),  # G
+            int(hex_color[4:6], 16),  # B
+            255,  # A
+        )
+    elif len(hex_color) == 8:  # #RRGGBBAA -> (RRR, GGG, BBB, AAA)
+        rgba_value = (
+            int(hex_color[:2], 16),  # R
+            int(hex_color[2:4], 16),  # G
+            int(hex_color[4:6], 16),  # B
+            int(hex_color[6:8], 16),  # A
+        )
+    else:
+        raise ValueError(f"Invalid hex color: {hex_color}")
+    return rgba_value
+
+
 class BasicPalette:
     """A class containing basic color definitions."""
 
