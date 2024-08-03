@@ -7,7 +7,7 @@ import logging as lg
 
 import pygame as pg
 
-from simulat.core.colors import SimulatPalette
+from simulat.core.colors import SimulatPalette, hex_to_rgba
 from simulat.core.game import simulat
 
 
@@ -123,9 +123,14 @@ class Surface:
         text: str,
         pos: tuple[int | str, int | str],
         *,
+        max_width: int | None = None,
+        text_align: str = "left",
+        vertical_align: str = "top",
+        tab_size: int = 4,
         color: (
             tuple[int, int, int] | tuple[int, int, int, int] | str
         ) = SimulatPalette.FOREGROUND,
+        bg_color: tuple[int, int, int] | tuple[int, int, int, int] | str | None = None,
         font: str = "main",
         antialias: bool = False,
     ):
@@ -133,77 +138,79 @@ class Surface:
 
         Args:
             text (str): Text to add.
-            pos (tuple[int | str, int | str]): Position to add the text at.
-                Can be a number or "left", "center" or "right" for horizontal
-                align, and "top", "center" or "bottom" for vertical align.
-            color (tuple[int, int, int]): Color of the text. (R, G, B)
+            pos (tuple[int | str, int | str]): Position of the text.
+                Can be a number (int) or "left", "center", "right" for horizontal
+                position and "top", "center", "bottom" for vertical position.
+            max_width (int | None, optional): Maximum width of the text
+                before wrapping. `0` means no wrapping. Defaults to None
+                (surface width).
+            text_align (str, optional): Horizontal alignment of the text.
+                Avaliable values: "left", "center", "right". Defaults to "left".
+            vertical_align (str, optional): Vertical alignment of the text.
+                Avaliable values: "top", "middle", "bottom". Defaults to "top".
+            color (tuple[int, int, int] | tuple[int, int, int, int] | str,
+                optional): Color of the text. Defaults to SimulatPalette.FOREGROUND.
+            bg_color (tuple[int, int, int] | tuple[int, int, int, int] | str | None,
+                optional): Background color of the text. Defaults to None (transparent).
             font (str, optional): Name of the font to use.
                 Defaults to "main".
             antialias (bool, optional): Whether to use font antialiasing.
                 Defaults to False.
         """
-        if pos[0] == "left":
-            x_pos = 0
-        elif pos[0] == "center":
-            x_pos = (self.width - simulat.fonts[font].size(text)[0]) // 2
-        elif pos[0] == "right":
-            x_pos = self.width - simulat.fonts[font].size(text)[0]
+        # color conversion
+        if isinstance(color, str):
+            color = hex_to_rgba(color)
+        if isinstance(bg_color, str):
+            bg_color = hex_to_rgba(bg_color)
+
+        # position conversion
+        if isinstance(pos[0], str):
+            if pos[0] == "center":
+                x_pos = self.width // 2
+            elif pos[0] == "right":
+                x_pos = self.width
+            else:  # left
+                x_pos = 0
         else:
-            if isinstance(pos[0], str):
-                raise ValueError(
-                    f"Invalid horizontal position: {pos[0]}. Avaliable values:"
-                    " number (int), 'left', 'center', 'right'"
-                )
             x_pos = pos[0]
 
-        if pos[1] == "top":
-            y_pos = 0
-        elif pos[1] == "center":
-            y_pos = (self.height - simulat.fonts[font].size(text)[1]) // 2
-        elif pos[1] == "bottom":
-            y_pos = self.height - simulat.fonts[font].size(text)[1]
+        if isinstance(pos[1], str):
+            if pos[1] == "center":
+                y_pos = self.height // 2
+            elif pos[1] == "bottom":
+                y_pos = self.height
+            else:
+                y_pos = 0
         else:
-            if isinstance(pos[1], str):
-                raise ValueError(
-                    f"Invalid vertical position: {pos[1]}. Avaliable values:"
-                    " number (int), 'top', 'center', 'bottom'"
-                )
             y_pos = pos[1]
 
-        if isinstance(color, str):
-            color_str: str = color.strip("#").lower()
+        max_width = max_width if max_width is not None else self.width - x_pos
 
-            if len(color_str) == 3:  # #RGB -> (RRR, GGG, BBB, 255)
-                color = (
-                    int(color_str[0], 16) * 17,  # R
-                    int(color_str[1], 16) * 17,  # G
-                    int(color_str[2], 16) * 17,  # B
-                    255,  # A
-                )
-            elif len(color_str) == 6:  # #RRGGBB -> (RRR, GGG, BBB, 255)
-                color = (
-                    int(color_str[:2], 16),  # R
-                    int(color_str[2:4], 16),  # G
-                    int(color_str[4:6], 16),  # B
-                    255,  # A
-                )
-            elif len(color_str) == 8:  # #RRGGBBAA -> (RRR, GGG, BBB, AAA)
-                color = (
-                    int(color_str[:2], 16),  # R
-                    int(color_str[2:4], 16),  # G
-                    int(color_str[4:6], 16),  # B
-                    int(color_str[6:8], 16),  # A
-                )
+        # text preparation
+        text = text.replace("\t", " " * tab_size)
 
-        text_surface = simulat.fonts[font].render(text, antialias, color)
+        align_map = {
+            "left": pg.FONT_LEFT,
+            "center": pg.FONT_CENTER,
+            "right": pg.FONT_RIGHT,
+        }
 
-        if text_surface.get_width() > self.width:
-            self.logger.warning(
-                f"Text too wide for surface: {text_surface.get_width()} >"
-                f" {self.width}"
-            )
+        simulat.fonts[font].align = align_map[text_align]
+
+        text_surface = simulat.fonts[font].render(
+            text, antialias, color, bg_color, max_width
+        )
+
+        # vertical alignment
+        if vertical_align == "middle":
+            y_pos = self.height // 2 - text_surface.get_height() // 2
+        elif vertical_align == "bottom":
+            y_pos = self.height - text_surface.get_height()
 
         self.blit(text_surface, (x_pos, y_pos))
+
+        # reset alignment
+        simulat.fonts[font].align = pg.FONT_LEFT
 
 
 class SubSurface(Surface):
