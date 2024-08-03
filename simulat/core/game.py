@@ -8,7 +8,6 @@ import sys
 from typing import Final
 
 import pygame as pg
-import pygame.ftfont
 
 from simulat.core.config_handler import ConfigHandler
 from simulat.core.log_exception import log_exception
@@ -66,9 +65,9 @@ class Simulat:
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
-            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
-            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "main": pg.Font("assets/fonts/simulat.ttf", 12),
+            "topbar": pg.Font("assets/fonts/simulat.ttf", 12),
+            "button": pg.Font("assets/fonts/simulat.ttf", 12),
         }
 
         # initialize focused surfaces
