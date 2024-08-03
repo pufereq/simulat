@@ -127,7 +127,7 @@ class Surface:
             tuple[int, int, int] | tuple[int, int, int, int] | str
         ) = SimulatPalette.FOREGROUND,
         font: str = "main",
-        antialias: bool = True,
+        antialias: bool = False,
     ):
         """Add text to the surface.
 
@@ -139,6 +139,8 @@ class Surface:
             color (tuple[int, int, int]): Color of the text. (R, G, B)
             font (str, optional): Name of the font to use.
                 Defaults to "main".
+            antialias (bool, optional): Whether to use font antialiasing.
+                Defaults to False.
         """
         if pos[0] == "left":
             x_pos = 0
