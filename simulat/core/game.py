@@ -8,10 +8,9 @@ import sys
 from typing import Final
 
 import pygame as pg
-import pygame.ftfont
 
-from src.simulat.core.config_handler import ConfigHandler
-from src.simulat.core.log_exception import log_exception
+from simulat.core.config_handler import ConfigHandler
+from simulat.core.log_exception import log_exception
 
 # set up logging
 lg.basicConfig(
@@ -47,7 +46,7 @@ class Simulat:
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
-        from src.simulat.core.version import VERSION
+        from simulat.core.version import VERSION
 
         self.version = VERSION
 
@@ -61,19 +60,25 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
+    def __str__(self) -> str:
+        return f"simulat {self.version}"
+
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self.version=})"
+
     def init_next(self):
         """Initialize fonts and scene handling."""
         # initialize fonts
         pg.font.init()
         self.fonts: dict[str, pg.font.Font] = {
-            "main": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
-            "topbar": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
-            "button": pygame.ftfont.Font("assets/fonts/simulat.ttf", 12),
+            "main": pg.Font("assets/fonts/simulat.ttf", 12),
+            "topbar": pg.Font("assets/fonts/simulat.ttf", 12),
+            "button": pg.Font("assets/fonts/simulat.ttf", 12),
         }
 
         # initialize focused surfaces
-        from src.simulat.core.scenes.scene import Scene
-        from src.simulat.core.surfaces.surface import Surface
+        from simulat.core.scenes.scene import Scene
+        from simulat.core.surfaces.surface import Surface
 
         self.focused_surfaces: list[Surface | Scene] = []
 
@@ -85,8 +90,8 @@ class Simulat:
 
     def _init_topbar(self):
         """Initialize topbar."""
-        from src.simulat.core.surfaces.topbar import Topbar
-        from src.simulat.core.version import VERSION
+        from simulat.core.surfaces.topbar import Topbar
+        from simulat.core.version import VERSION
 
         self.topbar = Topbar()
         self.topbar.update_debug(f"simulat {VERSION}")
@@ -152,7 +157,7 @@ class Simulat:
             self.logger.debug(f"Unfocused surface {surface}.")
 
     def run(self):
-        from src.simulat.core.version import VERSION
+        from simulat.core.version import VERSION
 
         self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame

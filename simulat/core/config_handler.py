@@ -10,7 +10,7 @@ from typing import Any, Final
 import yaml
 from cerberus import Validator
 
-from src.simulat.core.version import VERSION
+from simulat.core.version import VERSION
 
 
 class ConfigHandler:

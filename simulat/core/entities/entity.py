@@ -7,13 +7,13 @@ import logging as lg
 
 import pygame as pg
 
-from src.simulat.core.scenes.game_scene.game_map.tiles.map_tile import MapTile
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+from simulat.core.scenes.game_scene.game_map.tiles.map_tile import MapTile
+from simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
     px_to_tiles,
     tiles_to_px,
 )
-from src.simulat.core.scenes.game_scene.game_map.world import World
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.scenes.game_scene.game_map.world import World
+from simulat.core.surfaces.surface import Surface
 
 
 class Entity:

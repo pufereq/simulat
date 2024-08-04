@@ -11,17 +11,15 @@ import math
 
 import pygame as pg
 
-from src.simulat.core.game import simulat
-from src.simulat.core.scenes.game_scene.game_map.tiles.tile_manager import (
-    initialize_tiles,
-)
-from src.simulat.core.scenes.game_scene.game_map.world import World
-from src.simulat.core.scenes.game_scene.game_map.world_manager import (
+from simulat.core.game import simulat
+from simulat.core.scenes.game_scene.game_map.tiles.tile_manager import initialize_tiles
+from simulat.core.scenes.game_scene.game_map.world import World
+from simulat.core.scenes.game_scene.game_map.world_manager import (
     get_world,
     initialize_worlds,
 )
-from src.simulat.core.scenes.game_scene.game_scene import GameScene
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.scenes.game_scene.game_scene import GameScene
+from simulat.core.surfaces.surface import Surface
 
 
 class GameMap:
@@ -51,7 +49,7 @@ class GameMap:
 
         self.world: World | None = None
 
-        from src.simulat.core.scenes.game_scene.game_map.debug_screen import DebugScreen
+        from simulat.core.scenes.game_scene.game_map.debug_screen import DebugScreen
 
         self.debug_screen: DebugScreen = DebugScreen(self)
 
@@ -128,7 +126,7 @@ class GameMap:
         self.surface.fill((12, 34, 56))
 
         if self.world is not None:
-            from src.simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
+            from simulat.core.scenes.game_scene.game_map.tiles.tile_type import (
                 TILE_SIZE,
             )
 

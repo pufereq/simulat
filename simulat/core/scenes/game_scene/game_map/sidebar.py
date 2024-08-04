@@ -5,8 +5,9 @@ from __future__ import annotations
 
 import logging as lg
 
-from src.simulat.core.colors import SimulatPalette
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.colors import SimulatPalette
+from simulat.core.scenes.scene import Scene
+from simulat.core.surfaces.surface import Surface
 
 
 class Sidebar(Surface):
@@ -38,7 +39,13 @@ class Sidebar(Surface):
 
         self.surface.fill(SimulatPalette.BACKGROUND)
 
-        self.blit_text("Sidebar", ("center", "center"), font="topbar")
+        self.blit_text(
+            "Sidebar",
+            (0, 0),
+            text_align="center",
+            vertical_align="middle",
+            font="topbar",
+        )
 
         self.logger.debug(f"Sidebar size: {self.SIDEBAR_SIZE} px")
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging as lg
 from typing import Final
 
-from src.simulat.core.scenes.game_scene.game_map.tiles.map_tile import MapTile
+from simulat.core.scenes.game_scene.game_map.tiles.map_tile import MapTile
 
 
 class World:
@@ -34,7 +34,7 @@ class World:
             layout (list[list[str]]): The layout of the map.
             player_pos (tuple[float, float]): The player's initial position in tiles.
         """
-        from src.simulat.core.entities.player import Player
+        from simulat.core.entities.player import Player
 
         self.logger = lg.getLogger(f"{__name__}.{type(self).__name__}")
 
@@ -51,11 +51,11 @@ class World:
 
         self.player: Player = Player(self, player_pos)
 
-        from src.simulat.core.entities.entity import Entity
+        from simulat.core.entities.entity import Entity
 
         self.entities: list[Entity] = []
 
-        from src.simulat.core.scenes.game_scene.game_map.world_manager import add_world
+        from simulat.core.scenes.game_scene.game_map.world_manager import add_world
 
         add_world(self)
 

@@ -8,9 +8,9 @@ from typing import Callable, Final
 
 import pygame as pg
 
-from src.simulat.core.colors import BasicPalette, SimulatPalette
-from src.simulat.core.game import simulat
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.colors import BasicPalette, SimulatPalette
+from simulat.core.game import simulat
+from simulat.core.surfaces.surface import Surface
 
 
 class Button(Surface):
@@ -139,7 +139,9 @@ class Button(Surface):
 
         self.blit_text(
             self.text,
-            ("center", "center"),
+            (0, 0),
+            text_align="center",
+            vertical_align="middle",
             color=self.color_scheme[self.state][1],
             font=self.font,
         )

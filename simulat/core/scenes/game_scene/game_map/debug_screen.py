@@ -12,10 +12,10 @@ from typing import Any
 
 import pygame as pg
 
-from src.simulat.core.colors import BasicPalette, SimulatPalette
-from src.simulat.core.game import simulat
-from src.simulat.core.scenes.game_scene.game_map.game_map import GameMap
-from src.simulat.core.surfaces.surface import Surface
+from simulat.core.colors import BasicPalette, SimulatPalette
+from simulat.core.game import simulat
+from simulat.core.scenes.game_scene.game_map.game_map import GameMap
+from simulat.core.surfaces.surface import Surface
 
 
 class DebugScreen:
@@ -78,7 +78,7 @@ class DebugScreen:
             "center": [],
             "right": [
                 f"Python {platform.python_version()}",
-                f"Pygame {pg.version.ver}, SDL {pg.version.SDL}",
+                f"Pygame-ce {pg.version.ver}, SDL {pg.version.SDL}",
                 f"Display: {simulat.DISPLAY_SIZE[0]}x{simulat.DISPLAY_SIZE[1]} (internal: {simulat.INTERNAL_SCREEN_SIZE[0]}x{simulat.INTERNAL_SCREEN_SIZE[1]})",
                 "",
                 f"{platform.platform()}",
@@ -93,9 +93,8 @@ class DebugScreen:
             for i, line in enumerate(content):
                 self.surface.blit_text(
                     line,
-                    (side, 12 * i),
-                    color=SimulatPalette.FOREGROUND,
-                    antialias=False,
+                    (0, 12 * i),
+                    text_align=side,
                 )
 
         self.game_map.surface.blit(self.surface.surface, (0, 0))

@@ -7,12 +7,12 @@ import threading as th
 
 import pygame as pg
 
-from src.simulat.core.colors import BasicPalette, SimulatPalette
-from src.simulat.core.game import simulat
-from src.simulat.core.scenes.scene import Scene
-from src.simulat.core.surfaces.buttons.button import Button
-from src.simulat.core.surfaces.buttons.button_container import ButtonContainer
-from src.simulat.core.time_it import Timer
+from simulat.core.colors import BasicPalette, SimulatPalette
+from simulat.core.game import simulat
+from simulat.core.scenes.scene import Scene
+from simulat.core.surfaces.buttons.button import Button
+from simulat.core.surfaces.buttons.button_container import ButtonContainer
+from simulat.core.time_it import Timer
 
 
 class MainMenuScene(Scene):
@@ -57,7 +57,7 @@ class MainMenuScene(Scene):
         self.logo = pg.transform.scale(self.logo, (412, 82))
 
     def _load_game(self):
-        from src.simulat.core.scenes.game_scene.game_scene import GameScene
+        from simulat.core.scenes.game_scene.game_scene import GameScene
 
         with Timer() as timer:
             simulat.scenes["GameScene"] = GameScene()

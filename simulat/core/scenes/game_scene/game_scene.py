@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import pygame as pg
 
-from src.simulat.core.scenes.game_scene.game_map.sidebar import Sidebar
-from src.simulat.core.scenes.scene import Scene
+from simulat.core.scenes.game_scene.game_map.sidebar import Sidebar
+from simulat.core.scenes.scene import Scene
 
 
 class GameScene(Scene):
@@ -24,7 +24,7 @@ class GameScene(Scene):
         self.sidebar = Sidebar(self)
 
         # initialize map
-        from src.simulat.core.scenes.game_scene.game_map.game_map import GameMap
+        from simulat.core.scenes.game_scene.game_map.game_map import GameMap
 
         self.game_map = GameMap(self)
 
