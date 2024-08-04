@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.18.0] - 2024-08-04
+
+### Features
+
+- [`4f353b9`](https://github.com/pufereq/simulat/commit/4f353b9a574a4d09c96b594bf0d6c738e76089af) **surface.py**: rewrite `Surface.blit_text()` method
+- [`de1ebf6`](https://github.com/pufereq/simulat/commit/de1ebf6c85aa861cb956aa0c7b79119bbeeb7f91) **colors.py**: add `hex_to_rgba()` function
+
+### Miscellaneous Tasks
+
+- [`08619e3`](https://github.com/pufereq/simulat/commit/08619e3af9e7f114f88223f841848b4d85c4ad2a) **game.py**: add `__str__` and `__repr__` methods to `Simulat`
+- [`20ae4d4`](https://github.com/pufereq/simulat/commit/20ae4d4d458d77754c006f2d3e2500d6677ae251) **surface.py**: change default value for `antialias` argument of `Surface.blit_text()` to False
+- [`e06b292`](https://github.com/pufereq/simulat/commit/e06b292df66ded9c8be089cfdb730b38152ac40f) **game.py**: migrate from `pygame.ftfont.Font` to `pygame.Font` for font handling
+- [`869b485`](https://github.com/pufereq/simulat/commit/869b485c543b48343cc860c9ff400c799f5c56eb) [**breaking**] move `src/simulat/` -> `simulat/`
+
+### Refactor
+
+- [`59cd0ae`](https://github.com/pufereq/simulat/commit/59cd0aec6585911c2e6bce31f049ad47f00d83c7) **button.py**: adjust `blit_text()` arguments after rewrite
+- [`58ac5c6`](https://github.com/pufereq/simulat/commit/58ac5c6b280a7394d70425e1091a239aa78f5e1d) **sidebar.py**: adjust `blit_text()` arguments after rewrite
+- [`57a71c9`](https://github.com/pufereq/simulat/commit/57a71c95e59ead149c8e93b936209c24a21a80d2) **debug_screen.py**: adjust `blit_text()` arguments after rewrite
+- [`685b772`](https://github.com/pufereq/simulat/commit/685b772cbccd5093c68eb3b6a189b211186f409e) **topbar.py**: modify arguments to `blit_text()` after rewrite
+
+### Build
+
+- [`d19f63c`](https://github.com/pufereq/simulat/commit/d19f63c098bab9d1b201e0f3f5e7d62b45d82fd1) **requirements.txt**: [**breaking**] migrate to pygame-ce
+
 ## [0.18.0-dev.1] - 2024-06-23
 
 ### Bug Fixes
@@ -20,6 +45,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`477fdde`](https://github.com/pufereq/simulat/commit/477fdde311b9c02d6c0c3facdb8bd812ad3a6d54) **release**: 0.18.0-dev.1
 - [`959e3af`](https://github.com/pufereq/simulat/commit/959e3af5aa3985b47d91dea5ab5af644d8f992fd) **game_map.py**: use the `DebugScreen`, toggled using `F9`
 - [`17143ac`](https://github.com/pufereq/simulat/commit/17143ac18a4af86e7d63a6350951539c1993040a) **game.py**: add a `Simulat.version` constant
 - [`0298b12`](https://github.com/pufereq/simulat/commit/0298b124f8826fa332309d0e48192c295143a700) **main_menu_scene.py**: remove unused loading screen
