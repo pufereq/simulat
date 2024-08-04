@@ -85,8 +85,17 @@ class Simulat:
         # initialize topbar
         self._init_topbar()
 
+        # initialize console
+        self._init_console()
+
         # initialize scenes
         self._init_scenes()
+
+    def _init_console(self):
+        """Initialize console."""
+        from simulat.core.console import Console
+
+        self.console = Console()
 
     def _init_topbar(self):
         """Initialize topbar."""
@@ -174,23 +183,38 @@ class Simulat:
             for event in events:
                 if event.type == pg.QUIT:
                     self.running = False
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_BACKQUOTE:
+                        self.console.toggle()
 
             self.internal_screen.fill((30, 30, 30))
 
             if keys[pg.K_ESCAPE]:
                 self.running = False
 
-            for surface in self.focused_surfaces:  # copy to avoid RuntimeError
-                surface.input(
+            # if console is visible, input only goes to console
+            if self.console.visible:
+                self.console.input(
                     events=events,
                     keys=keys,
                     mouse_pos=pg.mouse.get_pos(),
                     mouse_buttons=pg.mouse.get_pressed(),
                 )
+            else:
+                for surface in self.focused_surfaces:
+                    surface.input(
+                        events=events,
+                        keys=keys,
+                        mouse_pos=pg.mouse.get_pos(),
+                        mouse_buttons=pg.mouse.get_pressed(),
+                    )
 
             # UPDATE
             # update scene
             self.scenes[self.active_scene].update(self.frame_delta)
+
+            # update console
+            self.console.update()
 
             # RENDER
             # draw scene
@@ -202,6 +226,9 @@ class Simulat:
             pg.display.set_caption(
                 f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}"
             )
+
+            # draw console
+            self.console.render()
 
             # update screen
             self.display.blit(
