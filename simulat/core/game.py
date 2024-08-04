@@ -60,6 +60,12 @@ class Simulat:
         # initialize clock
         self.clock = pg.time.Clock()
 
+    def __str__(self) -> str:
+        return f"simulat {self.version}"
+
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self.version=})"
+
     def init_next(self):
         """Initialize fonts and scene handling."""
         # initialize fonts
