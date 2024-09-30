@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.18.1] - 2024-09-30
+
+### Features
+
+- [`503d6f0`](https://github.com/pufereq/simulat/commit/503d6f09ff2f20fd6f63714b3fa374eaa48b93ad) **console.py**: add an in-game `Console`
+- [`3c6ca7b`](https://github.com/pufereq/simulat/commit/3c6ca7b2b219a8b4e7a1bcf2548bfe87868cf9de) **object.py**: add `Object` class
+
+### Miscellaneous Tasks
+
+- [`e604103`](https://github.com/pufereq/simulat/commit/e604103a741350387f96aa3a2e20d420c7be03b4) **pr_checks.yaml**: add a workflow to comment code coverage on pull requests
+- [`58c6e2f`](https://github.com/pufereq/simulat/commit/58c6e2fe84c29b27d982136007354a0c108f8083) **commit_checks.yaml**: add a workflow to run tests on push
+- [`28fdfda`](https://github.com/pufereq/simulat/commit/28fdfda2366717df087aed4cfc652e48ae4905fb) **release.yaml**: add new release workflow with PDM compatibility
+- [`cf22363`](https://github.com/pufereq/simulat/commit/cf22363e1f0dbef12ad09d2822e7dee981430383) **release.yml**: remove old `release` workflow
+- [`b1261bc`](https://github.com/pufereq/simulat/commit/b1261bcc79d5f4b00c58b215a4db1bda98d6acbc) **.gitignore**: add PDM-specific entries to gitignore
+- [`b448ead`](https://github.com/pufereq/simulat/commit/b448eadb5842469706267b4b36b7d7ab2a7d191d) **simulat.py**: remove redundant `simulat.py` launcher
+- [`8f84d41`](https://github.com/pufereq/simulat/commit/8f84d417f6292af189e811c8def3b68b1c288979) **config_handler.py**: use `__version__` instead of old `VERSION` variable
+- [`f9982e1`](https://github.com/pufereq/simulat/commit/f9982e15afa97ca8bf12618e85e89ca7e177dcec) **game.py**: use `__version__` instead of old `VERSION` variable
+- [`5c2d2f4`](https://github.com/pufereq/simulat/commit/5c2d2f4921f5587c0bd630eabff8eae439034cb8) **version.py**: remove unneeded `version.py` module
+- [`a1f1467`](https://github.com/pufereq/simulat/commit/a1f14676c77c073eb660f1c9a4c2b0abb7760644) **VERSION**: remove redundant `VERSION` file
+- [`21d9777`](https://github.com/pufereq/simulat/commit/21d9777fec7704cc2d60369012f07927f9a5e7a7) **game.py**: initialize console
+
+### Build
+
+- [`20d1ca4`](https://github.com/pufereq/simulat/commit/20d1ca481aa03f3c0c98396e56bc2131cdbebd90) **pyproject.toml**: allow pytest-cov to succeed even if coverage < 100%
+- [`a70dbc8`](https://github.com/pufereq/simulat/commit/a70dbc86d19ffd7689b1bda174bea6ea34e6f820) **.vscode/launch.json**: migrate to new `debugpy` runners
+- [`26543e3`](https://github.com/pufereq/simulat/commit/26543e3f5224be5f6162c6bec1628990cf444d5e) **Makefile**: remove Makefile
+- [`d013732`](https://github.com/pufereq/simulat/commit/d013732b9aae945fd90bf5e33dc366c5bee87cbe) **__main__.py**: add `__main__.py` entry point
+- [`ed68e87`](https://github.com/pufereq/simulat/commit/ed68e870f91f13ee3617e20612293978ac2791b4) **__init__.py**: add `__init__.py` file
+- [`9a4390c`](https://github.com/pufereq/simulat/commit/9a4390cd267fecbe1d9bb8d64ea70b46d81a0817) **pdm.lock**: add PDM lock file
+- [`f0cef3a`](https://github.com/pufereq/simulat/commit/f0cef3a2f6f71ba2801e539443fe983f77b3c692) **pyproject.toml**: add `pyproject.toml`
+
 ## [0.18.0] - 2024-08-04
 
 ### Features
@@ -11,6 +42,7 @@ All notable changes to this project will be documented in this file.
 
 ### Miscellaneous Tasks
 
+- [`d62ad60`](https://github.com/pufereq/simulat/commit/d62ad60038192e56dbca6301f11246dc13a53fdb) **release**: 0.18.0
 - [`08619e3`](https://github.com/pufereq/simulat/commit/08619e3af9e7f114f88223f841848b4d85c4ad2a) **game.py**: add `__str__` and `__repr__` methods to `Simulat`
 - [`20ae4d4`](https://github.com/pufereq/simulat/commit/20ae4d4d458d77754c006f2d3e2500d6677ae251) **surface.py**: change default value for `antialias` argument of `Surface.blit_text()` to False
 - [`e06b292`](https://github.com/pufereq/simulat/commit/e06b292df66ded9c8be089cfdb730b38152ac40f) **game.py**: migrate from `pygame.ftfont.Font` to `pygame.Font` for font handling
