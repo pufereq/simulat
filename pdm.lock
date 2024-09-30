@@ -5,7 +5,7 @@
 groups = ["default", "bump", "lint", "test"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:7651f92fcbeee6ab915c29b7438726229bead42d8ea6e1024f649f5ec703c40d"
+content_hash = "sha256:5be289736f46b0d34dca4d24064d7da134faa3090b6c17f8696140dbd4446a69"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
@@ -603,6 +603,18 @@ groups = ["test"]
 files = [
     {file = "pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"},
     {file = "pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"},
+]
+
+[[package]]
+name = "puffkit"
+version = "0.1.0"
+requires_python = ">=3.9"
+path = "./puffkit"
+summary = "A pygame-ce based engine for application and game development."
+groups = ["default"]
+dependencies = [
+    "pygame-ce>=2.5.1",
+    "pyyaml>=6.0.2",
 ]
 
 [[package]]
