@@ -5,34 +5,34 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
-            "type": "python",
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
         },
         {
-            "name": "Python: simulat.py (internal terminal)",
-            "type": "python",
+            "name": "Python Debugger: simulat (internal terminal)",
+            "type": "debugpy",
             "request": "launch",
-            "program": "simulat.py",
+            "program": "simulat/__main__.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
         {
-            "name": "Python: simulat.py (internal console)",
-            "type": "python",
+            "name": "Python Debugger: simulat (internal console)",
+            "type": "debugpy",
             "request": "launch",
-            "program": "simulat.py",
+            "program": "simulat/__main__.py",
             "console": "internalConsole",
             "justMyCode": true
         },
         {
-            "name": "Python: simulat.py (external terminal)",
-            "type": "python",
+            "name": "Python Debugger: simulat (external terminal)",
+            "type": "debugpy",
             "request": "launch",
-            "program": "simulat.py",
+            "program": "simulat/__main__.py",
             "console": "externalTerminal",
             "justMyCode": true
         }

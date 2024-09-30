@@ -9,6 +9,7 @@ from typing import Final
 
 import pygame as pg
 
+from simulat import __version__
 from simulat.core.config_handler import ConfigHandler
 from simulat.core.log_exception import log_exception
 
@@ -46,9 +47,8 @@ class Simulat:
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
-        from simulat.core.version import VERSION
 
-        self.version = VERSION
+        self.version = __version__
 
         pg.init()
         pg.display.set_caption(f"simulat {self.version}")
@@ -85,16 +85,24 @@ class Simulat:
         # initialize topbar
         self._init_topbar()
 
+        # initialize console
+        self._init_console()
+
         # initialize scenes
         self._init_scenes()
+
+    def _init_console(self):
+        """Initialize console."""
+        from simulat.core.console import Console
+
+        self.console = Console()
 
     def _init_topbar(self):
         """Initialize topbar."""
         from simulat.core.surfaces.topbar import Topbar
-        from simulat.core.version import VERSION
 
         self.topbar = Topbar()
-        self.topbar.update_debug(f"simulat {VERSION}")
+        self.topbar.update_debug(f"simulat {__version__}")
 
         if not self.config_handler.versions_match:
             details_text = f"outdated config, see log ({self.config_handler.get_default('version')}~{self.config_handler.get('version')})"
@@ -157,7 +165,7 @@ class Simulat:
             self.logger.debug(f"Unfocused surface {surface}.")
 
     def run(self):
-        from simulat.core.version import VERSION
+        from simulat import __version__
 
         self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
@@ -174,23 +182,38 @@ class Simulat:
             for event in events:
                 if event.type == pg.QUIT:
                     self.running = False
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_BACKQUOTE:
+                        self.console.toggle()
 
             self.internal_screen.fill((30, 30, 30))
 
             if keys[pg.K_ESCAPE]:
                 self.running = False
 
-            for surface in self.focused_surfaces:  # copy to avoid RuntimeError
-                surface.input(
+            # if console is visible, input only goes to console
+            if self.console.visible:
+                self.console.input(
                     events=events,
                     keys=keys,
                     mouse_pos=pg.mouse.get_pos(),
                     mouse_buttons=pg.mouse.get_pressed(),
                 )
+            else:
+                for surface in self.focused_surfaces:
+                    surface.input(
+                        events=events,
+                        keys=keys,
+                        mouse_pos=pg.mouse.get_pos(),
+                        mouse_buttons=pg.mouse.get_pressed(),
+                    )
 
             # UPDATE
             # update scene
             self.scenes[self.active_scene].update(self.frame_delta)
+
+            # update console
+            self.console.update()
 
             # RENDER
             # draw scene
@@ -200,8 +223,11 @@ class Simulat:
             self.internal_screen.blit(self.topbar.surface, (0, 0))
 
             pg.display.set_caption(
-                f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}"
+                f"simulat {__version__} - FPS: {self.clock.get_fps():.2f}"
             )
+
+            # draw console
+            self.console.render()
 
             # update screen
             self.display.blit(
