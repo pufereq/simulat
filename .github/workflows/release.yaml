@@ -1,0 +1,132 @@
+name: Bump version
+
+on:
+  workflow_dispatch:
+    inputs:
+      short_description:
+        type: string
+        description: 'Short description of the release'
+        required: false
+      auto_bump:
+        type: boolean
+        description: 'Auto bump version?'
+        required: true
+      bump_type:
+        type: choice
+        description: 'Bump type'
+        required: true
+        options:
+          - 'major'
+          - 'minor'
+          - 'patch'
+          - 'prerelease'
+      as_pre_release:
+        type: boolean
+        description: 'As pre-release?'
+        required: true
+      prerelease_type:
+        type: choice
+        description: 'Pre-release label'
+        required: true
+        options:
+          - 'dev'
+          - 'alpha'
+          - 'beta'
+          - 'rc'
+          - 'post'
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+    name: Bump version and create release
+    steps:
+      - name: GH_TOKEN
+        if: env.GH_TOKEN == ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
+      - name: 🔀 checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: "${{ env.GH_TOKEN }}"
+
+      - name: 🐍 python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 📦 setup pdm
+        uses: pdm-project/setup-pdm@v4
+        with:
+          cache: true
+
+      - name: 📦 install dependencies
+        run: |
+          pdm install
+
+      - name: configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: 📦 bump version (auto)
+        if: ${{ github.event.inputs.auto_bump == 'true' }}
+        run: |
+          if [ "${{ github.event.inputs.as_pre_release }}" == "true" ]; then
+            pdm run semantic-release version --no-changelog --no-commit --no-push --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
+          else
+            pdm run semantic-release version --no-changelog --no-commit --no-push
+          fi
+
+      - name: 📦 bump version (manual)
+        if: ${{ github.event.inputs.auto_bump == 'false' }}
+        run: |
+          if [ "${{ github.event.inputs.as_pre_release }}" == "true" ]; then
+            pdm run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }} --as-prerelease --prerelease-token ${{ github.event.inputs.prerelease_type }}
+          else
+            pdm run semantic-release version --no-changelog --no-commit --no-push --${{ github.event.inputs.bump_type }}
+          fi
+
+      - name: 📦 get new version
+        id: get_version
+        run: echo "BUMPED_VERSION=$(cat pyproject.toml | grep -e "^version = " | cut -d '"' -f 2)" >> $GITHUB_OUTPUT
+
+      - name: 📝 create changelog
+        run: |
+          pdm run git-cliff -s header -l > release_body.md
+          echo "Changes:" && cat release_body.md
+          pdm run git-cliff > CHANGELOG.md
+
+      - name: 📤 push changes
+        run: |
+          git add CHANGELOG.md pyproject.toml ${{ github.event.repository.name }}/__init__.py
+          git commit -m "chore(release): ${{ steps.get_version.outputs.BUMPED_VERSION }}"
+          git push origin main
+
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          name: ${{ github.event.repository.name }} ${{ steps.get_version.outputs.BUMPED_VERSION }} - ${{ github.event.inputs.short_description }}
+          tag_name: ${{ steps.get_version.outputs.BUMPED_VERSION }}
+          body_path: release_body.md
+          prerelease: ${{ github.event.inputs.as_pre_release }}
+          discussion_category_name: 'Announcements'
+
+      - name: 🧹 cleanup
+        run: |
+          rm release_body.md
+
+      - name: 📤 merge into develop
+        run: |
+          git checkout develop
+          git merge main --no-ff
+          git push origin develop
+
+      - name: ✅ done
+        run: echo "done"
