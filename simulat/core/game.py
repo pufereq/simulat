@@ -9,6 +9,7 @@ from typing import Final
 
 import pygame as pg
 
+from simulat import __version__
 from simulat.core.config_handler import ConfigHandler
 from simulat.core.log_exception import log_exception
 
@@ -46,9 +47,8 @@ class Simulat:
 
         # initialize pygame
         self.logger.debug("Initializing pygame...")
-        from simulat.core.version import VERSION
 
-        self.version = VERSION
+        self.version = __version__
 
         pg.init()
         pg.display.set_caption(f"simulat {self.version}")
@@ -100,10 +100,9 @@ class Simulat:
     def _init_topbar(self):
         """Initialize topbar."""
         from simulat.core.surfaces.topbar import Topbar
-        from simulat.core.version import VERSION
 
         self.topbar = Topbar()
-        self.topbar.update_debug(f"simulat {VERSION}")
+        self.topbar.update_debug(f"simulat {__version__}")
 
         if not self.config_handler.versions_match:
             details_text = f"outdated config, see log ({self.config_handler.get_default('version')}~{self.config_handler.get('version')})"
@@ -166,7 +165,7 @@ class Simulat:
             self.logger.debug(f"Unfocused surface {surface}.")
 
     def run(self):
-        from simulat.core.version import VERSION
+        from simulat import __version__
 
         self.running: bool = True
         self.frame_delta: float = 1  # this avoids exceptions on first frame
@@ -224,7 +223,7 @@ class Simulat:
             self.internal_screen.blit(self.topbar.surface, (0, 0))
 
             pg.display.set_caption(
-                f"simulat {VERSION} - FPS: {self.clock.get_fps():.2f}"
+                f"simulat {__version__} - FPS: {self.clock.get_fps():.2f}"
             )
 
             # draw console

@@ -20,6 +20,20 @@ ENV/
 env.bak/
 venv.bak/
 
+# PDM
+.pdm*
+!pdm.lock
+
+# Distribution / packaging
+dist/
+build/
+/*cache/
+
+# Tests
+.pytest_cache/
+.coverage
+.htmlcov/
+
 # Log files
 logs/
 *.log

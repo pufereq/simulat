@@ -1,0 +1,102 @@
+name: Commit Checks
+
+on:
+  push:
+    branches:
+      - '*'
+  workflow_call:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔀 checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 📦 setup pdm
+        uses: pdm-project/setup-pdm@v4
+        with:
+          cache: true
+
+      - name: 📦 install dependencies
+        run: |
+          pdm install
+
+      - name: 🧪 run tests
+        id: test
+        run: |
+          pdm run pytest -v
+  coverage:
+    name: Check coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔀 checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 📦 setup pdm
+        uses: pdm-project/setup-pdm@v4
+        with:
+          cache: true
+
+      - name: 📦 install dependencies
+        run: |
+          pdm install
+
+      - name: 🧪 run tests
+        id: test
+        run: |
+          pdm run pytest -v --cov
+
+      - name: 📊 generate coverage report
+        if: always()
+        run: |
+          pdm run coverage json
+          cov_percent=$(jq '.totals.percent_covered' coverage.json)
+          cov_percent_rounded=$(python3 -c "print(round(${cov_percent}, 2))")
+          cov_lines=$(jq '.totals.covered_lines' coverage.json)
+          cov_missing=$(jq '.totals.missing_lines' coverage.json)
+          cov_total=$(jq '.totals.num_statements' coverage.json)
+          cov_excluded=$(jq '.totals.excluded_lines' coverage.json)
+          report_success=$(python3 -c "print(str(${cov_percent} == 100).lower())")
+
+          if (( $(echo "$cov_percent >= 100" | bc -l) )); then
+            badge_color="brightgreen"
+          elif (( $(echo "$cov_percent >= 90" | bc -l) )); then
+            badge_color="yellow"
+          else
+            badge_color="red"
+          fi
+
+          echo "## 📊 Coverage Report" >> $GITHUB_STEP_SUMMARY
+
+          echo "![Coverage: $cov_percent_rounded%](https://img.shields.io/badge/Coverage-$cov_percent_rounded%25-$badge_color)" >> $GITHUB_STEP_SUMMARY
+
+          echo "| Total Lines | Covered | Missing | Excluded |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------------|---------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+          echo "| $cov_total | $cov_lines | $cov_missing | $cov_excluded |" >> $GITHUB_STEP_SUMMARY
+
+          echo "<details>" >> $GITHUB_STEP_SUMMARY
+          echo "<summary>Details</summary>" >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          pdm run coverage report >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
