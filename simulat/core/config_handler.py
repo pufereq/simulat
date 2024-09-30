@@ -10,7 +10,7 @@ from typing import Any, Final
 import yaml
 from cerberus import Validator
 
-from simulat.core.version import VERSION
+from simulat import __version__
 
 
 class ConfigHandler:
@@ -36,7 +36,7 @@ class ConfigHandler:
     }
 
     DEFAULT_CONFIG: Final[dict[str, Any]] = {
-        "version": VERSION,
+        "version": __version__,
         "fps_limit": 60,
         "resolution": {"width": 1280, "height": 720},
     }
