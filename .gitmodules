@@ -1,0 +1,3 @@
+[submodule "puffkit"]
+	path = puffkit
+	url = git@github.com:pufereq/puffkit
