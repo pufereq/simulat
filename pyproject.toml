@@ -4,7 +4,7 @@ build-backend = "pdm.backend"
 
 [project]
 name = "simulat"
-version = "0.18.0"
+version = "0.18.1"
 description = "A tile-based roguelike-like life simulation game."
 authors = [
     {name = "Artur Borecki", email = "me@pufereq.pl"},
