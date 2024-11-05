@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from simulat.core.game import init
-
 
 def main() -> None:
     """Main entry point of simulat."""
+    from simulat.game import init
+
     init()
-    from simulat.core.game import simulat
+
+    from simulat.game import simulat
 
     simulat.run()
 
