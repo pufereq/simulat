@@ -32,7 +32,7 @@ class Simulat(PkApp):
         pass
 
 
-def init() -> None:
+def app_init() -> None:
     """Initialize the game."""
     # set up logging
     import logging as lg
