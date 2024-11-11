@@ -5,9 +5,9 @@ from __future__ import annotations
 
 def main() -> None:
     """Main entry point of simulat."""
-    from simulat.game import init
+    from simulat.game import app_init
 
-    init()
+    app_init()
 
     from simulat.game import simulat
 
