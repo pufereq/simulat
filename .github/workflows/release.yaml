@@ -53,6 +53,7 @@ jobs:
         with:
           fetch-depth: 0
           token: "${{ env.GH_TOKEN }}"
+          submodules: 'recursive'
 
       - name: 🐍 python
         uses: actions/setup-python@v5
